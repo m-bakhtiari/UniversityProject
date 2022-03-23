@@ -13,4 +13,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\UniversityProject.Data\UniversityProject.Data.csproj" />
+    <ProjectReference Include="..\UniversityProject.Domain\UniversityProject.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

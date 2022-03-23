@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using UniversityProject.Data.Context;
 
 namespace UniversityProject.WebApp
 {
@@ -19,6 +21,15 @@ namespace UniversityProject.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            #region Database
+
+            services.AddDbContext<UniversityProjectContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("UniversityProjectConnection"));
+            }, ServiceLifetime.Transient);
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
