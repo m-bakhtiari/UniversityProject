@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace UniversityProject.Domain.Entities
+namespace UniversityProject.Data.Entities
 {
     public class SubscriptionType
     {

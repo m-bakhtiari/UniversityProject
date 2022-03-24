@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
-using UniversityProject.Domain.Entities;
+using UniversityProject.Data.Entities;
 
 namespace UniversityProject.Core.Repositories
 {
@@ -16,5 +13,6 @@ namespace UniversityProject.Core.Repositories
         Task<List<Category>> GetAll();
         Task<Category> GetItem(int id);
         Task<CategoryListDto> GetItemsByPaging(CategorySearchDto dto);
+        Task<List<Category>> GetMainGroups();
     }
 }

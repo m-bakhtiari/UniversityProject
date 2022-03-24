@@ -1,0 +1,59 @@
+﻿@model UniversityProject.Data.Entities.Category
+
+<title>دسته بندی کتاب ها</title>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        دسته بندی کتاب ها
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active"> <a href="/Admin/Category">دسته بندی</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">مثال ساده</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" action="/Admin/Category/Create" method="post">
+                    <div class="hidden">
+                        <input type="hidden" value="@Model.ParentId" asp-for="ParentId" />
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="@Model.Title">عنوان</label>
+                            <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="عنوان">
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">ارسال</button>
+                        <a href="/Admin/Category" class="pull-left btn btn-warning">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script>
+        var showModal =@ViewBag.ShowModal;
+                $(function() {
+            if (showModal==true) {
+                debugger;
+                $('#myModal').modal();
+                $('#myModal').modal({ keyboard: false });
+                $('#myModal').modal('show');
+            }
+
+        });
+    </script>
+}

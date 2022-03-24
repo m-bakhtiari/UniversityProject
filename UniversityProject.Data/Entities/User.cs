@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UniversityProject.Domain.Entities
+namespace UniversityProject.Data.Entities
 {
     public class User
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Data.Context;
-using UniversityProject.Domain.Entities;
+using UniversityProject.Data.Entities;
 
 namespace UniversityProject.Core.Services
 {
@@ -41,7 +41,7 @@ namespace UniversityProject.Core.Services
         public async Task<CategoryListDto> GetItemsByPaging(CategorySearchDto dto)
         {
             IQueryable<Category> categories = _context.Categories;
-            if (string.IsNullOrWhiteSpace(dto.Title)==false)
+            if (string.IsNullOrWhiteSpace(dto.Title) == false)
             {
                 categories = categories.Where(x => x.Title.Contains(dto.Title));
             }
@@ -60,6 +60,11 @@ namespace UniversityProject.Core.Services
                 ItemPerPage = dto.ItemPerPage,
                 UrlParam = dto.UrlParam
             };
+        }
+
+        public async Task<List<Category>> GetMainGroups()
+        {
+            return await _context.Categories.Where(x => x.ParentId == null).ToListAsync();
         }
 
         public async Task<string> Insert(Category category)

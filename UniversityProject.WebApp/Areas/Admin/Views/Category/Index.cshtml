@@ -1,1 +1,79 @@
-﻿
+﻿@using System.Diagnostics.Tracing
+@model List<UniversityProject.Data.Entities.Category>
+
+<title>دسته بندی کتاب ها</title>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        دسته بندی کتاب ها
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active"> <a href="/Admin/Category">دسته بندی</a></li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div style="margin-bottom: 10px">
+        <a href="/Admin/Category/Create" class="btn btn-success">افزودن گروه جدید</a>
+    </div>
+
+    <div class="col-md-10">
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">مثال ۱</h3>
+            </div>
+            <!-- /.box-header -->
+            <span class="hidden">@{ var counter = 1; }</span>
+            <div class="box-body">
+                <table class="table table-bordered table-responsive table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>عنوان</th>
+                            <th>زیر گروه ها</th>
+                            <th>عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>                    
+                    @foreach (var item in Model.Where(x => x.ParentId == null))
+                        {
+                            <tr>
+                                <td>@counter</td>
+                                <td>
+                                    <b>@item.Title</b>
+                                </td>
+                                <td>
+                                    @foreach (var subGroup in Model.Where(x => x.ParentId == item.Id))
+                                    {
+                                        <i class="fa fa-circle-o text-yellow"></i>
+                                        @subGroup.Title
+                                        <br />
+                                    }
+                                </td>
+                                <td>
+                                    <a href="/Admin/Category/Create/@item.Id" class="btn btn-primary">زیر گروه</a>
+                                    <a href="" class="btn btn-danger">حذف</a>
+                                </td>
+                            </tr>
+                            counter++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a href="#">«</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

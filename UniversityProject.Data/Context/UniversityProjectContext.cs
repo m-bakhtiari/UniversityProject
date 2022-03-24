@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using UniversityProject.Domain.Entities;
+using UniversityProject.Data.Entities;
 
 namespace UniversityProject.Data.Context
 {

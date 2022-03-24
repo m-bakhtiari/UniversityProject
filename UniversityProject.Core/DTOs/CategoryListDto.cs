@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using UniversityProject.Domain.Entities;
+using UniversityProject.Data.Entities;
 
 namespace UniversityProject.Core.DTOs
 {
