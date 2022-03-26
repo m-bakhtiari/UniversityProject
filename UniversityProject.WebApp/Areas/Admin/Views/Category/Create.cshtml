@@ -20,9 +20,10 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" action="/Admin/Category/Create" method="post">
+                <form role="form" action="@ViewBag.ReturnUrl" method="post">
                     <div class="hidden">
                         <input type="hidden" value="@Model.ParentId" asp-for="ParentId" />
+                        <input type="hidden" value="@Model.Id" asp-for="Id" />
                     </div>
                     <div class="box-body">
                         <div class="form-group">
@@ -46,14 +47,10 @@
 {
     <script>
         var showModal =@ViewBag.ShowModal;
-                $(function() {
+        $(function() {
             if (showModal==true) {
-                debugger;
-                $('#myModal').modal();
-                $('#myModal').modal({ keyboard: false });
                 $('#myModal').modal('show');
             }
-
         });
     </script>
 }

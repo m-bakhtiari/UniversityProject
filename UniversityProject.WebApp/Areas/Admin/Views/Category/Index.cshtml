@@ -1,79 +1,118 @@
-﻿@using System.Diagnostics.Tracing
-@model List<UniversityProject.Data.Entities.Category>
+﻿@model List<UniversityProject.Data.Entities.Category>
 
 <title>دسته بندی کتاب ها</title>
+@{
+    var counter = 1;
+}
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        دسته بندی کتاب ها
+        جدول ها
+        <small>پیشرفته</small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
-        <li class="active"> <a href="/Admin/Category">دسته بندی</a></li>
+        <li><a href="/Admin/Category" class="active">جدول</a></li>
     </ol>
+</section>
+
+<section class="content-header">
+    <a class="btn btn-success" href="/Admin/Category/Create">افزودن گروه جدید</a>
 </section>
 
 <!-- Main content -->
 <section class="content">
+    <div class="row">
+        <div class="col-xs-12">
 
-    <div style="margin-bottom: 10px">
-        <a href="/Admin/Category/Create" class="btn btn-success">افزودن گروه جدید</a>
-    </div>
-
-    <div class="col-md-10">
-        <div class="box">
-            <div class="box-header with-border">
-                <h3 class="box-title">مثال ۱</h3>
-            </div>
-            <!-- /.box-header -->
-            <span class="hidden">@{ var counter = 1; }</span>
-            <div class="box-body">
-                <table class="table table-bordered table-responsive table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>عنوان</th>
-                            <th>زیر گروه ها</th>
-                            <th>عملیات</th>
-                        </tr>
-                    </thead>
-                    <tbody>                    
-                    @foreach (var item in Model.Where(x => x.ParentId == null))
-                        {
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">جدول داده مثال ۲</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
                             <tr>
-                                <td>@counter</td>
-                                <td>
-                                    <b>@item.Title</b>
-                                </td>
-                                <td>
-                                    @foreach (var subGroup in Model.Where(x => x.ParentId == item.Id))
-                                    {
-                                        <i class="fa fa-circle-o text-yellow"></i>
-                                        @subGroup.Title
-                                        <br />
-                                    }
-                                </td>
-                                <td>
-                                    <a href="/Admin/Category/Create/@item.Id" class="btn btn-primary">زیر گروه</a>
-                                    <a href="" class="btn btn-danger">حذف</a>
-                                </td>
+                                <th>#</th>
+                                <th>عنوان</th>
+                                <th>زیر گروه</th>
+                                <th>عملیات</th>
                             </tr>
-                            counter++;
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Where(x => x.ParentId == null))
+                            {
+                                <tr>
+                                    <td>@counter</td>
+                                    <td><b>@item.Title</b></td>
+                                    <td>
+                                        @foreach (var sub in Model.Where(x => x.ParentId == item.Id))
+                                        {
+                                            <div style="margin-bottom: 10px">
+                                                <i class="fa fa-circle-o text-yellow"></i>
+                                                @sub.Title
+                                                <a class="btn btn-success btn-xs" href="/Admin/Category/Update/@sub.Id">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a class="btn btn-warning btn-xs" onclick="DeleteGroup(@sub.Id,'@sub.Title')">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" href="/Admin/Category/Create/@item.Id">زیر گروه</a>
+                                        <a class="btn btn-success" href="/Admin/Category/Update/@item.Id">ویرایش</a>
+                                        <a class="btn btn-danger" onclick="DeleteGroup(@item.Id,'@item.Title')">حذف</a>
+                                    </td>
+                                </tr>
+                                counter++;
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>عنوان</th>
+                                <th>زیر گروه</th>
+                                <th>عملیات</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.box-body -->
             </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="#">«</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">»</a></li>
-                </ul>
-            </div>
+            <!-- /.box -->
         </div>
+        <!-- /.col -->
     </div>
+    <!-- /.row -->
 </section>
-<!-- /.content -->
+
+<!-- ./wrapper -->
+<!-- DataTables -->
+@section Scripts
+{
+    <script src="/Admin/js/jquery.dataTables.min.js"></script>
+    <script src="/Admin/js/dataTables.bootstrap.min.js"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $('#example1').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            });
+        });
+
+        function DeleteGroup(id, title) {
+            var modal = $('#myModal');
+            modal.find('.modal-body p').text("آیا از حذف " + title + " اطمینان دارید");
+            modal.find('.modal-footer a').attr("href", "/Admin/Category/Delete/" + id);
+            $('#myModal').modal('show');
+        }
+    </script>
+}

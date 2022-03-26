@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Data.Entities;
 
@@ -17,6 +15,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var model = await _categoryRepository.GetAll();
@@ -24,36 +23,10 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
         }
 
         [HttpGet("/Admin/Category/Create/{id?}")]
-        public async Task<IActionResult> Create(int? id)
+        public IActionResult Create(int? id)
         {
-            ViewBag.ShowModal = "false";
-            var groups = await _categoryRepository.GetMainGroups();
-            var gradeType = new List<SelectListItem>();
-            if (id.HasValue)
-            {
-                var category = await _categoryRepository.GetItem(id.Value);
-                gradeType.Add(new SelectListItem()
-                {
-                    Text = category.Title,
-                    Value = category.Id.ToString(),
-                    Disabled = true
-                });
-            }
-            else
-            {
-                foreach (var item in groups)
-                {
-                    gradeType.Add(new SelectListItem()
-                    {
-                        Text = item.Title,
-                        Value = item.Id.ToString(),
-                    });
-                }
-                ViewBag.GradeTitles = gradeType;
-            }
-
+            ViewBag.ReturnUrl = "/Admin/Category/Create";
             var model = new Category() { ParentId = id };
-
             return View(model);
         }
 
@@ -66,7 +39,32 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 ViewBag.ShowModal = "true";
                 return View(category);
             }
+            return Redirect("/Admin/Category");
+        }
 
+        [HttpGet("/Admin/Category/Update/{id:int}")]
+        public async Task<IActionResult> Update(int id)
+        {
+            ViewBag.ReturnUrl = "/Admin/Category/Update";
+            var model = await _categoryRepository.GetItem(id);
+            return View("Create", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Category category)
+        {
+            var res = await _categoryRepository.Update(category);
+            if (string.IsNullOrWhiteSpace(res) == false)
+            {
+                ViewBag.ShowModal = "true";
+                return View("Create", category);
+            }
+            return Redirect("/Admin/Category");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _categoryRepository.Delete(id);
             return Redirect("/Admin/Category");
         }
     }

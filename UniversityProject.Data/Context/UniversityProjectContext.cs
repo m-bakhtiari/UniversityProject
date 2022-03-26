@@ -23,7 +23,9 @@ namespace UniversityProject.Data.Context
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<BookCategory> BookCategories { get; set; } 
+        public DbSet<BookCategory> BookCategories { get; set; }
+        public DbSet<Slider> Sliders { get; set; }
+        public DbSet<Banner> Banners { get; set; }
         #endregion
 
 

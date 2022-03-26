@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Data.Context;
 using UniversityProject.Data.Entities;
@@ -22,9 +21,16 @@ namespace UniversityProject.Core.Services
             var category = await _context.Categories.FindAsync(id);
             if (category != null)
             {
+                if (category.ParentId == null)
+                {
+                    var subGroup = await _context.Categories.Where(x => x.ParentId == id).ToListAsync();
+                    if (subGroup.Any())
+                    {
+                        _context.Categories.RemoveRange(subGroup);
+                    }
+                }
                 _context.Categories.Remove(category);
             }
-
             await _context.SaveChangesAsync();
         }
 
@@ -36,30 +42,6 @@ namespace UniversityProject.Core.Services
         public async Task<Category> GetItem(int id)
         {
             return await _context.Categories.FindAsync(id);
-        }
-
-        public async Task<CategoryListDto> GetItemsByPaging(CategorySearchDto dto)
-        {
-            IQueryable<Category> categories = _context.Categories;
-            if (string.IsNullOrWhiteSpace(dto.Title) == false)
-            {
-                categories = categories.Where(x => x.Title.Contains(dto.Title));
-            }
-
-            var count = await categories.CountAsync();
-
-            categories = categories.OrderBy(u => u.Id)
-                .Skip((dto.CurrentPage - 1) * dto.ItemPerPage)
-                .Take(dto.ItemPerPage);
-
-            return new CategoryListDto()
-            {
-                Categories = await categories.ToListAsync(),
-                CurrentPage = dto.CurrentPage,
-                TotalItems = count,
-                ItemPerPage = dto.ItemPerPage,
-                UrlParam = dto.UrlParam
-            };
         }
 
         public async Task<List<Category>> GetMainGroups()

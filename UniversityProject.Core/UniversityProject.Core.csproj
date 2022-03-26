@@ -17,4 +17,8 @@
     <ProjectReference Include="..\UniversityProject.Data\UniversityProject.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+  </ItemGroup>
+
 </Project>
