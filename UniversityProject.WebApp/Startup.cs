@@ -36,6 +36,8 @@ namespace UniversityProject.WebApp
             #region IoC
 
             services.AddTransient<ICategoryRepository, CategoryService>();
+            services.AddTransient<IBookRepository, BookService>();
+            services.AddTransient<IBookCategoryRepository, BookCategoryService>();
 
             #endregion       
         }
