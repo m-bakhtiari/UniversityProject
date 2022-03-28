@@ -14,7 +14,8 @@ namespace UniversityProject.Core.DTOs
         public string PublisherName { get; set; }
         public bool IsAvailable { get; set; }
         public int UsableDays { get; set; }
-        public DateTime PublishDate { get; set; }
+        public int PublishYear { get; set; }
+        public int PublishMonth { get; set; }
         public bool IsDelete { get; set; }
         public string ImageName { get; set; }
         public IFormFile Image { get; set; }

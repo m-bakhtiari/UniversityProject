@@ -59,7 +59,10 @@ namespace UniversityProject.Core.Services
             {
                 return "توضیحات را وارد نمایید";
             }
-
+            if (book.UsableDays < 0)
+            {
+                return "تعداد روز در دسترس نامعتبر است";
+            }
             book.IsDelete = false;
             book.IsAvailable = true;
             if (imgBook != null)
@@ -70,9 +73,9 @@ namespace UniversityProject.Core.Services
                 await imgBook.CopyToAsync(stream);
             }
 
-            await _context.AddAsync(book);
+            var insert = await _context.AddAsync(book);
             await _context.SaveChangesAsync();
-            return null;
+            return insert.Entity.Id.ToString();
         }
 
         public async Task<string> Update(Book book, IFormFile imgBook)

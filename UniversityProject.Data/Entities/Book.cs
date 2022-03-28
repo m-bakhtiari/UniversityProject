@@ -28,7 +28,7 @@ namespace UniversityProject.Data.Entities
         public int UsableDays { get; set; }
 
         [Required]
-        public DateTime PublishDate { get; set; }
+        public string PublishDate { get; set; }
 
         public bool IsDelete { get; set; }
 

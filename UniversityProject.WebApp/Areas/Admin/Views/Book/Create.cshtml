@@ -1,24 +1,18 @@
 ﻿@model UniversityProject.Core.DTOs.BookDto
 
-<title>دسته بندی کتاب ها</title>
+<title>افزودن کتاب جدید</title>
 <!-- Content Header (Page header) -->
 <section class="content-header">
-    <h1>
-        دسته بندی کتاب ها
-    </h1>
+    <h1>افزودن کتاب جدید</h1>
     <ol class="breadcrumb">
         <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
-        <li class="active"> <a href="/Admin/Book">دسته بندی</a></li>
+        <li class="active"> <a href="/Admin/Book">لیست کتاب ها</a></li>
     </ol>
 </section>
 <section class="content">
     <div class="row">
         <div class="col-md-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">مثال ساده</h3>
-                </div>
-                <!-- /.box-header -->
+            <div class="box box-success">
                 <!-- form start -->
                 <form role="form" action="@ViewBag.ReturnUrl" method="post" enctype="multipart/form-data">
                     <div class="hidden">
@@ -29,39 +23,58 @@
                             <label for="@Model.Title">عنوان</label>
                             <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="عنوان">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-6 no-padding">
                             <label for="@Model.AuthorName">نام نویسنده</label>
                             <input type="text" class="form-control" asp-for="@Model.AuthorName" id="@Model.AuthorName" placeholder="نام نویسنده">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <label for="@Model.PublisherName">نام ناشر</label>
                             <input type="text" class="form-control" asp-for="@Model.PublisherName" id="@Model.PublisherName" placeholder="نام ناشر">
                         </div>
+                        <div>
+                            <div class="col-md-4 no-padding">
+                                <label>تاریخ انتشار&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ماه:</label>
+                                <select asp-for="PublishMonth" class="form-control no-padding">
+                                    <option value="1">فروردین</option>
+                                    <option value="2">اردیبهشت</option>
+                                    <option value="3">خرداد</option>
+                                    <option value="4">تیر</option>
+                                    <option value="5">مرداد</option>
+                                    <option value="6">شهریور</option>
+                                    <option value="7">مهر</option>
+                                    <option value="8">آبان</option>
+                                    <option value="9">آذر</option>
+                                    <option value="10">دی</option>
+                                    <option value="11">بهمن</option>
+                                    <option value="12">اسفند</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label> سال :</label>
+                                <input type="number" asp-for="PublishYear" class="form-control">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="@Model.UsableDays">تعداد روز در دسترس</label>
+                                <input type="number" class="form-control" asp-for="@Model.UsableDays" id="@Model.UsableDays" placeholder="تعداد روز در دسترس">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="@Model.Description">توضیحات</label>
-                            <textarea type="text" class="form-control" asp-for="@Model.Description" id="@Model.Description" placeholder="توضیحات"></textarea>
+                            <textarea type="text" class="form-control mytextarea" asp-for="@Model.Description" id="@Model.Description" placeholder="توضیحات"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="@Model.UsableDays">تعداد روز در دسترس</label>
-                            <input type="number" class="form-control" asp-for="@Model.UsableDays" id="@Model.UsableDays" placeholder="تعداد روز در دسترس">
-                        </div>
-                        <div class="form-group">
-                            <label for="@Model.IsAvailable"> در دسترس است؟</label>
-                            <input type="checkbox" asp-for="@Model.IsAvailable" id="@Model.IsAvailable" placeholder=" در دسترس است؟" />
-                        </div>
-                        <div class="form-group">
-                            <ul>
+                            <ul class="no-padding">
                                 @foreach (var item in Model.Categories.Where(x => x.ParentId == null))
                                 {
                                     <li>
-                                        <input type="checkbox" id="@item.Title" value="@item.Id" />
+                                        <input name="CategoryIds" type="checkbox" id="@item.Title" value="@item.Id" onclick="subGroups('@item.Id')" />
                                         <label for="@item.Title">@item.Title</label>
                                         <ul>
-                                            @foreach (var item2 in Model.Categories.Where(x => x.ParentId == item.Id))
+                                            @foreach (var subGroup in Model.Categories.Where(x => x.ParentId == item.Id))
                                             {
                                                 <li>
-                                                    <input type="checkbox" disabled="disabled" id="@item2.Title" value="@item2.Id" />
-                                                    <label for="@item2.Title">@item2.Title</label>
+                                                    <input name="CategoryIds" type="checkbox" disabled="disabled" id="@subGroup.Title" value="@subGroup.Id" class="@item.Id" />
+                                                    <label for="@subGroup.Title">@subGroup.Title</label>
                                                 </li>
                                             }
                                         </ul>
@@ -70,14 +83,9 @@
                             </ul>
                         </div>
                         <div class="form-group">
-                            <label>انتخاب تاریخ شمسی با خروجی تایم استمپ </label>
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="example1 form-control" />
-                            </div>
-                            <!-- /.input group -->
+                            <label>تصویر</label>
+                            <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" />
+                            <img id="previewImg" src="#" alt="Placeholder" class="hidden img-responsive">
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -94,27 +102,58 @@
 
 @section Styles
 {
-    <link rel="stylesheet" href="/Admin/css/persian-datepicker.css"/>
+    <link rel="stylesheet" href="/Admin/css/kamadatepicker.min.css" />
+    <style>
+        ul li {
+            list-style-type: none;
+        }
+
+        input[type=checkbox] {
+            transform: scale(1.3);
+        }
+    </style>
 }
 
 @section Scripts
 {
-    <script src="/Admin/js/persian-date.min.js"></script>
-    <script src="/Admin/js/persian-datepicker.js"></script>
+    <script src="/Admin/js/tinymce.min.js"></script>
+    <script src="/Admin/js/kamadatepicker.holidays.js"></script>
+    <script src="/Admin/js/kamadatepicker.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".example1").pDatepicker({
-                format: 'D MMMM YYYY',
+            tinymce.init({
+                selector: '.mytextarea',
+                menubar:false,
+                statusbar: false,
+                plugins: "directionality",
+                directionality :"rtl",
             });
         });
-    </script>
 
-    <script>
+        function previewFile(input){
+            var file = $("input[type=file]").get(0).files[0];
+            if(file){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    $("#previewImg").attr("src", reader.result);
+                }
+                reader.readAsDataURL(file);
+            }
+            $("#previewImg").removeClass("hidden");
+        }
+
         var showModal =@ViewBag.ShowModal;
         $(function() {
             if (showModal==true) {
                 $('#myModal').modal('show');
             }
         });
+
+
+        function subGroups(counter) {
+            $('.' + counter).prop('disabled', function (i, v) { return !v; });
+            $('.' + counter).prop('checked', false);
+        }
     </script>
 }

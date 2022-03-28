@@ -33,6 +33,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Category category)
         {
+            ViewBag.ReturnUrl = "/Admin/Category/Create";
             var res = await _categoryRepository.Insert(category);
             if (string.IsNullOrWhiteSpace(res) == false)
             {
@@ -53,6 +54,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(Category category)
         {
+            ViewBag.ReturnUrl = "/Admin/Category/Update";
             var res = await _categoryRepository.Update(category);
             if (string.IsNullOrWhiteSpace(res) == false)
             {
