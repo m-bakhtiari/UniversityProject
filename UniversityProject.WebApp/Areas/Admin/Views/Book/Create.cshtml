@@ -17,6 +17,8 @@
                 <form role="form" action="@ViewBag.ReturnUrl" method="post" enctype="multipart/form-data">
                     <div class="hidden">
                         <input type="hidden" value="@Model.Id" asp-for="Id" />
+                        <input type="hidden" value="@Model.IsAvailable" asp-for="IsAvailable" />
+                        <input type="hidden" value="@Model.IsDelete" asp-for="IsDelete" />
                     </div>
                     <div class="box-body">
                         <div class="form-group">
@@ -51,7 +53,12 @@
                             </div>
                             <div class="col-md-4">
                                 <label> سال :</label>
-                                <input type="number" asp-for="PublishYear" class="form-control">
+                                <select asp-for="PublishYear" class="form-control no-padding">
+                                    @for (int i = 1402; i > 1300; i--)
+                                    {
+                                        <option value="@i">@i</option>
+                                    }
+                                </select>
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="@Model.UsableDays">تعداد روز در دسترس</label>
@@ -67,13 +74,16 @@
                                 @foreach (var item in Model.Categories.Where(x => x.ParentId == null))
                                 {
                                     <li>
-                                        <input name="CategoryIds" type="checkbox" id="@item.Title" value="@item.Id" onclick="subGroups('@item.Id')" />
+                                        <input name="CategoryIds" type="checkbox" id="@item.Title" value="@item.Id" onclick="subGroups('@item.Id')"
+                                               @(Model.CategoryIds != null ? (Model.CategoryIds.Contains(item.Id) ? "checked='checked'" : "") : null) />
                                         <label for="@item.Title">@item.Title</label>
                                         <ul>
                                             @foreach (var subGroup in Model.Categories.Where(x => x.ParentId == item.Id))
                                             {
                                                 <li>
-                                                    <input name="CategoryIds" type="checkbox" disabled="disabled" id="@subGroup.Title" value="@subGroup.Id" class="@item.Id" />
+                                                    <input name="CategoryIds" type="checkbox" id="@subGroup.Title" value="@subGroup.Id"
+                                                           class="@item.Id" @(Model.CategoryIds != null ? (Model.CategoryIds.Contains(subGroup.Id) ? "checked='checked'" : "") : null)
+                                                           @(Model.CategoryIds != null ? (Model.CategoryIds.Contains(item.Id) ? "" : "disabled ='disabled'") : "disabled ='disabled'") />
                                                     <label for="@subGroup.Title">@subGroup.Title</label>
                                                 </li>
                                             }
@@ -85,7 +95,7 @@
                         <div class="form-group">
                             <label>تصویر</label>
                             <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" />
-                            <img id="previewImg" src="#" alt="Placeholder" class="hidden img-responsive">
+                            <img id="previewImg" src="@(Model.ImageName!=null?"/Images/Books/"+Model.ImageName:"#")" alt="Placeholder" class="hidden img-responsive">
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -127,8 +137,12 @@
                 menubar:false,
                 statusbar: false,
                 plugins: "directionality",
-                directionality :"rtl",
+                directionality :"rtl"
             });
+
+            if ('@Model.ImageName' != " ") {
+                $("#previewImg").removeClass("hidden");
+            }
         });
 
         function previewFile(input){
@@ -149,7 +163,6 @@
                 $('#myModal').modal('show');
             }
         });
-
 
         function subGroups(counter) {
             $('.' + counter).prop('disabled', function (i, v) { return !v; });

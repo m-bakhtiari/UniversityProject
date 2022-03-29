@@ -92,6 +92,10 @@ namespace UniversityProject.Core.Services
             {
                 return "توضیحات را وارد نمایید";
             }
+            if (book.UsableDays < 0)
+            {
+                return "تعداد روز در دسترس نامعتبر است";
+            }
             book.IsDelete = false;
             if (imgBook != null)
             {
