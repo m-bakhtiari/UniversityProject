@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Core.Utils;
@@ -61,7 +59,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 Title = bookDto.Title,
             };
             var addBook = await _bookRepository.Insert(book, bookDto.Image);
-            if (string.IsNullOrWhiteSpace(addBook) == false && Type.GetType(addBook) == typeof(string))
+            if (int.TryParse(addBook, out var res) == false)
             {
                 var category = await _categoryRepository.GetAll();
                 bookDto.Categories = category;
@@ -136,9 +134,11 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 UsableDays = bookDto.UsableDays,
                 PublisherName = bookDto.PublisherName,
                 Title = bookDto.Title,
+                Id = bookDto.Id,
+                ImageName = bookDto.ImageName
             };
             var addBook = await _bookRepository.Update(book, bookDto.Image);
-            if (string.IsNullOrWhiteSpace(addBook) == false && Type.GetType(addBook) == typeof(string))
+            if (string.IsNullOrWhiteSpace(addBook) == false)
             {
                 var category = await _categoryRepository.GetAll();
                 bookDto.Categories = category;

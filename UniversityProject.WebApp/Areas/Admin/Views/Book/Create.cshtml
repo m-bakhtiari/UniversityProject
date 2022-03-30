@@ -19,6 +19,7 @@
                         <input type="hidden" value="@Model.Id" asp-for="Id" />
                         <input type="hidden" value="@Model.IsAvailable" asp-for="IsAvailable" />
                         <input type="hidden" value="@Model.IsDelete" asp-for="IsDelete" />
+                        <input type="hidden" value="@Model.ImageName" asp-for="ImageName" />
                     </div>
                     <div class="box-body">
                         <div class="form-group">
@@ -95,7 +96,9 @@
                         <div class="form-group">
                             <label>تصویر</label>
                             <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" />
-                            <img id="previewImg" src="@(Model.ImageName!=null?"/Images/Books/"+Model.ImageName:"#")" alt="Placeholder" class="hidden img-responsive">
+                        </div>
+                        <div class="form-group">
+                            <img id="previewImg" src="@(Model.ImageName!=null?"/Images/Books/"+Model.ImageName:" ")" alt="Placeholder" class="img-responsive">
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -112,7 +115,6 @@
 
 @section Styles
 {
-    <link rel="stylesheet" href="/Admin/css/kamadatepicker.min.css" />
     <style>
         ul li {
             list-style-type: none;
@@ -127,8 +129,6 @@
 @section Scripts
 {
     <script src="/Admin/js/tinymce.min.js"></script>
-    <script src="/Admin/js/kamadatepicker.holidays.js"></script>
-    <script src="/Admin/js/kamadatepicker.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -140,8 +140,8 @@
                 directionality :"rtl"
             });
 
-            if ('@Model.ImageName' != " ") {
-                $("#previewImg").removeClass("hidden");
+            if ('@Model.ImageName' == " ") {
+                $("#previewImg").addClass("hidden");
             }
         });
 

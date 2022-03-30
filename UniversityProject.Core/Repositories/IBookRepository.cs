@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using UniversityProject.Core.DTOs;
 using UniversityProject.Data.Entities;
 
 namespace UniversityProject.Core.Repositories
@@ -12,5 +13,6 @@ namespace UniversityProject.Core.Repositories
         Task Delete(int id);
         Task<List<Book>> GetAll();
         Task<Book> GetItem(int id);
+        Task<List<BookTitle>> GetAllTitles();
     }
 }

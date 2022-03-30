@@ -1,5 +1,4 @@
-﻿@using UniversityProject.Core.Utils
-@model List<UniversityProject.Data.Entities.Book>
+﻿@model List<UniversityProject.Data.Entities.Banner>
 
 <title>دسته بندی کتاب ها</title>
 @{
@@ -18,7 +17,7 @@
 </section>
 
 <section class="content-header">
-    <a class="btn btn-success" href="/Admin/Book/Create">افزودن گروه جدید</a>
+    <a class="btn btn-success" href="/Admin/Banner/Create">افزودن گروه جدید</a>
 </section>
 
 <!-- Main content -->
@@ -37,9 +36,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>عنوان</th>
-                                <th>نام نویسنده</th>
-                                <th>نام ناشر</th>
-                                <th>تاریخ انتشار</th>
+                                <th>لینک</th>
+                                <th>تصویر</th>
                                 <th>عملیات</th>
                             </tr>
                         </thead>
@@ -49,11 +47,10 @@
                                 <tr>
                                     <td>@counter</td>
                                     <td><b>@item.Title</b></td>
-                                    <td>@item.AuthorName</td>
-                                    <td>@item.PublisherName</td>
-                                    <td>@item.PublishDate.ToShamsi()</td>
+                                    <td>@item.LinkUrl</td>
+                                    <td><img src="/Images/Banners/@item.Image" class="img-responsive img-lg" alt="Book Image" /></td>
                                     <td>
-                                        <a class="btn btn-success" href="/Admin/Book/Update/@item.Id">ویرایش</a>
+                                        <a class="btn btn-success" href="/Admin/Banner/Update/@item.Id">ویرایش</a>
                                         <a class="btn btn-danger" onclick="DeleteGroup(@item.Id,'@item.Title')">حذف</a>
                                     </td>
                                 </tr>
@@ -101,7 +98,7 @@
         function DeleteGroup(id, title) {
             var modal = $('#myModal');
             modal.find('.modal-body p').text("آیا از حذف " + title + " اطمینان دارید");
-            modal.find('.modal-footer a').attr("href", "/Admin/Book/Delete/" + id);
+            modal.find('.modal-footer a').attr("href", "/Admin/Banner/Delete/" + id);
             $('#myModal').modal('show');
         }
     </script>

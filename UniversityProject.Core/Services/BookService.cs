@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection.PortableExecutable;
+using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Core.Utils;
 using UniversityProject.Data.Context;
@@ -38,6 +38,16 @@ namespace UniversityProject.Core.Services
         public async Task<List<Book>> GetAll()
         {
             return await _context.Books.ToListAsync();
+        }
+
+        public async Task<List<BookTitle>> GetAllTitles()
+        {
+            return await _context.Books.Select(x => new BookTitle()
+            {
+                Id = x.Id,
+                Title = x.Title,
+                LinkType = "Book"
+            }).ToListAsync();
         }
 
         public async Task<Book> GetItem(int id)
