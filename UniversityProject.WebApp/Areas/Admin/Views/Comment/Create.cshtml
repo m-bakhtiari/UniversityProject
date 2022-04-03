@@ -1,0 +1,54 @@
+﻿@model UniversityProject.Data.Entities.Comment
+
+<title>افزودن کتاب جدید</title>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>افزودن کتاب جدید</h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active"> <a href="/Admin/Comment">لیست کتاب ها</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <!-- form start -->
+                <form role="form" action="@ViewBag.ReturnUrl" method="post">
+                    <div class="hidden">
+                        <input type="hidden" value="@Model.Id" asp-for="Id" />
+                        <input type="hidden" value="@Model.ParentId" asp-for="ParentId" />
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>کامنت کاربر</label>
+                            <input type="text" disabled="disabled" class="form-control" value="@ViewBag.UserComment">
+                        </div>
+                        <div class="form-group">
+                            <label for="@Model.Text">متن جواب</label>
+                            <input type="text" class="form-control" asp-for="@Model.Text" id="@Model.Text" placeholder="متن جواب">
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">ارسال</button>
+                        <a href="/Admin/Comment" class="pull-left btn btn-warning">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var showModal =@ViewBag.ShowModal;
+        $(function() {
+            if (showModal==true) {
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}

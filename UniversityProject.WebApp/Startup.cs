@@ -42,8 +42,10 @@ namespace UniversityProject.WebApp
             services.AddTransient<IBannerRepository, BannerService>();
             services.AddTransient<IRoleRepository, RoleService>();
             services.AddTransient<ISubscriptionTypeRepository, SubscriptionTypeService>();
+            services.AddTransient<ICommentRepository, CommentService>();
+            services.AddTransient<IUserBookRepository, UserBookService>();
 
-            #endregion       
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

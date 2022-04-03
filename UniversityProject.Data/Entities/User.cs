@@ -9,6 +9,9 @@ namespace UniversityProject.Data.Entities
         [Key]
         public int Id { get; set; }
 
+        [Required]
+        public int UniqSubNumber { get; set; }
+
         [MaxLength(300)]
         [Required]
         public string FirstName { get; set; }
