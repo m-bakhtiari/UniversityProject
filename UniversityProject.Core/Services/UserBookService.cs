@@ -32,9 +32,24 @@ namespace UniversityProject.Core.Services
             return await _context.UsersBook.FindAsync(id);
         }
 
-        public async Task Insert(UserBook userBook)
+        public async Task<string> Insert(UserBook userBook)
         {
+            if (await _context.UsersBook.AnyAsync(x => x.BookId == userBook.BookId))
+            {
+                return "کتاب در دسترس نمی باشد";
+            }
+
+            var user = await _context.Users.FindAsync(userBook.UserId);
+            if (user.Penalty.HasValue)
+            {
+                if (user.Penalty > 100000)
+                {
+                    return "مبلغ جریمه را پرداخت نمایید";
+                }
+            }
             await _context.UsersBook.AddAsync(userBook);
+            await _context.SaveChangesAsync();
+            return null;
         }
 
         public async Task Update(UserBook userBook)

@@ -74,7 +74,6 @@ namespace UniversityProject.Core.Services
                 return "تعداد روز در دسترس نامعتبر است";
             }
             book.IsDelete = false;
-            book.IsAvailable = true;
             if (imgBook != null)
             {
                 book.ImageName = NameGenerator.GenerateUniqCode() + Path.GetExtension(imgBook.FileName);

@@ -3,10 +3,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace UniversityProject.Data.Migrations
 {
-    public partial class InitialDatabase : Migration
+    public partial class Initial_Database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Banners",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Image = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    LinkUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Position = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Banners", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Books",
                 columns: table => new
@@ -52,13 +68,28 @@ namespace UniversityProject.Data.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sliders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Image = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    LinkUrl = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Position = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sliders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,12 +136,13 @@ namespace UniversityProject.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UniqSubNumber = table.Column<int>(type: "int", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Penalty = table.Column<int>(type: "int", nullable: true),
-                    SubscriptionTypeId = table.Column<int>(type: "int", nullable: false),
+                    SubscriptionTypeId = table.Column<int>(type: "int", nullable: true),
                     IsDelete = table.Column<bool>(type: "bit", nullable: false),
                     RegisterTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RoleId = table.Column<int>(type: "int", nullable: false)
@@ -219,6 +251,16 @@ namespace UniversityProject.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Title" },
+                values: new object[] { 1001, "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Title" },
+                values: new object[] { 1002, "User" });
+
             migrationBuilder.CreateIndex(
                 name: "IX_BookCategories_CategoryId",
                 table: "BookCategories",
@@ -273,6 +315,9 @@ namespace UniversityProject.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Banners");
+
+            migrationBuilder.DropTable(
                 name: "BookCategories");
 
             migrationBuilder.DropTable(
@@ -280,6 +325,9 @@ namespace UniversityProject.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ShoppingCarts");
+
+            migrationBuilder.DropTable(
+                name: "Sliders");
 
             migrationBuilder.DropTable(
                 name: "UsersBook");

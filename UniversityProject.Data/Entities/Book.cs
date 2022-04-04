@@ -23,8 +23,6 @@ namespace UniversityProject.Data.Entities
         [MaxLength(500)]
         public string PublisherName { get; set; }
 
-        public bool IsAvailable { get; set; }
-
         public int UsableDays { get; set; }
 
         [Required]

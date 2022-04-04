@@ -67,9 +67,6 @@ namespace UniversityProject.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
@@ -168,9 +165,7 @@ namespace UniversityProject.Data.Migrations
             modelBuilder.Entity("UniversityProject.Data.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -180,6 +175,18 @@ namespace UniversityProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1001,
+                            Title = "Admin"
+                        },
+                        new
+                        {
+                            Id = 1002,
+                            Title = "User"
+                        });
                 });
 
             modelBuilder.Entity("UniversityProject.Data.Entities.ShoppingCart", b =>
@@ -252,15 +259,10 @@ namespace UniversityProject.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
-
                     b.Property<bool>("IsDelete")
                         .HasColumnType("bit");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
@@ -284,10 +286,7 @@ namespace UniversityProject.Data.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubscriptionTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UniqSubNumber")
+                    b.Property<int?>("SubscriptionTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -297,6 +296,19 @@ namespace UniversityProject.Data.Migrations
                     b.HasIndex("SubscriptionTypeId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1001,
+                            IsDelete = false,
+                            Name = "Admin",
+                            Password = "1234",
+                            Penalty = 0,
+                            Phone = "No Number",
+                            RegisterTime = new DateTime(2022, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            RoleId = 1001
+                        });
                 });
 
             modelBuilder.Entity("UniversityProject.Data.Entities.UserBook", b =>
@@ -409,9 +421,7 @@ namespace UniversityProject.Data.Migrations
 
                     b.HasOne("UniversityProject.Data.Entities.SubscriptionType", "SubscriptionType")
                         .WithMany("Users")
-                        .HasForeignKey("SubscriptionTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("SubscriptionTypeId");
 
                     b.Navigation("Role");
 

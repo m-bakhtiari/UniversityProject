@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using UniversityProject.Data.Consts;
 using UniversityProject.Data.Entities;
 
 namespace UniversityProject.Data.Context
@@ -43,6 +46,27 @@ namespace UniversityProject.Data.Context
 
             modelBuilder.Entity<ShoppingCart>().HasKey(x => new { x.UserId, x.BookId });
             modelBuilder.Entity<BookCategory>().HasKey(x => new { x.BookId, x.CategoryId });
+
+            modelBuilder.Entity<Role>().HasData(new List<Role>()
+            {
+                new Role(){Id = Const.AdminRoleId,Title = "Admin"},
+                new Role(){Id = Const.UserRoleId,Title = "User"}
+            });
+
+            modelBuilder.Entity<User>().HasData(new List<User>()
+            {
+                new User()
+                {
+                    Name = "Admin",
+                    IsDelete = false,
+                    Password = "1234",
+                    Penalty = 0,
+                    Phone = "No Number",
+                    RoleId = Const.AdminRoleId,
+                    RegisterTime =new DateTime(2022,04,04),
+                    Id = 1001
+                },
+            });
 
             base.OnModelCreating(modelBuilder);
         }

@@ -52,7 +52,6 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             {
                 AuthorName = bookDto.AuthorName,
                 Description = bookDto.Description,
-                IsAvailable = bookDto.IsAvailable,
                 PublishDate = new DateTime(bookDto.PublishYear, bookDto.PublishMonth, 1, new PersianCalendar()),
                 UsableDays = bookDto.UsableDays,
                 PublisherName = bookDto.PublisherName,
@@ -106,7 +105,6 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 Description = book.Description,
                 UsableDays = book.UsableDays,
                 PublisherName = book.PublisherName,
-                IsAvailable = book.IsAvailable,
                 IsDelete = book.IsDelete,
                 Title = book.Title,
                 Id = book.Id,
@@ -129,7 +127,6 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             {
                 AuthorName = bookDto.AuthorName,
                 Description = bookDto.Description,
-                IsAvailable = bookDto.IsAvailable,
                 PublishDate = new DateTime(bookDto.PublishYear, bookDto.PublishMonth, 1, new PersianCalendar()),
                 UsableDays = bookDto.UsableDays,
                 PublisherName = bookDto.PublisherName,

@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <label>لینک اسلایدر</label>
-                            <select class="no-padding form-control" asp-for="LinkUrl">
+                            <select asp-for="LinkUrl">
                                 <option value=" ">بدون لینک</option>
                                 @foreach (var item in Model.BookTitles)
                                 {
@@ -61,10 +61,22 @@
     </div>
 </section>
 
+@section Styles
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+}
+
 @section Scripts
 {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $('select').selectize({
+                sortField: 'text'
+            });
+
             if ('@Model.ImageName' == " ") {
                 $("#previewImg").addClass("hidden");
             }

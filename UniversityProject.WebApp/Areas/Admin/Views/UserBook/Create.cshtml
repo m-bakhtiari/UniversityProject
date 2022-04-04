@@ -1,0 +1,62 @@
+﻿@model UniversityProject.Core.DTOs.UserBookDto
+
+<title>افزودن کتاب جدید</title>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>افزودن کتاب جدید</h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active"> <a href="/Admin/Banner">لیست کتاب ها</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <!-- form start -->
+                <form role="form" action="@ViewBag.ReturnUrl" method="post">
+                    <div class="box-body">
+                        <div>
+                            <label>کتاب</label>
+                            <input list="linkUrl" asp-for="BookId" class="form-control" />
+                            <datalist class="no-padding form-control" id="linkUrl">
+                                @foreach (var item in Model.BookTitles)
+                                {
+                                    <option value="@item.Id">@item.Title</option>
+                                }
+                            </datalist>
+                        </div>
+                        <div>
+                            <label>کاربر</label>
+                            <input list="linkUrl" asp-for="UserId" class="form-control" />
+                            <datalist class="no-padding form-control" id="linkUrl">
+                                @foreach (var item in Model.Users)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </datalist>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">ارسال</button>
+                        <a href="/Admin/UserBook" class="pull-left btn btn-warning">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var showModal =@ViewBag.ShowModal;
+        $(function() {
+            if (showModal==true) {
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}

@@ -9,16 +9,13 @@ namespace UniversityProject.Data.Entities
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        public int UniqSubNumber { get; set; }
+        //[Required]
+        //[DatabaseGenerated(DatabaseGeneratedOption.)]
+        //public int Username { get; set; }
 
         [MaxLength(300)]
         [Required]
-        public string FirstName { get; set; }
-
-        [MaxLength(300)]
-        [Required]
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
         [MaxLength(100)]
         [Required]
@@ -30,8 +27,7 @@ namespace UniversityProject.Data.Entities
 
         public int? Penalty { get; set; }
 
-        [Required]
-        public int SubscriptionTypeId { get; set; }
+        public int? SubscriptionTypeId { get; set; }
 
         public bool IsDelete { get; set; }
 

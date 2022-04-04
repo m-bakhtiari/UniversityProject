@@ -42,7 +42,7 @@
                             {
                                 <tr>
                                     <td>@counter</td>
-                                    <td>@item.User.FirstName @item.User.LastName</td>
+                                    <td>@item.User.Name</td>
                                     <td>@item.Book.Title</td>
                                     <td>
                                         @foreach (var answer in Model.Where(x => x.ParentId == item.Id))
@@ -54,7 +54,7 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-primary" href="/Admin/Comment/Update/@item.Id">جواب</a>
-                                        <a class="btn btn-danger" onclick="DeleteGroup(@item.Id,'@item.User.FirstName @item.User.LastName')">حذف</a>
+                                        <a class="btn btn-danger" onclick="DeleteGroup(@item.Id,'@item.User.Name')">حذف</a>
                                     </td>
                                 </tr>
                                 counter++;

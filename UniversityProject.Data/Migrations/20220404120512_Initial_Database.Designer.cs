@@ -10,8 +10,8 @@ using UniversityProject.Data.Context;
 namespace UniversityProject.Data.Migrations
 {
     [DbContext(typeof(UniversityProjectContext))]
-    [Migration("20220329084218_PublishDateTime_Book")]
-    partial class PublishDateTime_Book
+    [Migration("20220404120512_Initial_Database")]
+    partial class Initial_Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,9 +170,7 @@ namespace UniversityProject.Data.Migrations
             modelBuilder.Entity("UniversityProject.Data.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -182,6 +180,18 @@ namespace UniversityProject.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1001,
+                            Title = "Admin"
+                        },
+                        new
+                        {
+                            Id = 1002,
+                            Title = "User"
+                        });
                 });
 
             modelBuilder.Entity("UniversityProject.Data.Entities.ShoppingCart", b =>
@@ -286,7 +296,10 @@ namespace UniversityProject.Data.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubscriptionTypeId")
+                    b.Property<int?>("SubscriptionTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UniqSubNumber")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -408,9 +421,7 @@ namespace UniversityProject.Data.Migrations
 
                     b.HasOne("UniversityProject.Data.Entities.SubscriptionType", "SubscriptionType")
                         .WithMany("Users")
-                        .HasForeignKey("SubscriptionTypeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("SubscriptionTypeId");
 
                     b.Navigation("Role");
 

@@ -1,0 +1,73 @@
+﻿@model UniversityProject.Core.DTOs.UserDto
+
+<title>افزودن کتاب جدید</title>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>افزودن کتاب جدید</h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active"> <a href="/Admin/User">لیست کتاب ها</a></li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <!-- form start -->
+                <form role="form" action="@ViewBag.ReturnUrl" method="post">
+                    <div class="hidden">
+                        <input type="hidden" value="@Model.Id" asp-for="Id" />
+                        <input type="hidden" value="@Model.OldPassword" asp-for="OldPassword" />
+                        <input type="hidden" value="@Model.Username" asp-for="Username" />
+                    </div>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="@Model.FirstName">نام</label>
+                            <input type="text" class="form-control" asp-for="@Model.FirstName" id="@Model.FirstName" placeholder="نام">
+                        </div>
+                        <div class="form-group">
+                            <label for="@Model.Phone">شماره تماس</label>
+                            <input type="text" class="form-control" asp-for="@Model.Phone" id="@Model.Phone" placeholder="شماره تماس">
+                        </div>
+                        <div class="form-group">
+                            <label for="@Model.NewPassword">رمز عبور</label>
+                            <input type="text" class="form-control" asp-for="@Model.NewPassword" id="@Model.NewPassword" placeholder="رمز عبور">
+                        </div>
+                        <div class="form-group">
+                            <label>نقش</label>
+                            <select class="form-control no-padding" asp-for="RoleId">
+                                @foreach (var item in Model.Roles)
+                                {
+                                    <option value="@item.Id">@item.Title</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="@Model.Penalty">جریمه</label>
+                            <input type="number" class="form-control" asp-for="@Model.Penalty" id="@Model.Penalty" placeholder="جریمه">
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">ارسال</button>
+                        <a href="/Admin/User" class="pull-left btn btn-warning">بازگشت</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var showModal =@ViewBag.ShowModal;
+        $(function() {
+            if (showModal==true) {
+                $('#myModal').modal('show');
+            }
+        });
+    </script>
+}

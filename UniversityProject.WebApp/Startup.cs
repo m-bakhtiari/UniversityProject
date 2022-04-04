@@ -29,6 +29,7 @@ namespace UniversityProject.WebApp
             services.AddDbContext<UniversityProjectContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("UniversityProjectConnection"));
+                options.EnableSensitiveDataLogging();
             }, ServiceLifetime.Transient);
 
             #endregion
@@ -40,10 +41,11 @@ namespace UniversityProject.WebApp
             services.AddTransient<IBookCategoryRepository, BookCategoryService>();
             services.AddTransient<ISliderRepository, SliderService>();
             services.AddTransient<IBannerRepository, BannerService>();
-            services.AddTransient<IRoleRepository, RoleService>();
             services.AddTransient<ISubscriptionTypeRepository, SubscriptionTypeService>();
             services.AddTransient<ICommentRepository, CommentService>();
             services.AddTransient<IUserBookRepository, UserBookService>();
+            services.AddTransient<IUserRepository, UserService>();
+            services.AddTransient<IRoleRepository, RoleService>();
 
             #endregion
         }
@@ -71,11 +73,11 @@ namespace UniversityProject.WebApp
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

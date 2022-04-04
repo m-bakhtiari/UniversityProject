@@ -1,4 +1,4 @@
-﻿@model List<UniversityProject.Data.Entities.Role>
+﻿@model List<UniversityProject.Data.Entities.User>
 
 <title>دسته بندی کتاب ها</title>
 @{
@@ -12,12 +12,12 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
-        <li><a href="/Admin/Role" class="active">جدول</a></li>
+        <li><a href="/Admin/User" class="active">جدول</a></li>
     </ol>
 </section>
 
 <section class="content-header">
-    <a class="btn btn-success" href="/Admin/Role/Create">افزودن نقش جدید</a>
+    <a class="btn btn-success" href="/Admin/User/Create">افزودن ادمین</a>
 </section>
 
 <!-- Main content -->
@@ -35,7 +35,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان</th>
+                                <th>شماره اشتراک</th>
+                                <th>نام و نام خاندگی</th>
+                                <th>شماره تماس</th>
+                                <th>نقش کاربر</th>
+                                <th>جریمه</th>
+                                <th>نوع اشتراک</th>
                                 <th>عملیات</th>
                             </tr>
                         </thead>
@@ -44,10 +49,24 @@
                             {
                                 <tr>
                                     <td>@counter</td>
-                                    <td><b>@item.Title</b></td>
+                                    <td><b>@item.Id</b></td>
+                                    <td><b>@item.Name</b></td>
+                                    <td>@item.Phone</td>
                                     <td>
-                                        <a class="btn btn-success" href="/Admin/Role/Update/@item.Id">ویرایش</a>
-                                        <a class="btn btn-danger" onclick="DeleteGroup(@item.Id,'@item.Title')">حذف</a>
+                                        @if (item.Role.Title == "Admin")
+                                        {
+                                            <span class="badge bg-yellow">ادمین</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-green">کاربر</span>
+                                        }
+                                    </td>
+                                    <td>@item.Penalty?.ToString("#,0")</td>
+                                    <td>@(item.SubscriptionTypeId.HasValue?item.SubscriptionType.Title:"بدون عضویت")</td>
+                                    <td>
+                                        <a class="btn btn-success" href="/Admin/User/Update/@item.Id">ویرایش</a>
+                                        <a class="btn btn-danger" onclick="DeleteGroup(@item.Id,'@item.Name')">حذف</a>
                                     </td>
                                 </tr>
                                 counter++;
@@ -56,7 +75,12 @@
                         <tfoot>
                             <tr>
                                 <th>#</th>
-                                <th>عنوان</th>
+                                <th>شماره اشتراک</th>
+                                <th>نام و نام خاندگی</th>
+                                <th>شماره تماس</th>
+                                <th>نقش کاربر</th>
+                                <th>جریمه</th>
+                                <th>نوع اشتراک</th>
                                 <th>عملیات</th>
                             </tr>
                         </tfoot>
@@ -93,7 +117,7 @@
         function DeleteGroup(id, title) {
             var modal = $('#myModal');
             modal.find('.modal-body p').text("آیا از حذف " + title + " اطمینان دارید");
-            modal.find('.modal-footer a').attr("href", "/Admin/Role/Delete/" + id);
+            modal.find('.modal-footer a').attr("href", "/Admin/User/Delete/" + id);
             $('#myModal').modal('show');
         }
     </script>
