@@ -69,7 +69,6 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 Roles = await _roleRepository.GetAll(),
                 Penalty = model.Penalty,
                 Phone = model.Phone,
-                //Username = model.Username,
                 RoleId = model.RoleId,
                 OldPassword = model.Password,
             };

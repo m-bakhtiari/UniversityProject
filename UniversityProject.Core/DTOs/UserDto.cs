@@ -11,7 +11,7 @@ namespace UniversityProject.Core.DTOs
         public string Phone { get; set; }
         public string OldPassword { get; set; }
         public string NewPassword { get; set; }
-        public int? Penalty { get; set; }
+        public double? Penalty { get; set; }
         public int RoleId { get; set; }
         public int Username { get; set; }
         public List<Role> Roles { get; set; }

@@ -16,25 +16,32 @@
                 <!-- form start -->
                 <form role="form" action="@ViewBag.ReturnUrl" method="post">
                     <div class="box-body">
+                        <input type="hidden" value="@Model.Id" asp-for="Id" />
                         <div>
                             <label>کتاب</label>
-                            <input list="linkUrl" asp-for="BookId" class="form-control" />
-                            <datalist class="no-padding form-control" id="linkUrl">
+                            <select class="form-control selectBook select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" asp-for="BookId">
                                 @foreach (var item in Model.BookTitles)
                                 {
                                     <option value="@item.Id">@item.Title</option>
                                 }
-                            </datalist>
+                            </select>
                         </div>
                         <div>
                             <label>کاربر</label>
-                            <input list="linkUrl" asp-for="UserId" class="form-control" />
-                            <datalist class="no-padding form-control" id="linkUrl">
+                            <select class="form-control selectUser select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" asp-for="UserId">
                                 @foreach (var item in Model.Users)
                                 {
                                     <option value="@item.Id">@item.Name</option>
                                 }
-                            </datalist>
+                            </select>
+                        </div>
+                        <div>
+                            <label>تاریخ شروع</label>
+                            <input type="text" id="date1" asp-for="StartDate" class="form-control">
+                        </div>
+                        <div>
+                            <label>تاریخ پایان</label>
+                            <input type="text" id="date2" asp-for="EndDate" class="form-control">
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -49,11 +56,26 @@
     </div>
 </section>
 
+@section Styles
+{
+    <link href="/Admin/css/select2.min.css" rel="stylesheet" />
+    <link href="/Admin/css/kamadatepicker.min.css" rel="stylesheet" />
+}
+
 @section Scripts
 {
+    <script src="/Admin/js/select2.full.min.js"></script>
+    <script src="/Admin/js/kamadatepicker.min.js"></script>
+
     <script type="text/javascript">
-        var showModal =@ViewBag.ShowModal;
-        $(function() {
+        var showModal ='@ViewBag.ShowModal';
+        $(function () {
+            $('.selectBook').select2();
+            $('.selectUser').select2();
+
+            kamaDatepicker('date1', { buttonsColor: "red" });
+            kamaDatepicker('date2', { buttonsColor: "red" });
+
             if (showModal==true) {
                 $('#myModal').modal('show');
             }

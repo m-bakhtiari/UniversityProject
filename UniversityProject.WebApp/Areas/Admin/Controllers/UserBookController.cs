@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
@@ -44,10 +46,18 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
         {
             ViewBag.ReturnUrl = "/Admin/UserBook/Create";
             ViewBag.ShowModal = "false";
-            var res = await _userBookRepository.Insert(new UserBook() { BookId = userBookDto.BookId, UserId = userBookDto.UserId });
+            var res = await _userBookRepository.Insert(new UserBook()
+            {
+                BookId = userBookDto.BookId,
+                UserId = userBookDto.UserId,
+                StartDate = Convert.ToDateTime(userBookDto.StartDate),
+                EndDate = Convert.ToDateTime(userBookDto.EndDate)
+            });
             if (string.IsNullOrWhiteSpace(res) == false)
             {
                 ViewBag.ShowModal = "true";
+                userBookDto.BookTitles = await _bookRepository.GetAllTitles();
+                userBookDto.Users = await _userRepository.GetAll();
                 return View(userBookDto);
             }
             return Redirect("/Admin/UserBook");
@@ -56,13 +66,17 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
         public async Task<IActionResult> Update(int id)
         {
             ViewBag.ReturnUrl = "/Admin/UserBook/Update";
+            ViewBag.ShowModal = "false";
             var userBook = await _userBookRepository.GetItem(id);
             var model = new UserBookDto()
             {
                 UserId = userBook.UserId,
                 BookId = userBook.BookId,
+                StartDate = userBook.StartDate.ToString("yyyy/MM/dd"),
+                EndDate = userBook.EndDate?.ToString("yyyy/MM/dd"),
                 Users = await _userRepository.GetAll(),
-                BookTitles = await _bookRepository.GetAllTitles()
+                BookTitles = await _bookRepository.GetAllTitles(),
+                Id = userBook.Id,
             };
             return View("Create", model);
         }
@@ -70,7 +84,14 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UserBookDto userBookDto)
         {
-            await _userBookRepository.Update(new UserBook() { BookId = userBookDto.BookId, UserId = userBookDto.UserId });
+            await _userBookRepository.Update(new UserBook()
+            {
+                BookId = userBookDto.BookId,
+                UserId = userBookDto.UserId,
+                StartDate = Convert.ToDateTime(userBookDto.StartDate),
+                EndDate = Convert.ToDateTime(userBookDto.EndDate),
+                Id = userBookDto.Id
+            });
             return Redirect("/Admin/UserBook");
         }
 

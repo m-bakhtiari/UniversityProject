@@ -25,7 +25,7 @@ namespace UniversityProject.Data.Entities
         [Required]
         public string Password { get; set; }
 
-        public int? Penalty { get; set; }
+        public double? Penalty { get; set; }
 
         public int? SubscriptionTypeId { get; set; }
 

@@ -29,17 +29,20 @@
                             <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="عنوان">
                         </div>
                         <div>
-                            <label>لینک اسلایدر</label>
-                            <select asp-for="LinkUrl">
-                                <option value=" ">بدون لینک</option>
-                                @foreach (var item in Model.BookTitles)
-                                {
-                                    <option value="@item.LinkType/@item.Id">
-                                        @(item.LinkType == "Book" ? "کتاب" : "گروه")
-                                        @item.Title
-                                    </option>
-                                }
-                            </select>
+                            <div class="form-group">
+                                <label>معمولی</label>
+                                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" asp-for="LinkUrl">
+                                    <option value=" " selected="selected">بدون لینک</option>
+                                    @foreach (var item in Model.BookTitles)
+                                    {
+                                        <option value="@item.LinkType/@item.Id">
+                                            @(item.LinkType == "Book" ? "کتاب" : "گروه")
+                                            @item.Title
+                                        </option>
+                                    }
+
+                                </select>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>تصویر</label>
@@ -63,19 +66,15 @@
 
 @section Styles
 {
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+    <link href="/Admin/css/select2.min.css" rel="stylesheet" />
 }
 
 @section Scripts
 {
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-
+    <script src="/Admin/js/select2.full.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-
-            $('select').selectize({
-                sortField: 'text'
-            });
+            $('.select2').select2();
 
             if ('@Model.ImageName' == " ") {
                 $("#previewImg").addClass("hidden");
