@@ -15,11 +15,10 @@
     <link rel="stylesheet" href="/Admin/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="/Admin/css/AdminLTE.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/Admin/css/_all-skins.min.css">
-    
-    @await RenderSectionAsync("Styles",false)
+
+    @await RenderSectionAsync("Styles", false)
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -59,12 +58,6 @@
                                     <div class="row">
                                         <div class="col-xs-4 text-center">
                                             <a href="#">صفحه من</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">فروش</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">دوستان</a>
                                         </div>
                                     </div>
                                     <!-- /.row -->
@@ -111,6 +104,18 @@
                     </li>
                     <li>
                         <a href="/Admin/Book"><i class="fa fa-book"></i> <span>کتاب ها</span></a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Comment"><i class="fa fa-comment"></i> <span>نظرات</span></a>
+                    </li>
+                    <li>
+                        <a href="/Admin/SubscriptionType"><i class="fa fa-shopping-basket"></i> <span>اشتراک</span></a>
+                    </li>
+                    <li>
+                        <a href="/Admin/User"><i class="fa fa-user"></i> <span>کاربران</span></a>
+                    </li>
+                    <li>
+                        <a href="/Admin/UserBook"><i class="fa fa-address-book"></i> <span>امانت کتاب</span></a>
                     </li>
                 </ul>
             </section>

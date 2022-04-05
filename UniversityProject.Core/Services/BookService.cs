@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
@@ -74,6 +75,7 @@ namespace UniversityProject.Core.Services
                 return "تعداد روز در دسترس نامعتبر است";
             }
             book.IsDelete = false;
+            book.AddedDate = DateTime.Now;
             if (imgBook != null)
             {
                 book.ImageName = NameGenerator.GenerateUniqCode() + Path.GetExtension(imgBook.FileName);

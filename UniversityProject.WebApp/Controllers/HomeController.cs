@@ -1,16 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using UniversityProject.Core.Repositories;
 
 namespace UniversityProject.WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICategoryRepository _categoryRepository;
 
-        public HomeController()
+        public HomeController(ICategoryRepository categoryRepository)
         {
+            _categoryRepository = categoryRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewData["Category"] = await _categoryRepository.GetAll();
             return View();
         }
 

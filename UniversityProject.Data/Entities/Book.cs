@@ -33,6 +33,9 @@ namespace UniversityProject.Data.Entities
         [MaxLength(300)]
         public string ImageName { get; set; }
 
+        [Required]
+        public DateTime AddedDate { get; set; }
+
         #region Relations
 
         public List<Comment> Comments { get; set; }
