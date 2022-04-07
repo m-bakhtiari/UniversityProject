@@ -7,7 +7,7 @@ namespace UniversityProject.Core.Repositories
     public interface IUserBookRepository
     {
         Task<string> Insert(UserBook userBook);
-        Task Update(UserBook userBook);
+        Task<string> Update(UserBook userBook);
         Task<List<UserBook>> GetAll();
         Task<UserBook> GetItem(int id);
         Task Delete(int id);

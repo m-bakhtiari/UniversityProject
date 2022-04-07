@@ -1,6 +1,5 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
@@ -84,14 +83,21 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UserBookDto userBookDto)
         {
-            await _userBookRepository.Update(new UserBook()
+            var model = new UserBook()
             {
                 BookId = userBookDto.BookId,
                 UserId = userBookDto.UserId,
                 StartDate = Convert.ToDateTime(userBookDto.StartDate),
                 EndDate = Convert.ToDateTime(userBookDto.EndDate),
                 Id = userBookDto.Id
-            });
+            };
+            var res = await _userBookRepository.Update(model);
+            if (string.IsNullOrWhiteSpace(res))
+            {
+                ViewBag.ReturnUrl = "/Admin/UserBook/Update";
+                ViewBag.ShowModal = "true";
+                return View("Create", userBookDto);
+            }
             return Redirect("/Admin/UserBook");
         }
 

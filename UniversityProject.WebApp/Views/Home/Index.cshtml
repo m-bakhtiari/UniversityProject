@@ -72,7 +72,7 @@
                         </div><!-- End .heading-left -->
 
                         <div class="heading-right">
-                            <a href="category.html" class="title-link">
+                            <a href="CategoryLis" class="title-link">
                                 مشاهده محصولات بیشتر <i class="icon-long-arrow-left"></i>
                             </a>
                         </div><!-- End .heading-right -->
@@ -103,280 +103,43 @@
                                         }
                                     }
                                 }'>
-                        <div class="product">
-                            <span class="product-label label-sale">فروش ویژه</span>
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-1.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
 
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">مایکل گری</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">آزاد شدن</a></h3>
-                                <!-- End .product-title -->
-                                <div class="product-price">
-                                    <span class="new-price">19,000 تومان</span>
-                                    <span class="old-price">32,000</span>
-                                </div><!-- End .product-price -->
-
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 80%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 10 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-2.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">جوردن پترسون</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a href="product.html">
-                                        وکیل دادگستری مخفی : داستان های
-                                        <br>قانون و چگونگی آن ...
+                        @foreach (var item in Model.FavoriteBooks)
+                        {
+                            <div class="product">
+                                <span class="product-label label-sale">فروش ویژه</span>
+                                <figure class="product-media">
+                                    <a href="@item.Id">
+                                        <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
                                     </a>
-                                </h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    17,000 تومان
-                                </div><!-- End .product-price -->
+                                </figure><!-- End .product-media -->
 
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 100%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 7 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
+                                <div class="product-body">
+                                    <div class="product-cat" dir="rtl">
+                                        نویسنده : <a href="#">@item.AuthorName</a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title"><a href="product.html">@item.Title</a></h3>
+                                    <!-- End .product-title -->
 
-                        <div class="product">
-                            <span class="product-label label-sale">فروش ویژه</span>
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-3.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">راشل ریپینکات</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">فاصله 5 فوت</a></h3>
-                                <!-- End .product-title -->
-                                <div class="product-price">
-                                    <span class="new-price">14,000 تومان</span>
-                                    <span class="old-price">18,000</span>
-                                </div><!-- End .product-price -->
-
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 60%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 6 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-4.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">کارن مک مانوس </a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title"><a href="product.html">یک از ما دروغ می گوید</a></h3>
-                                <!-- End .product-title -->
-                                <div class="product-price">
-                                    17,000 تومان
-                                </div><!-- End .product-price -->
-
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 100%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 10 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-5.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">مت هایگ</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a href="product.html">چگونه زمان را متوقف کنیم</a>
-                                </h3>
-                                <!-- End .product-title -->
-                                <div class="product-price">
-                                    11,000 تومان
-                                </div><!-- End .product-price -->
-
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 100%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 10 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-6.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">جان گری</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a href="product.html">شاهدین جنایت: نسخه اختصاصی</a>
-                                </h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    24,000 تومان
-                                </div><!-- End .product-price -->
-
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 100%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 10 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                    </div><!-- End .product -->
+                                    <div class="product-footer">
+                                        <div class="product-action">
+                                            <a href="#" class="btn-product btn-cart">
+                                                <span>
+                                                    افزودن به سبد
+                                                    خرید
+                                                </span>
+                                            </a>
+                                            <a href="#" class="btn-product btn-wishlist">
+                                                <span>
+                                                    افزودن به لیست علاقه
+                                                    مندی
+                                                </span>
+                                            </a>
+                                        </div><!-- End .product-action -->
+                                    </div><!-- End .product-footer -->
+                                </div><!-- End .product-body -->
+                            </div>
+                        }
 
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->
@@ -398,81 +161,6 @@
         </div><!-- End .header-flex -->
 
         <div class="row">
-            <div class="col-xl-4">
-                <div class="owl-carousel carousel-equal-height owl-simple" data-toggle="owl" data-owl-options='{
-                                "nav": false,
-                                "rtl": true,
-                                "dots": true,
-                                "margin": 10
-                            }'>
-                    <div class="product-big">
-                        <img src="/MainSite/assets/images/demos/demo-20/products/product-big-1-bg.jpg"
-                             alt="product bg img">
-
-                        <div class="product-wrap">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-big-1.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسندگان : <a href="#">بکی آلبرتالی</a> و <a href="#">آدام سیلورا</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a href="product.html">
-                                        اگر ما باشیم <br>چه می
-                                        کنیم.
-                                    </a>
-                                </h3>
-                                <!-- End .product-title -->
-                                <div class="product-price">
-                                    18,000 تومان
-                                </div><!-- End .product-price -->
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>افزودن به سبد</span></a>
-                                </div><!-- End .product-action -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product-wrap -->
-                    </div><!-- End .product-big -->
-
-                    <div class="product-big">
-                        <img src="/MainSite/assets/images/demos/demo-20/products/product-big-2-bg.jpg"
-                             alt="product bg img">
-
-                        <div class="product-wrap">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-12.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">نیکولا یون </a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a href="product.html">خورشید نیز یک ستاره است</a>
-                                </h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    10,000 تومان
-                                </div><!-- End .product-price -->
-
-                                <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
-                                </div><!-- End .product-action -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product-wrap -->
-                    </div><!-- End .product-big -->
-                </div><!-- End .owl-carousel -->
-
-                <div class="mb-3 d-xl-none"></div><!-- End .mb-3 d-none -->
-            </div><!-- End .col-lg-4 -->
-
             <div class="col-xl-8">
                 <div class="block-wrapper ">
                     <div class="owl-carousel carousel-equal-height owl-simple" data-toggle="owl"
@@ -503,191 +191,41 @@
                                         }
                                     }
                                 }'>
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-6.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">جان گری</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a href="product.html">شاهدین جنایت: نسخه اختصاصی</a>
-                                </h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    24,000 تومان
-                                </div><!-- End .product-price -->
-
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 80%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 5 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-7.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">جان گری</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
+                        @foreach (var item in Model.LatestBooks)
+                        {
+                            <div class="product">
+                                <figure class="product-media">
                                     <a href="product.html">
-                                        ماه : تاریخچه ای برای آینده
+                                        <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
                                     </a>
-                                </h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    16,000 تومان
-                                </div><!-- End .product-price -->
+                                </figure><!-- End .product-media -->
 
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 80%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 5 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-8.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">جان گری</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a href="product.html">
-                                        سخت هل داده شده: داستانی
-                                        تخیلی
-                                    </a>
-                                </h3><!-- End .product-title -->
-                                <div class="product-price">
-                                    12,000 تومان
-                                </div><!-- End .product-price -->
-
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 100%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 4 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
-
-                        <div class="product">
-                            <figure class="product-media">
-                                <a href="product.html">
-                                    <img src="/MainSite/assets/images/demos/demo-20/products/product-9.jpg"
-                                         alt="تصویر محصول" class="product-image">
-                                </a>
-                            </figure><!-- End .product-media -->
-
-                            <div class="product-body">
-                                <div class="product-cat" dir="rtl">
-                                    نویسنده : <a href="#">جان گری</a>
-                                </div><!-- End .product-cat -->
-                                <h3 class="product-title">
-                                    <a href="product.html">این دروغ شما را خواهد کشت</a>
-                                </h3>
-                                <!-- End .product-title -->
-                                <div class="product-price">
-                                    7,000 تومان
-                                </div><!-- End .product-price -->
-
-                                <div class="product-footer">
-                                    <div class="ratings-container">
-                                        <div class="ratings">
-                                            <div class="ratings-val" style="width: 0%;"></div>
-                                            <!-- End .ratings-val -->
-                                        </div><!-- End .ratings -->
-                                        <span class="ratings-text">( 0 دیدگاه )</span>
-                                    </div><!-- End .rating-container -->
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart">
-                                            <span>
-                                                افزودن به سبد
-                                                خرید
-                                            </span>
-                                        </a>
-                                        <a href="#" class="btn-product btn-wishlist">
-                                            <span>
-                                                افزودن به لیست علاقه
-                                                مندی
-                                            </span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </div><!-- End .product-footer -->
-                            </div><!-- End .product-body -->
-                        </div><!-- End .product -->
+                                <div class="product-body">
+                                    <div class="product-cat" dir="rtl">
+                                        نویسنده : <a href="#">@item.AuthorName</a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title">
+                                        <a href="product.html">@item.Title</a>
+                                    </h3><!-- End .product-title -->
+                                    <div class="product-footer">
+                                        <div class="product-action">
+                                            <a href="#" class="btn-product btn-cart">
+                                                <span>
+                                                    افزودن به سبد
+                                                    خرید
+                                                </span>
+                                            </a>
+                                            <a href="#" class="btn-product btn-wishlist">
+                                                <span>
+                                                    افزودن به لیست علاقه
+                                                    مندی
+                                                </span>
+                                            </a>
+                                        </div><!-- End .product-action -->
+                                    </div><!-- End .product-footer -->
+                                </div><!-- End .product-body -->
+                            </div><!-- End .product -->
+                        }
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .block-wrapper -->
             </div><!-- End .col-lg-8 -->
@@ -699,370 +237,27 @@
     <div class="banner-group mb-2">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4">
-                    <div class="banner banner-overlay">
-                        <a href="#">
-                            <img src="/MainSite/assets/images/demos/demo-20/banners/banner-6.jpg" alt="بنر">
-                        </a>
-
-                        <div class="banner-content text-right">
-                            <h4 class="banner-subtitle text-white">
-                                <a href="#">بهترین انتخاب برای کودکان شما</a>
-                            </h4><!-- End .banner-subtitle -->
-                            <h3 class="banner-title text-white">
-                                <a href="#">پرفروش ترین <br>کتاب های کودکان</a>
-                            </h3><!-- End .banner-title -->
-                            <a href="#" class="btn btn-outline-white-3 banner-link">
-                                مشاهده<i class="icon-long-arrow-left"></i>
+                @foreach (var item in Model.Banners)
+                {
+                    <div class="col-md-6 col-lg-4">
+                        <div class="banner banner-overlay">
+                            <a href="#">
+                                <img src="/Images/Banners/@item.Image" alt="بنر">
                             </a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-                </div><!-- End .col-lg-4 -->
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="banner banner-overlay">
-                        <a href="#">
-                            <img src="/MainSite/assets/images/demos/demo-20/banners/banner-7.jpg" alt="بنر">
-                        </a>
-
-                        <div class="banner-content text-right">
-                            <h4 class="banner-subtitle text-white">
-                                <a href="#">کتاب های سلامت روان</a>
-                            </h4><!-- End .banner-subtitle -->
-                            <h3 class="banner-title text-white">
-                                <a href="#">بهترین پیشنهادات <br>برای شما</a>
-                            </h3><!-- End .banner-title -->
-                            <a href="#" class="btn btn-outline-white-3 banner-link">
-                                مشاهده<i class="icon-long-arrow-left"></i>
-                            </a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-                </div><!-- End .col-lg-4 -->
-
-                <div class="col-md-6 col-lg-4">
-                    <div class="banner banner-overlay">
-                        <a href="#">
-                            <img src="/MainSite/assets/images/demos/demo-20/banners/banner-8.jpg" alt="بنر">
-                        </a>
-
-                        <div class="banner-content text-right">
-                            <h4 class="banner-subtitle text-white">
-                                <a href="#">بهترین کتاب های آشپزی</a>
-                            </h4><!-- End .banner-subtitle -->
-                            <h3 class="banner-title text-white">
-                                <a href="#">
-                                    پرفروش ترین های <br>غذا و
-                                    نوشیدنی
+                            <div class="banner-content text-right">
+                                <h3 class="banner-title text-white">
+                                    <a href="#">@item.Title</a>
+                                </h3><!-- End .banner-title -->
+                                <a href="#" class="btn btn-outline-white-3 banner-link">
+                                    مشاهده<i class="icon-long-arrow-left"></i>
                                 </a>
-                            </h3><!-- End .banner-title -->
-                            <a href="#" class="btn btn-outline-white-3 banner-link">
-                                مشاهده<i class="icon-long-arrow-left"></i>
-                            </a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-                </div><!-- End .col-lg-4 -->
+                            </div><!-- End .banner-content -->
+                        </div><!-- End .banner -->
+                    </div><!-- End .col-lg-4 -->
+                }
             </div><!-- End .row -->
         </div><!-- End .container -->
     </div><!-- End .banner-group -->
-
-    <div class="block">
-        <div class="block-wrapper ">
-            <div class="container">
-                <div class="heading heading-flex">
-                    <div class="heading-left">
-                        <h2 class="title">پیشنهاد کارشناسان</h2><!-- End .title -->
-                    </div><!-- End .heading-left -->
-
-                    <div class="heading-right">
-                        <a href="category.html" class="title-link">مشاهده محصولات بیشتر <i class="icon-long-arrow-left"></i></a>
-                    </div><!-- End .heading-right -->
-                </div><!-- End .header-flex -->
-
-                <div class="owl-carousel carousel-equal-height owl-simple owl-rtl owl-loaded owl-drag" data-toggle="owl" data-owl-options="{
-                                &quot;nav&quot;: false,
-                                &quot;dots&quot;: true,
-                                &quot;margin&quot;: 20,
-                                &quot;loop&quot;: false,
-                                &quot;rtl&quot;: true,
-                            &quot;responsive&quot;: {
-                                    &quot;0&quot;: {
-                                        &quot;items&quot;:2
-                                    },
-                                    &quot;480&quot;: {
-                                        &quot;items&quot;:2
-                                    },
-                                    &quot;768&quot;: {
-                                        &quot;items&quot;:3
-                                    },
-                                    &quot;992&quot;: {
-                                        &quot;items&quot;:4
-                                    },
-                                    &quot;1200&quot;: {
-                                        &quot;items&quot;:5
-                                    },
-                                    &quot;1440&quot;: {
-                                        &quot;items&quot;:6
-                                    }
-                                }
-                            }">
-                    <!-- End .product -->
-                    <!-- End .product -->
-                    <!-- End .product -->
-                    <!-- End .product -->
-                    <!-- End .product -->
-                    <!-- End .product -->
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1421px;">
-                            <div class="owl-item active" style="width: 216.667px; margin-left: 20px;">
-                                <div class="product">
-                                    <span class="product-label label-sale">فروش ویژه</span>
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/MainSite/assets/images/demos/demo-20/products/product-10.jpg" alt="تصویر محصول" class="product-image">
-                                        </a>
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat" dir="rtl">
-                                            نویسنده : <a href="#">جان گری</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">مردم معمولی</a></h3>
-                                        <!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">6,000 تومان</span>
-                                            <span class="old-price">Was 10,000 تومان</span>
-                                        </div><!-- End .product-price -->
-
-                                        <div class="product-footer">
-                                            <div class="ratings-container">
-                                                <div class="ratings">
-                                                    <div class="ratings-val" style="width: 60%;"></div>
-                                                    <!-- End .ratings-val -->
-                                                </div><!-- End .ratings -->
-                                                <span class="ratings-text">( 5 دیدگاه )</span>
-                                            </div><!-- End .rating-container -->
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
-                                                <a href="#" class="btn-product btn-wishlist">
-                                                    <span>
-                                                        افزودن به لیست علاقه
-                                                        مندی
-                                                    </span>
-                                                </a>
-                                            </div><!-- End .product-action -->
-                                        </div><!-- End .product-footer -->
-                                    </div><!-- End .product-body -->
-                                </div>
-                            </div><div class="owl-item active" style="width: 216.667px; margin-left: 20px;">
-                                <div class="product">
-                                    <span class="product-label label-sale">فروش ویژه</span>
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/MainSite/assets/images/demos/demo-20/products/product-11.jpg" alt="تصویر محصول" class="product-image">
-                                        </a>
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat" dir="rtl">
-                                            نویسنده : <a href="#">جان گری</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">سکوت دختران</a></h3>
-                                        <!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">6,000 تومان</span>
-                                            <span class="old-price">90,000</span>
-                                        </div><!-- End .product-price -->
-
-                                        <div class="product-footer">
-                                            <div class="ratings-container">
-                                                <div class="ratings">
-                                                    <div class="ratings-val" style="width: 100%;"></div>
-                                                    <!-- End .ratings-val -->
-                                                </div><!-- End .ratings -->
-                                                <span class="ratings-text">( 7 دیدگاه )</span>
-                                            </div><!-- End .rating-container -->
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
-                                                <a href="#" class="btn-product btn-wishlist">
-                                                    <span>
-                                                        افزودن به لیست علاقه
-                                                        مندی
-                                                    </span>
-                                                </a>
-                                            </div><!-- End .product-action -->
-                                        </div><!-- End .product-footer -->
-                                    </div><!-- End .product-body -->
-                                </div>
-                            </div><div class="owl-item active" style="width: 216.667px; margin-left: 20px;">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/MainSite/assets/images/demos/demo-20/products/product-12.jpg" alt="تصویر محصول" class="product-image">
-                                        </a>
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat" dir="rtl">
-                                            نویسنده : <a href="#">جان گری</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">تو متوجهش شدی</a></h3>
-                                        <!-- End .product-title -->
-                                        <div class="product-price">
-                                            7,000 تومان
-                                        </div><!-- End .product-price -->
-
-                                        <div class="product-footer">
-                                            <div class="ratings-container">
-                                                <div class="ratings">
-                                                    <div class="ratings-val" style="width: 60%;"></div>
-                                                    <!-- End .ratings-val -->
-                                                </div><!-- End .ratings -->
-                                                <span class="ratings-text">( 6 دیدگاه )</span>
-                                            </div><!-- End .rating-container -->
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
-                                                <a href="#" class="btn-product btn-wishlist">
-                                                    <span>
-                                                        افزودن به لیست علاقه
-                                                        مندی
-                                                    </span>
-                                                </a>
-                                            </div><!-- End .product-action -->
-                                        </div><!-- End .product-footer -->
-                                    </div><!-- End .product-body -->
-                                </div>
-                            </div><div class="owl-item active" style="width: 216.667px; margin-left: 20px;">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/MainSite/assets/images/demos/demo-20/products/product-1.jpg" alt="تصویر محصول" class="product-image">
-                                        </a>
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat" dir="rtl">
-                                            نویسنده : <a href="#">جان گری</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title">
-                                            <a href="product.html">کتابدار <br>آشویتس</a>
-                                        </h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            10,000 تومان
-                                        </div><!-- End .product-price -->
-
-                                        <div class="product-footer">
-                                            <div class="ratings-container">
-                                                <div class="ratings">
-                                                    <div class="ratings-val" style="width: 0%;"></div>
-                                                    <!-- End .ratings-val -->
-                                                </div><!-- End .ratings -->
-                                                <span class="ratings-text">( 0 دیدگاه )</span>
-                                            </div><!-- End .rating-container -->
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
-                                                <a href="#" class="btn-product btn-wishlist">
-                                                    <span>
-                                                        افزودن به لیست علاقه
-                                                        مندی
-                                                    </span>
-                                                </a>
-                                            </div><!-- End .product-action -->
-                                        </div><!-- End .product-footer -->
-                                    </div><!-- End .product-body -->
-                                </div>
-                            </div><div class="owl-item active" style="width: 216.667px; margin-left: 20px;">
-                                <div class="product">
-                                    <span class="product-label label-sale">فروش ویژه</span>
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/MainSite/assets/images/demos/demo-20/products/product-14.jpg" alt="تصویر محصول" class="product-image">
-                                        </a>
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat" dir="rtl">
-                                            نویسنده : <a href="#">جان گری</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title">
-                                            <a href="product.html">
-                                                سرزمین پول: چرا اکنون دزدان و
-                                                کلاهبرداران جکومت می کنند ...
-                                            </a>
-                                        </h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            <span class="new-price">7,000 تومان</span>
-                                            <span class="old-price">12,000</span>
-                                        </div><!-- End .product-price -->
-
-                                        <div class="product-footer">
-                                            <div class="ratings-container">
-                                                <div class="ratings">
-                                                    <div class="ratings-val" style="width: 100%;"></div>
-                                                    <!-- End .ratings-val -->
-                                                </div><!-- End .ratings -->
-                                                <span class="ratings-text">( 13 دیدگاه )</span>
-                                            </div><!-- End .rating-container -->
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
-                                                <a href="#" class="btn-product btn-wishlist">
-                                                    <span>
-                                                        افزودن به لیست علاقه
-                                                        مندی
-                                                    </span>
-                                                </a>
-                                            </div><!-- End .product-action -->
-                                        </div><!-- End .product-footer -->
-                                    </div><!-- End .product-body -->
-                                </div>
-                            </div><div class="owl-item active" style="width: 216.667px; margin-left: 20px;">
-                                <div class="product">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="/MainSite/assets/images/demos/demo-20/products/product-2.jpg" alt="تصویر محصول" class="product-image">
-                                        </a>
-                                    </figure><!-- End .product-media -->
-
-                                    <div class="product-body">
-                                        <div class="product-cat" dir="rtl">
-                                            نویسنده : <a href="#">جان گری</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title">
-                                            <a href="product.html">
-                                                این دردناک است: خاطرات مخفی یک
-                                                انسان
-                                            </a>
-                                        </h3><!-- End .product-title -->
-                                        <div class="product-price">
-                                            12,000 تومان
-                                        </div><!-- End .product-price -->
-
-                                        <div class="product-footer">
-                                            <div class="ratings-container">
-                                                <div class="ratings">
-                                                    <div class="ratings-val" style="width: 80%;"></div>
-                                                    <!-- End .ratings-val -->
-                                                </div><!-- End .ratings -->
-                                                <span class="ratings-text">( 4 دیدگاه )</span>
-                                            </div><!-- End .rating-container -->
-                                            <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
-                                                <a href="#" class="btn-product btn-wishlist">
-                                                    <span>
-                                                        افزودن به لیست علاقه
-                                                        مندی
-                                                    </span>
-                                                </a>
-                                            </div><!-- End .product-action -->
-                                        </div><!-- End .product-footer -->
-                                    </div><!-- End .product-body -->
-                                </div>
-                            </div>
-                        </div>
-                    </div><div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev"><i class="icon-angle-left"></i></button><button type="button" role="presentation" class="owl-next"><i class="icon-angle-right"></i></button></div><div class="owl-dots disabled"><button role="button" class="owl-dot active"><span></span></button></div>
-                </div><!-- End .owl-carousel -->
-            </div><!-- End .container -->
-        </div><!-- End .block-wrapper -->
-    </div>
 
     <div class="icon-boxes-container bg-transparent">
         <div class="container">

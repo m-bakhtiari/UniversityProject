@@ -14,5 +14,7 @@ namespace UniversityProject.Core.Repositories
         Task<List<Book>> GetAll();
         Task<Book> GetItem(int id);
         Task<List<BookTitle>> GetAllTitles();
+        Task<List<Book>> GetLatestBook();
+        Task<List<Book>> GetPopularBooks();
     }
 }

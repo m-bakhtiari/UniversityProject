@@ -56,6 +56,17 @@ namespace UniversityProject.Core.Services
             return await _context.Books.FindAsync(id);
         }
 
+        public async Task<List<Book>> GetLatestBook()
+        {
+            return await _context.Books.OrderByDescending(x => x.PublishDate).Take(10).ToListAsync();
+        }
+
+        public async Task<List<Book>> GetPopularBooks()
+        {
+            return await _context.Books.Include(x => x.UserBooks).OrderByDescending(x => x.UserBooks.Count).Take(10)
+                .ToListAsync();
+        }
+
         public async Task<string> Insert(Book book, IFormFile imgBook)
         {
             if (string.IsNullOrWhiteSpace(book.Title))

@@ -39,6 +39,7 @@ namespace UniversityProject.Data.Entities
         #region Relations
 
         public List<Comment> Comments { get; set; }
+        public List<UserBook> UserBooks { get; set; }
 
         #endregion   
     }

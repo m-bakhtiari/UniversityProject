@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using UniversityProject.Core.Repositories;
@@ -35,18 +37,19 @@ namespace UniversityProject.Core.Services
 
         public async Task<string> Insert(UserBook userBook)
         {
-            if (await _context.UsersBook.AnyAsync(x => x.BookId == userBook.BookId))
+            if (await _context.UsersBook.AnyAsync(x => x.BookId == userBook.BookId && x.EndDate == null))
             {
                 return "کتاب در دسترس نمی باشد";
             }
 
-            var user = await _context.Users.FindAsync(userBook.UserId);
-            if (user.Penalty.HasValue)
+            if (userBook.EndDate < userBook.StartDate)
             {
-                if (user.Penalty > 100000)
-                {
-                    return "مبلغ جریمه را پرداخت نمایید";
-                }
+                return "تاریخ پایان معتبر نمی باشد";
+            }
+            var user = await _context.Users.FindAsync(userBook.UserId);
+            if (user.Penalty > 200000)
+            {
+                return "مبلغ جریمه را پرداخت نمایید";
             }
             if (userBook.EndDate.HasValue)
             {
@@ -62,8 +65,16 @@ namespace UniversityProject.Core.Services
             return null;
         }
 
-        public async Task Update(UserBook userBook)
+        public async Task<string> Update(UserBook userBook)
         {
+            if (userBook.EndDate < userBook.StartDate)
+            {
+                return "تاریخ پایان معتبر نمی باشد";
+            }
+            if (userBook.EndDate == new DateTime(0001, 01, 01, 0, 0, 0))
+            {
+                userBook.EndDate = null;
+            }
             _context.UsersBook.Update(userBook);
             if (userBook.EndDate.HasValue)
             {
@@ -76,6 +87,7 @@ namespace UniversityProject.Core.Services
                 }
             }
             await _context.SaveChangesAsync();
+            return null;
         }
     }
 }
