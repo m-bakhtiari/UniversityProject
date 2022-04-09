@@ -36,17 +36,12 @@ namespace UniversityProject.Core.Services
 
         public async Task<List<Category>> GetAll()
         {
-            return await _context.Categories.ToListAsync();
+            return await _context.Categories.Include(x=>x.BookCategories).ToListAsync();
         }
 
         public async Task<Category> GetItem(int id)
         {
             return await _context.Categories.FindAsync(id);
-        }
-
-        public async Task<List<Category>> GetMainGroups()
-        {
-            return await _context.Categories.Where(x => x.ParentId == null).ToListAsync();
         }
 
         public async Task<string> Insert(Category category)

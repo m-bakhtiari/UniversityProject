@@ -1,1 +1,237 @@
-﻿
+﻿@model UniversityProject.Core.DTOs.LibraryDto
+
+@{
+    var counter = 1;
+}
+
+<form method="get" action="/Library" id="bookSearch">
+    <input type="hidden" asp-for="PageId" value="@Model.PageId" />
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('/Images/Static/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">4 ستونه<span>فروشگاه</span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                    <li class="breadcrumb-item active"><a href="/Library">فروشگاه</a></li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="toolbox">
+                            <div class="toolbox-left">
+                                <div class="toolbox-info">
+                                    نمایش <span>@Model.ItemPerPage از @Model.CountAll</span> محصول
+                                </div><!-- End .toolbox-info -->
+                            </div><!-- End .toolbox-left -->
+
+                            <div class="toolbox-right">
+                                <div class="toolbox-sort">
+                                    <label for="sortby">مرتب سازی براساس : </label>
+                                    <select name="SortBy" id="sortby" class="form-control">
+                                        <option value="popularity" selected="selected">بیشترین خرید</option>
+                                        <option value="publishDate">تاریخ انتشار</option>
+                                        <option value="addedDate">تاریخ حضور</option>
+                                    </select>
+                                </div><!-- End .toolbox-sort -->
+                            </div><!-- End .toolbox-right -->
+                        </div><!-- End .toolbox -->
+
+                        <div class="products mb-3">
+                            <div class="row justify-content-center">
+                                @if (Model.Books != null)
+                                {
+                                    foreach (var item in Model.Books)
+                                    {
+                                        <div class="col-6 col-md-4 col-lg-4 col-xl-3">
+                                            <div class="product product-7 text-center">
+                                                <figure class="product-media">
+                                                    <span class="product-label label-new">ناموجود</span>
+                                                    <a href="product.html">
+                                                        <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
+                                                    </a>
+
+                                                    <div class="product-action-vertical">
+                                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable">
+                                                            <span>
+                                                                افزودن
+                                                                به لیست علاقه مندی
+                                                            </span>
+                                                        </a>
+                                                    </div><!-- End .product-action-vertical -->
+
+                                                    <div class="product-action">
+                                                        <a href="#" class="btn-product btn-cart">
+                                                            <span>
+                                                                افزودن به
+                                                                سبد خرید
+                                                            </span>
+                                                        </a>
+                                                    </div><!-- End .product-action -->
+                                                </figure><!-- End .product-media -->
+
+                                                <div class="product-body">
+                                                    <div class="product-cat text-center">
+                                                        <a href="#">نام نویسنده : @item.AuthorName</a>
+                                                    </div><!-- End .product-cat -->
+                                                    <h3 class="product-title text-center">
+                                                        <a href="product.html">@item.Title</a>
+                                                    </h3><!-- End .product-title -->
+                                                </div><!-- End .product-body -->
+                                            </div><!-- End .product -->
+                                        </div><!-- End .col-sm-6 col-lg-4 col-xl-3 -->
+                                    }
+                                }
+                                else
+                                {
+                                    <h2 class="alert alert-warning">هیچ کتابی با این اطلاعات یافت نشد</h2>
+                                }
+                            </div><!-- End .row -->
+                        </div><!-- End .products -->
+
+
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center">
+                                @for (int i = 1; i <= Math.Ceiling((double)Model.CountAll / Model.ItemPerPage); i++)
+                                {
+                                    <li class="page-item active"><a class="page-link" onclick="changePage(@i)">@i</a></li>
+                                }
+                                <li class="page-item-total">از @Math.Ceiling((double)Model.CountAll / Model.ItemPerPage)</li>
+                            </ul>
+                        </nav>
+                    </div><!-- End .col-lg-9 -->
+                    <aside class="col-lg-3 order-lg-first">
+                        <div class="sidebar sidebar-shop">
+                            <div class="widget widget-clean">
+                                <label>فیلترها : </label>
+                            </div><!-- End .widget widget-clean -->
+
+                            <div class="widget widget-collapsible">
+                                <h3 class="widget-title">
+                                    <a data-toggle="collapse" href="#widget-6" role="button" aria-expanded="true" aria-controls="widget-6">
+                                        دسته بندی
+                                    </a>
+                                </h3><!-- End .widget-title -->
+
+                                <div class="collapse show" id="widget-6">
+                                    <div class="widget-body">
+                                        <div class="filter-items filter-items-count">
+                                            <input type="text" asp-for="Title" class="form-control" title="عنوان" />
+                                        </div><!-- End .filter-items -->
+                                    </div><!-- End .widget-body -->
+                                </div><!-- End .collapse -->
+
+                            </div><!-- End .widget -->
+
+                            <div class="widget widget-collapsible">
+                                <h3 class="widget-title">
+                                    <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+                                        دسته بندی
+                                    </a>
+                                </h3><!-- End .widget-title -->
+                                <div class="collapse show" id="widget-1">
+                                    <div class="widget-body">
+                                        <div class="filter-items filter-items-count">
+                                            @if (Model.Categories != null)
+                                            {
+                                                foreach (var item in Model.Categories)
+                                                {
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="cat-@counter" name="CategoryIdSearch"
+                                                                   @(Model.CategoryIdSearch != null ? Model.CategoryIdSearch.Contains(item.Id) ? "checked='checked'" : "" : "")
+                                                                   value="@item.Id">
+                                                            <label class="custom-control-label" for="cat-@counter">@item.Title</label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                        <span class="item-count badge badge-primary">@item.BookCategories.Count()</span>
+                                                    </div><!-- End .filter-item -->
+                                                    counter++;
+                                                }
+                                            }
+                                        </div><!-- End .filter-items -->
+                                    </div><!-- End .widget-body -->
+                                </div><!-- End .collapse -->
+                            </div><!-- End .widget -->
+
+                            <div class="widget widget-collapsible">
+                                <h3 class="widget-title">
+                                    <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
+                                        بر اساس تاریخ
+                                    </a>
+                                </h3><!-- End .widget-title -->
+
+                                <div class="collapse show" id="widget-4">
+                                    <label>تاریخ شروع</label>
+                                    <input class="datepicker-demo observer-example1 pwt-datepicker-input-element form-control" asp-for="StartDate" autocomplete="off">
+                                    <label>تاریخ پایان</label>
+                                    <input class="datepicker-demo observer-example2 pwt-datepicker-input-element form-control" asp-for="EndDate" autocomplete="off">
+                                </div><!-- End .collapse -->
+                            </div><!-- End .widget -->
+
+                            <div class="widget widget-collapsible">
+                                <h3 class="widget-title">
+                                    <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
+                                        بر اساس تاریخ
+                                    </a>
+                                </h3><!-- End .widget-title -->
+
+                                <div class="collapse show" id="widget-5">
+                                    <label>تاریخ شروع</label>
+                                    <input class="datepicker-demo observer-example3 pwt-datepicker-input-element form-control" asp-for="StartPublishDate" autocomplete="off">
+                                    <label>تاریخ پایان</label>
+                                    <input class="datepicker-demo observer-example4 pwt-datepicker-input-element form-control" asp-for="EndPublishDate" autocomplete="off">
+                                </div><!-- End .collapse -->
+                            </div><!-- End .widget -->
+
+                            <div class="widget widget-collapsible">
+                                <h3 class="widget-title">
+                                    <a data-toggle="collapse" href="#widget-7" role="button" aria-expanded="true" aria-controls="widget-7">
+                                        دسته بندی
+                                    </a>
+                                </h3><!-- End .widget-title -->
+
+                                <div class="collapse show" id="widget-7">
+                                    <div class="widget-body">
+                                        <div class="filter-items filter-items-count">
+                                            <label>موجود در کتابخانه</label>
+                                            <input type="checkbox" asp-for="IsAvailable" />
+                                        </div><!-- End .filter-items -->
+                                    </div><!-- End .widget-body -->
+                                </div><!-- End .collapse -->
+
+                            </div><!-- End .widget -->
+
+                            <input type="submit" title="بیاب" />
+
+                        </div><!-- End .sidebar sidebar-shop -->
+                    </aside><!-- End .col-lg-3 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .page-content -->
+    </main>
+</form>
+
+@section Styles
+{
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            
+        });
+
+        function changePage(pageId) {
+            $("#pageId").val(pageId);
+            $("#bookSearch").submit();
+        }
+    </script>
+}

@@ -33,6 +33,8 @@ namespace UniversityProject.Data.Entities
         [MaxLength(300)]
         public string ImageName { get; set; }
 
+        public bool IsAvailable { get; set; }
+
         [Required]
         public DateTime AddedDate { get; set; }
 
@@ -40,6 +42,7 @@ namespace UniversityProject.Data.Entities
 
         public List<Comment> Comments { get; set; }
         public List<UserBook> UserBooks { get; set; }
+        public List<BookCategory> BookCategories { get; set; }
 
         #endregion   
     }

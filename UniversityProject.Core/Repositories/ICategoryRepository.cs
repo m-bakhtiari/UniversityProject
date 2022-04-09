@@ -11,6 +11,5 @@ namespace UniversityProject.Core.Repositories
         Task Delete(int id);
         Task<List<Category>> GetAll();
         Task<Category> GetItem(int id);
-        Task<List<Category>> GetMainGroups();
     }
 }

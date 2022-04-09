@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UniversityProject.Data.Entities
@@ -18,6 +19,8 @@ namespace UniversityProject.Data.Entities
 
         [ForeignKey(nameof(ParentId))]
         public Category SubCategory { get; set; }
+
+        public List<BookCategory> BookCategories { get; set; }
         #endregion
     }
 }

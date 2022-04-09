@@ -61,6 +61,96 @@ namespace UniversityProject.Core.Services
             return await _context.Books.OrderByDescending(x => x.PublishDate).Take(10).ToListAsync();
         }
 
+        public async Task<LibraryDto> GetLibraryData(LibraryDto libraryDto)
+        {
+            IQueryable<Book> result = _context.Books.Include(x => x.BookCategories);
+            if (libraryDto.CategoryIdSearch != null)
+            {
+                var subGroup = await _context.Categories.Where(x => libraryDto.CategoryIdSearch.Contains(x.ParentId.Value))
+                    .Select(x => x.Id).ToListAsync();
+                if (subGroup.Any())
+                {
+                    libraryDto.CategoryIdSearch.AddRange(subGroup);
+                }
+                result = _context.BookCategories.Where(x => libraryDto.CategoryIdSearch.Contains(x.CategoryId)).Select(x => x.Book);
+            }
+            if (string.IsNullOrWhiteSpace(libraryDto.EndPublishDate) == false)
+            {
+                result = result.Where(x => x.PublishDate <= Convert.ToDateTime(libraryDto.EndPublishDate));
+            }
+            if (string.IsNullOrWhiteSpace(libraryDto.StartPublishDate) == false)
+            {
+                result = result.Where(x => x.PublishDate >= Convert.ToDateTime(libraryDto.StartPublishDate));
+            }
+            if (string.IsNullOrWhiteSpace(libraryDto.EndDate) == false)
+            {
+                result = result.Where(x => x.AddedDate <= Convert.ToDateTime(libraryDto.EndDate));
+            }
+            if (string.IsNullOrWhiteSpace(libraryDto.StartDate) == false)
+            {
+                result = result.Where(x => x.AddedDate >= Convert.ToDateTime(libraryDto.StartDate));
+            }
+            if (string.IsNullOrWhiteSpace(libraryDto.Title) == false)
+            {
+                result = result.Where(x => x.Title.Contains(libraryDto.Title));
+            }
+            if (libraryDto.SortBy == "addedDate")
+            {
+                result = result.OrderByDescending(x => x.AddedDate);
+            }
+            else if (libraryDto.SortBy == "publishDate")
+            {
+                result = result.OrderByDescending(x => x.PublishDate);
+            }
+            else
+            {
+                result = result.OrderByDescending(x => x.UserBooks.Count);
+            }
+
+            if (libraryDto.AuthorNameSearch != null)
+            {
+                foreach (var item in libraryDto.AuthorNameSearch)
+                {
+                    result = result.Where(x => x.AuthorName.Contains(item));
+                }
+            }
+            if (libraryDto.PublisherNameSearch != null)
+            {
+                foreach (var item in libraryDto.PublisherNameSearch)
+                {
+                    result = result.Where(x => x.PublisherName.Contains(item));
+                }
+            }
+            if (libraryDto.IsAvailable)
+            {
+                result = result.Where(x => x.IsAvailable == libraryDto.IsAvailable);
+            }
+
+            result = result.Distinct();
+            var countAll = await result.CountAsync();
+            var skip = (libraryDto.PageId - 1) * libraryDto.ItemPerPage;
+            result = result.Skip(skip).Take(libraryDto.ItemPerPage);
+            var res = new LibraryDto
+            {
+                Books = await result.ToListAsync(),
+                Categories = await _context.Categories.Include(x => x.BookCategories).ToListAsync(),
+                CountAll = countAll,
+                Title = libraryDto.Title,
+                EndDate = libraryDto.EndDate,
+                CategoryIdSearch = libraryDto.CategoryIdSearch,
+                IsAvailable = libraryDto.IsAvailable,
+                Publishers = libraryDto.Publishers,
+                ItemPerPage = libraryDto.ItemPerPage,
+                AuthorNameSearch = libraryDto.AuthorNameSearch,
+                StartDate = libraryDto.StartDate,
+                PageId = libraryDto.PageId,
+                EndPublishDate = libraryDto.EndPublishDate,
+                SortBy = libraryDto.SortBy,
+                StartPublishDate = libraryDto.StartPublishDate,
+            };
+            return res;
+        }
+
         public async Task<List<Book>> GetPopularBooks()
         {
             return await _context.Books.Include(x => x.UserBooks).OrderByDescending(x => x.UserBooks.Count).Take(10)
@@ -87,6 +177,7 @@ namespace UniversityProject.Core.Services
             }
             book.IsDelete = false;
             book.AddedDate = DateTime.Now;
+            book.IsAvailable = true;
             if (imgBook != null)
             {
                 book.ImageName = NameGenerator.GenerateUniqCode() + Path.GetExtension(imgBook.FileName);
@@ -138,5 +229,6 @@ namespace UniversityProject.Core.Services
             await _context.SaveChangesAsync();
             return null;
         }
+
     }
 }

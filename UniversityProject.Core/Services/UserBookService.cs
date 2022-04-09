@@ -51,14 +51,23 @@ namespace UniversityProject.Core.Services
             {
                 return "مبلغ جریمه را پرداخت نمایید";
             }
+            var book = await _context.Books.FindAsync(userBook.BookId);
             if (userBook.EndDate.HasValue)
             {
-                var book = await _context.Books.FindAsync(userBook.BookId);
                 if ((userBook.EndDate.Value - userBook.StartDate).TotalDays > book.UsableDays)
                 {
                     user.Penalty = ((userBook.EndDate.Value - userBook.StartDate).TotalDays) * Const.PenaltyPerDay;
                     _context.Users.Update(user);
                 }
+            }
+
+            if (userBook.EndDate != null)
+            {
+                book.IsAvailable = true;
+            }
+            else
+            {
+                book.IsAvailable = false;
             }
             await _context.UsersBook.AddAsync(userBook);
             await _context.SaveChangesAsync();
@@ -75,10 +84,18 @@ namespace UniversityProject.Core.Services
             {
                 userBook.EndDate = null;
             }
+            var book = await _context.Books.FindAsync(userBook.BookId);
+            if (userBook.EndDate != null)
+            {
+                book.IsAvailable = true;
+            }
+            else
+            {
+                book.IsAvailable = false;
+            }
             _context.UsersBook.Update(userBook);
             if (userBook.EndDate.HasValue)
             {
-                var book = await _context.Books.FindAsync(userBook.BookId);
                 if ((userBook.EndDate.Value - userBook.StartDate).TotalDays > book.UsableDays)
                 {
                     var user = await _context.Users.FindAsync(userBook.UserId);

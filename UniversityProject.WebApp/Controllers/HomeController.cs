@@ -11,15 +11,13 @@ namespace UniversityProject.WebApp.Controllers
         private readonly IBannerRepository _bannerRepository;
         private readonly IBookRepository _bookRepository;
         private readonly ISliderRepository _sliderRepository;
-        private readonly IUserBookRepository _userBookRepository;
 
-        public HomeController(ICategoryRepository categoryRepository, IBannerRepository bannerRepository, IBookRepository bookRepository, ISliderRepository sliderRepository, IUserBookRepository userBookRepository)
+        public HomeController(ICategoryRepository categoryRepository, IBannerRepository bannerRepository, IBookRepository bookRepository, ISliderRepository sliderRepository)
         {
             _categoryRepository = categoryRepository;
             _bannerRepository = bannerRepository;
             _bookRepository = bookRepository;
             _sliderRepository = sliderRepository;
-            _userBookRepository = userBookRepository;
         }
 
         public async Task<IActionResult> Index()

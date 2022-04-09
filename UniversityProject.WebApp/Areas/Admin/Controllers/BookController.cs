@@ -57,6 +57,13 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 PublisherName = bookDto.PublisherName,
                 Title = bookDto.Title,
             };
+            if (bookDto.CategoryIds == null || bookDto.CategoryIds.Any() == false)
+            {
+                var category = await _categoryRepository.GetAll();
+                bookDto.Categories = category;
+                ViewBag.ShowModal = "true";
+                return View("Create", bookDto);
+            }
             var addBook = await _bookRepository.Insert(book, bookDto.Image);
             if (int.TryParse(addBook, out var res) == false)
             {
@@ -134,6 +141,13 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 Id = bookDto.Id,
                 ImageName = bookDto.ImageName
             };
+            if (bookDto.CategoryIds == null || bookDto.CategoryIds.Any() == false)
+            {
+                var category = await _categoryRepository.GetAll();
+                bookDto.Categories = category;
+                ViewBag.ShowModal = "true";
+                return View("Create", bookDto);
+            }
             var addBook = await _bookRepository.Update(book, bookDto.Image);
             if (string.IsNullOrWhiteSpace(addBook) == false)
             {

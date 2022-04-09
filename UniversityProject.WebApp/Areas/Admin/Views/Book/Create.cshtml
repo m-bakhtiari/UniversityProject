@@ -32,9 +32,9 @@ else
                     <form role="form" action="@ViewBag.ReturnUrl" method="post" enctype="multipart/form-data">
                         <div class="hidden">
                             <input type="hidden" value="@Model.Id" asp-for="Id" />
-                            <input type="hidden" value="@Model.IsAvailable" asp-for="IsAvailable" />
                             <input type="hidden" value="@Model.IsDelete" asp-for="IsDelete" />
                             <input type="hidden" value="@Model.ImageName" asp-for="ImageName" />
+                            <input type="hidden" value="@Model.IsAvailable" asp-for="IsAvailable" />
                         </div>
                         <div class="box-body">
                             <div class="form-group">
