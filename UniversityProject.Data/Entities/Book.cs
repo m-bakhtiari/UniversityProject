@@ -16,6 +16,9 @@ namespace UniversityProject.Data.Entities
         [Required]
         public string Description { get; set; }
 
+        [MaxLength(2000)]
+        public string ShortDescription { get; set; }
+
         [Required]
         [MaxLength(800)]
         public string AuthorName { get; set; }

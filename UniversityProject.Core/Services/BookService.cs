@@ -107,19 +107,13 @@ namespace UniversityProject.Core.Services
                 result = result.OrderByDescending(x => x.UserBooks.Count);
             }
 
-            if (libraryDto.AuthorNameSearch != null)
+            if (libraryDto.Authors != null)
             {
-                foreach (var item in libraryDto.AuthorNameSearch)
-                {
-                    result = result.Where(x => x.AuthorName.Contains(item));
-                }
+                result = result.Where(x => x.AuthorName.Contains(libraryDto.Authors));
             }
-            if (libraryDto.PublisherNameSearch != null)
+            if (libraryDto.Publishers != null)
             {
-                foreach (var item in libraryDto.PublisherNameSearch)
-                {
-                    result = result.Where(x => x.PublisherName.Contains(item));
-                }
+                result = result.Where(x => x.PublisherName.Contains(libraryDto.Publishers));
             }
             if (libraryDto.IsAvailable)
             {
@@ -128,8 +122,8 @@ namespace UniversityProject.Core.Services
 
             result = result.Distinct();
             var countAll = await result.CountAsync();
-            var skip = (libraryDto.PageId - 1) * libraryDto.ItemPerPage;
-            result = result.Skip(skip).Take(libraryDto.ItemPerPage);
+            var skip = (libraryDto.PageId - 1) * 12;
+            result = result.Skip(skip).Take(12);
             var res = new LibraryDto
             {
                 Books = await result.ToListAsync(),
@@ -140,8 +134,7 @@ namespace UniversityProject.Core.Services
                 CategoryIdSearch = libraryDto.CategoryIdSearch,
                 IsAvailable = libraryDto.IsAvailable,
                 Publishers = libraryDto.Publishers,
-                ItemPerPage = libraryDto.ItemPerPage,
-                AuthorNameSearch = libraryDto.AuthorNameSearch,
+                Authors = libraryDto.Authors,
                 StartDate = libraryDto.StartDate,
                 PageId = libraryDto.PageId,
                 EndPublishDate = libraryDto.EndPublishDate,

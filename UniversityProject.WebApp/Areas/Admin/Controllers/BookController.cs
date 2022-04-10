@@ -52,6 +52,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             {
                 AuthorName = bookDto.AuthorName,
                 Description = bookDto.Description,
+                ShortDescription = bookDto.ShortDescription,
                 PublishDate = new DateTime(bookDto.PublishYear, bookDto.PublishMonth, 1, new PersianCalendar()),
                 UsableDays = bookDto.UsableDays,
                 PublisherName = bookDto.PublisherName,
@@ -120,6 +121,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 CategoryIds = bookCategory.Select(x => x.CategoryId).ToList(),
                 PublishYear = int.Parse(book.PublishDate.ToShamsi().Split("/").FirstOrDefault() ?? "1401"),
                 PublishMonth = int.Parse(book.PublishDate.ToShamsi().Split("/")[1] ?? "1"),
+                ShortDescription = book.ShortDescription,
             };
             return View("Create", model);
         }
@@ -133,6 +135,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             var book = new Book()
             {
                 AuthorName = bookDto.AuthorName,
+                ShortDescription = bookDto.ShortDescription,
                 Description = bookDto.Description,
                 PublishDate = new DateTime(bookDto.PublishYear, bookDto.PublishMonth, 1, new PersianCalendar()),
                 UsableDays = bookDto.UsableDays,

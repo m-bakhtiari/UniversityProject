@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,6 +53,7 @@ namespace UniversityProject.Core.Services
             {
                 return "متن را وارد نمایید";
             }
+            comment.RecordDate = DateTime.Now;
             await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();
             return null;

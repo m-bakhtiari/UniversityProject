@@ -5,7 +5,7 @@
 }
 
 <form method="get" action="/Library" id="bookSearch">
-    <input type="hidden" asp-for="PageId" value="@Model.PageId" />
+    <input type="hidden" asp-for="PageId" id="pageId" value="@Model.PageId" />
     <main class="main">
         <div class="page-header text-center" style="background-image: url('/Images/Static/page-header-bg.jpg')">
             <div class="container">
@@ -26,12 +26,6 @@
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="toolbox">
-                            <div class="toolbox-left">
-                                <div class="toolbox-info">
-                                    نمایش <span>@Model.ItemPerPage از @Model.CountAll</span> محصول
-                                </div><!-- End .toolbox-info -->
-                            </div><!-- End .toolbox-left -->
-
                             <div class="toolbox-right">
                                 <div class="toolbox-sort">
                                     <label for="sortby">مرتب سازی براساس : </label>
@@ -99,11 +93,10 @@
 
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
-                                @for (int i = 1; i <= Math.Ceiling((double)Model.CountAll / Model.ItemPerPage); i++)
+                                @for (int i = 1; i <= Math.Ceiling((double)Model.CountAll / 12); i++)
                                 {
-                                    <li class="page-item active"><a class="page-link" onclick="changePage(@i)">@i</a></li>
+                                    <li class="page-item @(Model.PageId==i?"active":" ")"><a class="page-link" onclick="changePage(@i)">@i</a></li>
                                 }
-                                <li class="page-item-total">از @Math.Ceiling((double)Model.CountAll / Model.ItemPerPage)</li>
                             </ul>
                         </nav>
                     </div><!-- End .col-lg-9 -->
@@ -123,8 +116,18 @@
                                 <div class="collapse show" id="widget-6">
                                     <div class="widget-body">
                                         <div class="filter-items filter-items-count">
+                                            <label>عنوان</label>
                                             <input type="text" asp-for="Title" class="form-control" title="عنوان" />
-                                        </div><!-- End .filter-items -->
+                                        </div>
+                                        <div class="filter-items filter-items-count">
+                                            <label>نام نویسنده</label>
+                                            <input type="text" asp-for="Authors" class="form-control" title="نام نویسنده" />
+                                        </div>
+                                        <div class="filter-items filter-items-count">
+                                            <label>نام ناشر</label>
+                                            <input type="text" asp-for="Publishers" class="form-control" title="نام ناشر" />
+                                        </div>
+                                        <!-- End .filter-items -->
                                     </div><!-- End .widget-body -->
                                 </div><!-- End .collapse -->
 
@@ -169,9 +172,9 @@
 
                                 <div class="collapse show" id="widget-4">
                                     <label>تاریخ شروع</label>
-                                    <input class="datepicker-demo observer-example1 pwt-datepicker-input-element form-control" asp-for="StartDate" autocomplete="off">
+                                    <input class="date1 pwt-datepicker-input-element form-control" asp-for="StartDate" autocomplete="off">
                                     <label>تاریخ پایان</label>
-                                    <input class="datepicker-demo observer-example2 pwt-datepicker-input-element form-control" asp-for="EndDate" autocomplete="off">
+                                    <input class="date2 pwt-datepicker-input-element form-control" asp-for="EndDate" autocomplete="off">
                                 </div><!-- End .collapse -->
                             </div><!-- End .widget -->
 
@@ -184,9 +187,9 @@
 
                                 <div class="collapse show" id="widget-5">
                                     <label>تاریخ شروع</label>
-                                    <input class="datepicker-demo observer-example3 pwt-datepicker-input-element form-control" asp-for="StartPublishDate" autocomplete="off">
+                                    <input class="date3 pwt-datepicker-input-element form-control" asp-for="StartPublishDate" autocomplete="off">
                                     <label>تاریخ پایان</label>
-                                    <input class="datepicker-demo observer-example4 pwt-datepicker-input-element form-control" asp-for="EndPublishDate" autocomplete="off">
+                                    <input class="date4 pwt-datepicker-input-element form-control" asp-for="EndPublishDate" autocomplete="off">
                                 </div><!-- End .collapse -->
                             </div><!-- End .widget -->
 
@@ -220,13 +223,40 @@
 
 @section Styles
 {
+    <link rel="stylesheet" href="/MainSite/assets/css/plugins/babakhani-date-picker.css" />
 }
 
 @section Scripts
 {
+    <script src="/MainSite/assets/js/babakhani-date.js"></script>
+    <script src="/MainSite/assets/js/babakhani-date-picker.js"></script>
+
     <script type="text/javascript">
         $(function () {
-            
+            $('.date1').persianDatepicker({
+                observer: true,
+                format: 'YYYY/MM/DD',
+                autoClose: true,
+                initialValue: false
+            });
+            $('.date2').persianDatepicker({
+                observer: true,
+                format: 'YYYY/MM/DD',
+                autoClose: true,
+                initialValue: false
+            });
+            $('.date3').persianDatepicker({
+                observer: true,
+                format: 'YYYY/MM/DD',
+                autoClose: true,
+                initialValue: false
+            });
+            $('.date4').persianDatepicker({
+                observer: true,
+                format: 'YYYY/MM/DD',
+                autoClose: true,
+                initialValue: false
+            });
         });
 
         function changePage(pageId) {

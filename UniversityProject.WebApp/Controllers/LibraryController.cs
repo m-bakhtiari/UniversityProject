@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
+using UniversityProject.Core.Utils;
 
 namespace UniversityProject.WebApp.Controllers
 {
@@ -20,6 +21,10 @@ namespace UniversityProject.WebApp.Controllers
         public async Task<IActionResult> Index(LibraryDto libraryDto)
         {
             ViewData["Category"] = await _categoryRepository.GetAll();
+            libraryDto.StartDate = libraryDto.StartDate.ToEnglishNumbers();
+            libraryDto.EndDate = libraryDto.EndDate.ToEnglishNumbers();
+            libraryDto.StartPublishDate = libraryDto.StartPublishDate.ToEnglishNumbers();
+            libraryDto.EndPublishDate = libraryDto.EndPublishDate.ToEnglishNumbers();
             var model = await _bookRepository.GetLibraryData(libraryDto);
             return View(model);
         }

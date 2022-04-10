@@ -12,6 +12,7 @@ namespace UniversityProject.Core.DTOs
         public string Description { get; set; }
         public string AuthorName { get; set; }
         public string PublisherName { get; set; }
+        public string ShortDescription { get; set; }
         public bool IsAvailable { get; set; }
         public int UsableDays { get; set; }
         public int PublishYear { get; set; }
