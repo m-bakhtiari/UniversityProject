@@ -49,6 +49,10 @@ else
                                 <label for="@Model.PublisherName">نام ناشر</label>
                                 <input type="text" class="form-control" asp-for="@Model.PublisherName" id="@Model.PublisherName" placeholder="نام ناشر">
                             </div>
+                            <div class="form-group">
+                                <label for="@Model.ShortDescription">توضیح کوتاه</label>
+                                <textarea class="form-control" asp-for="@Model.ShortDescription" id="@Model.ShortDescription" placeholder="توضیح کوتاه"></textarea>
+                            </div>
                             <div>
                                 <div class="col-md-4 no-padding">
                                     <label>تاریخ انتشار&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ماه:</label>
@@ -92,7 +96,7 @@ else
                                     {
                                         <li>
                                             <input name="CategoryIds" type="checkbox" id="@item.Title" value="@item.Id" onclick="subGroups('@item.Id')"
-                                                   @(Model.CategoryIds != null ? (Model.CategoryIds.Contains(item.Id) ? "checked='checked'" : "") : null)/>
+                                                   @(Model.CategoryIds != null ? (Model.CategoryIds.Contains(item.Id) ? "checked='checked'" : "") : null) />
                                             <label for="@item.Title">@item.Title</label>
                                             <ul>
                                                 @foreach (var subGroup in Model.Categories.Where(x => x.ParentId == item.Id))
@@ -100,7 +104,7 @@ else
                                                     <li>
                                                         <input name="CategoryIds" type="checkbox" id="@subGroup.Title" value="@subGroup.Id"
                                                                class="@item.Id" @(Model.CategoryIds != null ? (Model.CategoryIds.Contains(subGroup.Id) ? "checked='checked'" : "") : null)
-                                                               @(Model.CategoryIds != null ? (Model.CategoryIds.Contains(item.Id) ? "" : "disabled ='disabled'") : "disabled ='disabled'")/>
+                                                               @(Model.CategoryIds != null ? (Model.CategoryIds.Contains(item.Id) ? "" : "disabled ='disabled'") : "disabled ='disabled'") />
                                                         <label for="@subGroup.Title">@subGroup.Title</label>
                                                     </li>
                                                 }

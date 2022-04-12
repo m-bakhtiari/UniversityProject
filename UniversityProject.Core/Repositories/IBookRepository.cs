@@ -17,5 +17,6 @@ namespace UniversityProject.Core.Repositories
         Task<List<Book>> GetLatestBook();
         Task<List<Book>> GetPopularBooks();
         Task<LibraryDto> GetLibraryData(LibraryDto libraryDto);
+        Task<BookDetailsDto> GetBookDetails(int bookId,int pageId);
     }
 }

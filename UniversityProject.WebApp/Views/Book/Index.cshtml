@@ -1,10 +1,13 @@
-﻿<main class="main">
+﻿@using UniversityProject.Core.Utils
+@model UniversityProject.Core.DTOs.BookDetailsDto
+
+<main class="main">
     <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
         <div class="container d-flex align-items-center">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index-1.html">خانه</a></li>
-                <li class="breadcrumb-item"><a href="#">محصولات</a></li>
-                <li class="breadcrumb-item active" aria-current="page">پیش فرض</li>
+                <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                <li class="breadcrumb-item"><a href="/Library">کتابخانه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
             </ol>
 
         </div><!-- End .container -->
@@ -18,7 +21,7 @@
                         <div class="product-gallery product-gallery-vertical">
                             <div class="row">
                                 <figure class="product-main-image">
-                                    <img id="product-zoom" src="/MainSite/assets/images/demos/demo-20/products/product-11.jpg" alt="تصویر محصول">
+                                    <img id="product-zoom" src="/Images/Books/@Model.ImageName" alt="@Model.Title">
                                 </figure><!-- End .product-main-image -->
                             </div><!-- End .row -->
                         </div><!-- End .product-gallery -->
@@ -26,30 +29,32 @@
 
                     <div class="col-md-6">
                         <div class="product-details">
-                            <h1 class="product-title">لباس زنانه رنگ زرد تیره</h1>
+                            <h1 class="product-title">@Model.Title</h1>
                             <!-- End .product-title -->
                             <div class="product-cat text-right">
                                 <span>نام نویسنده : </span>
-                                <a href="#">زنانه</a>
+                                <a href="#">@Model.AuthorName</a>
                             </div>
                             <div class="product-cat text-right mt-1">
                                 <span>نام ناشر : </span>
-                                <a href="#">زنانه</a>
+                                <a href="#">@Model.PublisherName</a>
                             </div>
                             <div class="product-cat text-right mt-1">
                                 <span>تاریخ انتشار </span>
-                                <a href="#">زنانه</a>
+                                <a href="#">@Model.PublishDate</a>
                             </div>
                             <div class="product-cat text-right mt-1 mb-3">
                                 <span>تاریخ ورود : </span>
-                                <a href="#">زنانه</a>
+                                <a href="#">@Model.AddedDate</a>
+                            </div>
+                            <div class="product-cat text-right mt-1 mb-3">
+                                <span>تعداد روز در دسترس : </span>
+                                <a href="#">@Model.UsableDays</a>
                             </div>
 
                             <div class="product-content">
                                 <p>
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                    سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
-                                    ساختگی با تولید سادگی نامفهوم
+                                    @Model.ShortDescription
                                 </p>
                             </div><!-- End .product-content -->
 
@@ -66,7 +71,10 @@
                             <div class="product-details-footer">
                                 <div class="product-cat text-center">
                                     <span>دسته بندی : </span>
-                                    <a href="#">زنانه</a>
+                                    @foreach (var item in Model.Categories)
+                                    {
+                                        <a href="#">@item.Title</a>
+                                    }
                                 </div><!-- End .product-cat -->
 
                                 <div class="social-icons social-icons-sm">
@@ -85,69 +93,96 @@
             <div class="product-details-tab">
                 <ul class="nav nav-pills justify-content-center" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab" aria-controls="product-desc-tab" aria-selected="true">توضیحات</a>
+                        <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab"
+                           aria-controls="product-desc-tab" aria-selected="true">
+                            توضیحات
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab" aria-controls="product-review-tab" aria-selected="false">نظرات (2)</a>
+                        <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab"
+                           aria-controls="product-review-tab" aria-selected="false">
+                            نظرات (@Model.CountAll)
+                        </a>
                     </li>
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade active show" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                         <div class="product-desc-content">
-                            <h3>اطلاعات محصول</h3>
-                            <p>
-                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید
-                                سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن
-                                ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوملورم
-                                ایپسوم متن ساختگی با تولید سادگی نامفهوملورم ایپسوم متن ساختگی با تولید سادگی
-                                نامفهوم.
-                            </p>
+                            <h3>توضیحات</h3>
+                            <p>@Html.Raw(Model.Description)</p>
                         </div><!-- End .product-desc-content -->
                     </div><!-- .End .tab-pane -->
                     <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
-                        <div class="reviews">
-                            <div class="review">
-                                <div class="row no-gutters">
-                                    <div class="col-auto">
-                                        <h4><a href="#">کاربر 1</a></h4>
-                                        <span class="review-date">4 روز پیش</span>
-                                    </div><!-- End .col -->
-                                    <div class="col-12">
-                                        <div class="review-content">
-                                            <p>
-                                                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم،لورم ایپسوم متن
-                                                ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با تولید
-                                                سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم!
-                                            </p>
-                                            <a href="#" class="btn-success">جواب به کامنت <i class="icon-arrow-left"></i></a>
-                                        </div><!-- End .review-content -->
-                                    </div><!-- End .col-auto -->
-                                </div><!-- End .row -->
-                                <div>
-                                    <div class="row no-gutters alert alert-secondary">
-                                        <div class="col-auto">
-                                            <h4><i class="icon-arrow-left"></i><b>جواب ادمین</b></h4>
-                                            <span class="review-date">4 روز پیش</span>
-                                        </div><!-- End .col -->
-                                        <div class="col-12">
-                                            <div class="review-content">
-                                                <p>
-                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم،لورم ایپسوم متن
-                                                    ساختگی با تولید سادگی نامفهوم، لورم ایپسوم متن ساختگی با تولید
-                                                    سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم!
-                                                </p>
-                                                <a href="#" class="btn-success">جواب به کامنت <i class="icon-arrow-left"></i></a>
-                                            </div><!-- End .review-content -->
-                                        </div><!-- End .col-auto -->
-                                    </div><!-- End .row -->
-                                </div>
-                            </div><!-- End .review -->
+                        <form id="addComment" method="get" action="/Book/GetCommentByPaging">
+                            <input type="hidden" asp-for="PageId" value="@Model.PageId" />
+                            <div class="reviews">
+                                <div><a href="#comment-modal" data-toggle="modal" class="btn btn-outline-primary-2 mb-3">نوشتن نظر جدید</a></div>
+                                @if (Model.Comments.Any())
+                                {
+                                    @foreach (var item in Model.Comments.Where(x => x.ParentId == null))
+                                    {
+                                        <div class="review">
+                                            <div class="row no-gutters">
+                                                <div class="col-auto">
+                                                    <h4>@item.User.Name</h4>
+                                                    <span class="review-date">@item.RecordDate.ToShamsi()</span>
+                                                </div><!-- End .col -->
+                                                <div class="col-12">
+                                                    <div class="review-content">
+                                                        <p>@item.Text</p>
+                                                        <a href="#" class="btn-success">جواب به کامنت <i class="icon-arrow-left"></i></a>
+                                                    </div><!-- End .review-content -->
+                                                </div><!-- End .col-auto -->
+                                            </div><!-- End .row -->
+                                            @foreach (var answer in Model.Comments.Where(x => x.ParentId == item.Id))
+                                            {
+                                                <div>
+                                                    <div class="row no-gutters alert alert-secondary">
+                                                        <div class="col-auto">
+                                                            <h4><i class="icon-arrow-left"></i><b>جواب ادمین</b></h4>
+                                                            <span class="review-date">@answer.RecordDate</span>
+                                                        </div><!-- End .col -->
+                                                        <div class="col-12">
+                                                            <div class="review-content">
+                                                                <p>@answer.Text</p>
+                                                                <a href="#" class="btn-success">ویرایش <i class="icon-arrow-left"></i></a>
+                                                            </div><!-- End .review-content -->
+                                                        </div><!-- End .col-auto -->
+                                                    </div><!-- End .row -->
+                                                </div>
+                                            }
+                                        </div><!-- End .review -->
+                                    }
+                                }
+                                else
+                                {
+                                    <h3 class="alert alert-primary">نظری وارد نشده است</h3>
+                                }
 
-                        </div><!-- End .نظر -->
+                                <nav aria-label="Page navigation">
+                                    <ul class="pagination justify-content-center">
+                                        @for (int i = 1; i <= Math.Ceiling((double)Model.CountAll / 12); i++)
+                                        {
+                                            <li class="page-item @(Model.PageId == i ? "active" : " ")"><a class="page-link" onclick="changePage(@i)">@i</a></li>
+                                        }
+                                    </ul>
+                                </nav>
+                            </div><!-- End .نظر -->
+                        </form>
                     </div><!-- .End .tab-pane -->
                 </div><!-- End .tab-content -->
             </div><!-- End .product-details-tab -->
-
         </div><!-- End .container -->
     </div><!-- End .page-content -->
 </main>
+
+
+@section Scripts
+{
+    <script>
+        function changePage(pageId) {
+            $("#pageId").val(pageId);
+            $("#addComment").submit();
+        }
+    </script>
+}

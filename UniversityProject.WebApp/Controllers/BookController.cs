@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using UniversityProject.Core.Repositories;
 
 namespace UniversityProject.WebApp.Controllers
@@ -7,17 +7,20 @@ namespace UniversityProject.WebApp.Controllers
     public class BookController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public BookController(ICategoryRepository categoryRepository)
+        public BookController(ICategoryRepository categoryRepository, IBookRepository bookRepository)
         {
             _categoryRepository = categoryRepository;
+            _bookRepository = bookRepository;
         }
 
-        public async Task<IActionResult> Index()
+        [HttpGet("/Book/{bookId}")]
+        public async Task<IActionResult> Index(int bookId, int pageId = 1)
         {
             ViewData["Category"] = await _categoryRepository.GetAll();
-
-            return View();
+            var model = await _bookRepository.GetBookDetails(bookId, pageId);
+            return View(model);
         }
     }
 }

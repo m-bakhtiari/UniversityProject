@@ -51,6 +51,33 @@ namespace UniversityProject.Core.Services
             }).ToListAsync();
         }
 
+        public async Task<BookDetailsDto> GetBookDetails(int bookId, int pageId)
+        {
+            var book = await _context.Books.FindAsync(bookId);
+            var comment = await _context.Comments.Include(x => x.User).Where(x => x.BookId == bookId)
+                .Skip((pageId - 1) * 12).Take(12).ToListAsync();
+            var category = await _context.BookCategories.Where(x => x.BookId == bookId).Select(x=>x.Category).ToListAsync();
+            var res = new BookDetailsDto()
+            {
+                AddedDate = book.AddedDate,
+                AuthorName = book.AuthorName,
+                Description = book.Description,
+                Id = book.Id,
+                ShortDescription = book.ShortDescription,
+                ImageName = book.ImageName,
+                IsAvailable = book.IsAvailable,
+                PublishDate = book.PublishDate,
+                PublisherName = book.PublisherName,
+                Title = book.Title,
+                UsableDays = book.UsableDays,
+                PageId = pageId,
+                CountAll = await _context.Comments.CountAsync(x => x.BookId == bookId),
+                Comments = comment,
+                Categories = category
+            };
+            return res;
+        }
+
         public async Task<Book> GetItem(int id)
         {
             return await _context.Books.FindAsync(id);
