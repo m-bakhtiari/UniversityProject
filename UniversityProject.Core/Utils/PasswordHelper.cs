@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 
 namespace UniversityProject.Core.Utils
@@ -17,6 +19,18 @@ namespace UniversityProject.Core.Utils
             encodedBytes = md5.ComputeHash(originalBytes);
             //Convert encoded bytes back to a 'readable' string   
             return BitConverter.ToString(encodedBytes);
+        }
+
+        public static int GetUserId(this IPrincipal principal)
+        {
+            var simplePrinciple = (ClaimsPrincipal)principal;
+            if (simplePrinciple.Identity is ClaimsIdentity identity)
+            {
+                var userIdClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+
+                return int.Parse(userIdClaim.Value);
+            }
+            throw new Exception("User id is not defined");
         }
     }
 }
