@@ -55,14 +55,14 @@ namespace UniversityProject.Core.Services
         {
             var book = await _context.Books.FindAsync(bookId);
             var comment = await _context.Comments.Include(x => x.User).Where(x => x.BookId == bookId)
-                .Skip((pageId - 1) * 12).Take(12).ToListAsync();
-            var category = await _context.BookCategories.Where(x => x.BookId == bookId).Select(x=>x.Category).ToListAsync();
+                .OrderByDescending(x => x.RecordDate).Skip((pageId - 1) * 12).Take(12).ToListAsync();
+            var category = await _context.BookCategories.Where(x => x.BookId == bookId).Select(x => x.Category).ToListAsync();
             var res = new BookDetailsDto()
             {
                 AddedDate = book.AddedDate,
                 AuthorName = book.AuthorName,
                 Description = book.Description,
-                Id = book.Id,
+                BookId = book.Id,
                 ShortDescription = book.ShortDescription,
                 ImageName = book.ImageName,
                 IsAvailable = book.IsAvailable,

@@ -90,34 +90,33 @@
                 </div><!-- End .row -->
             </div><!-- End .product-details-top -->
 
-            <div class="product-details-tab">
+            <div class="product-details-tab" id="reviews">
                 <ul class="nav nav-pills justify-content-center" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab"
-                           aria-controls="product-desc-tab" aria-selected="true">
+                        <a class="nav-link" id="product-desc-link" data-toggle="tab" href="#product-desc-tab" role="tab"
+                           aria-controls="product-desc-tab" aria-selected="false">
                             توضیحات
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab"
-                           aria-controls="product-review-tab" aria-selected="false">
+                        <a class="nav-link active" id="product-review-link" data-toggle="tab" href="#product-review-tab" role="tab"
+                           aria-controls="product-review-tab" aria-selected="true">
                             نظرات (@Model.CountAll)
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane fade active show" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
+                    <div class="tab-pane fade" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
                         <div class="product-desc-content">
                             <h3>توضیحات</h3>
                             <p>@Html.Raw(Model.Description)</p>
                         </div><!-- End .product-desc-content -->
                     </div><!-- .End .tab-pane -->
-                    <div class="tab-pane fade" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
-                        <form id="showComment" method="get" action="/GetCommentByPaging">
-                            <input type="hidden" asp-for="Id" value="@Model.Id" />
-                            <input type="hidden" asp-for="PageId" value="@Model.PageId" />
+                    <div class="tab-pane fade  active show" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
+                        <form id="showComment" method="get" action="/Book/@Model.BookId#reviews">
+                            <input type="hidden" asp-for="PageId" value="@Model.PageId" id="pageId"/>
                             <div class="reviews">
-                                <div><a href="#" class="btn btn-outline-primary-2 mb-3" onclick="addComment(@Model.PageId)">نوشتن نظر جدید</a></div>
+                                <div><a href="#" class="btn btn-outline-primary-2 mb-3" onclick="addComment(@Model.BookId)">نوشتن نظر جدید</a></div>
                                 @if (Model.Comments.Any())
                                 {
                                     @foreach (var item in Model.Comments.Where(x => x.ParentId == null))
@@ -131,7 +130,7 @@
                                                 <div class="col-12">
                                                     <div class="review-content">
                                                         <p>@item.Text</p>
-                                                        <a href="#" class="btn-success">جواب به کامنت <i class="icon-arrow-left"></i></a>
+                                                        <a href="#" class="btn-success" onclick="addComment(@Model.BookId,null,true)">جواب به کامنت <i class="icon-arrow-left"></i></a>
                                                     </div><!-- End .review-content -->
                                                 </div><!-- End .col-auto -->
                                             </div><!-- End .row -->
@@ -146,7 +145,7 @@
                                                         <div class="col-12">
                                                             <div class="review-content">
                                                                 <p>@answer.Text</p>
-                                                                <a href="#" class="btn-success">ویرایش <i class="icon-arrow-left"></i></a>
+                                                                <a href="#" class="btn-success"  onclick="addComment(@Model.BookId,@answer.Id,true)">ویرایش <i class="icon-arrow-left"></i></a>
                                                             </div><!-- End .review-content -->
                                                         </div><!-- End .col-auto -->
                                                     </div><!-- End .row -->
@@ -182,16 +181,27 @@
 @section Scripts
 {
     <script>
+        $(document).ready(function () {
+            if ("@ViewBag.ShowComment" == "true") {
+               $("#reviews").show();
+           }
+        });
+
         function changePage(pageId) {
             $("#pageId").val(pageId);
             $("#showComment").submit();
         }
 
-        function addComment(bookId, commentId, isAnswer) {
+        function addComment(bookId, commentId, isAnswer, text) {
             $("#bookId").val(bookId);
             $("#commentId").val(commentId);
             $("#isAnswer").val(isAnswer);
+            $("#comment-text").val(text);
             $("#comment-modal").modal('show');
+        }
+
+        function closeComment() {
+            $("#comment-modal").modal('hide');
         }
 
     </script>

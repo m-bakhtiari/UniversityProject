@@ -6,7 +6,7 @@ namespace UniversityProject.Core.DTOs
 {
     public class BookDetailsDto
     {
-        public int Id { get; set; }
+        public int BookId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string ShortDescription { get; set; }
@@ -22,6 +22,7 @@ namespace UniversityProject.Core.DTOs
         public int CountAll { get; set; }
         public List<Category> Categories { get; set; }
         public string UserCommentText { get; set; }
+        public bool CommentPart { get; set; }
     }
 
 }

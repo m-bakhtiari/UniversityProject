@@ -37,7 +37,7 @@ namespace UniversityProject.Core.Services
 
         public async Task<Comment> GetItem(int id)
         {
-            return await _context.Comments.FindAsync(id);
+            return await _context.Comments.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<List<Comment>> GetItemByBookId(int bookId, int pageId)
@@ -54,7 +54,7 @@ namespace UniversityProject.Core.Services
                 return "متن را وارد نمایید";
             }
             comment.RecordDate = DateTime.Now;
-            await _context.Comments.AddAsync(comment);
+            var data = await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();
             return null;
         }
@@ -65,7 +65,9 @@ namespace UniversityProject.Core.Services
             {
                 return "متن را وارد نمایید";
             }
-            _context.Comments.Update(comment);
+
+            var model = await _context.Comments.FindAsync(comment.Id);
+            model.Text = comment.Text;
             await _context.SaveChangesAsync();
             return null;
         }

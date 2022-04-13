@@ -192,11 +192,9 @@
             <ul>
                 @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                 {
-<li><a href="#">@sub.Title</a></li>
-}
+<li><a href="#">@sub.Title</a></li>}
             </ul>}
-                        </li>
-}
+                        </li>}
                                     <li class="megamenu-container">
                                         <a href="about.html" class="sf-with-ul">درباره ما</a>
                                     </li>
@@ -614,8 +612,7 @@
                 </div><!-- End .modal-body -->
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
-</div><!-- End .modal -->
-
+    </div><!-- End .modal -->
     <!-- Comment Modal -->
     <div class="modal fade" id="comment-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -635,17 +632,18 @@
                             <div class="tab-content" id="tab-content-6">
                                 <div class="tab-pane fade show active" id="comment" role="tabpanel"
                                      aria-labelledby="signin-tab">
-                                    <form action="/AddComment" method="get">
+                                    <form method="post" action="/AddComment">
                                         <div class="form-group">
                                             <input type="hidden" id="bookId" name="bookId" />
                                             <input type="hidden" id="commentId" name="commentId" />
                                             <input type="hidden" id="isAnswer" name="isAnswer" />
+                                            <input type="hidden" id="parentId" name="parentId" />
                                             <label for="singin-email">متن نظر *</label>
                                             <textarea class="form-control" id="comment-text" name="commentText" required></textarea>
                                         </div><!-- End .form-group -->
                                         <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2">
-                                                <span>ورود</span>
+                                            <button type="submit" class="btn btn-outline-primary-2" onclick="closeComment()">
+                                                <span>ثبت نظر</span>
                                                 <i class="icon-long-arrow-left"></i>
                                             </button>
                                         </div><!-- End .form-footer -->

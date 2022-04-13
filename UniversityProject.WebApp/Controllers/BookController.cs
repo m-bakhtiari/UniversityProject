@@ -26,25 +26,49 @@ namespace UniversityProject.WebApp.Controllers
             ViewData["Category"] = await _categoryRepository.GetAll();
             ViewBag.BookId = bookId;
             var model = await _bookRepository.GetBookDetails(bookId, pageId);
+            ViewBag.ShowComment = "false";
             return View(model);
         }
 
-        [HttpGet("AddComment")]
-        public async Task<IActionResult> AddComment(int bookId,int commentId,string isAnswer, string commentText)
+        [HttpPost("AddComment")]
+        public async Task<IActionResult> AddComment(int bookId, int? commentId, string isAnswer, string commentText)
         {
             if (string.IsNullOrWhiteSpace(commentText))
             {
-                return Redirect($"/Book/{bookId}");
+                return null;
             }
 
-            await _commentRepository.Insert(new Comment()
+            if (commentId == null)
             {
-                BookId = bookId,
-                Text = commentText,
-                RecordDate = DateTime.Now,
-                UserId =1001 //User.GetUserId()
-            });
-            return Redirect($"/Book/{bookId}");
+                await _commentRepository.Insert(new Comment()
+                {
+                    BookId = bookId,
+                    Text = commentText,
+                    RecordDate = DateTime.Now,
+                    UserId = 1001 //User.GetUserId()
+                });
+            }
+            else if (isAnswer == "true")
+            {
+                await _commentRepository.Insert(new Comment()
+                {
+                    ParentId = commentId,
+                    BookId = bookId,
+                    Text = commentText,
+                    RecordDate = DateTime.Now,
+                    UserId = 1001 //User.GetUserId()
+                });
+            }
+            else
+            {
+                await _commentRepository.Update(new Comment()
+                {
+                    Id = commentId.Value,
+                    Text = commentText,
+                });
+            }
+
+            return Redirect($"Book/{bookId}#reviews");
         }
 
     }
