@@ -27,8 +27,6 @@ namespace UniversityProject.Data.Entities
 
         public double? Penalty { get; set; }
 
-        public int? SubscriptionTypeId { get; set; }
-
         public bool IsDelete { get; set; }
 
         public DateTime RegisterTime { get; set; }
@@ -36,9 +34,6 @@ namespace UniversityProject.Data.Entities
         public int RoleId { get; set; }
 
         #region Relations
-
-        [ForeignKey(nameof(SubscriptionTypeId))]
-        public SubscriptionType SubscriptionType { get; set; }
 
         [ForeignKey(nameof(RoleId))]
         public Role Role { get; set; }

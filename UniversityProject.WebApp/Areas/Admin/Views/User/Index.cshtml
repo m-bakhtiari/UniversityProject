@@ -40,7 +40,6 @@
                                 <th>شماره تماس</th>
                                 <th>نقش کاربر</th>
                                 <th>جریمه</th>
-                                <th>نوع اشتراک</th>
                                 <th>عملیات</th>
                             </tr>
                         </thead>
@@ -63,7 +62,6 @@
                                         }
                                     </td>
                                     <td>@item.Penalty?.ToString("#,0")</td>
-                                    <td>@(item.SubscriptionTypeId.HasValue?item.SubscriptionType.Title:"بدون عضویت")</td>
                                     <td>
                                         <a class="btn btn-success" href="/Admin/User/Update/@item.Id">ویرایش</a>
                                         <a class="btn btn-danger" onclick="DeleteGroup(@item.Id,'@item.Name')">حذف</a>
@@ -80,7 +78,6 @@
                                 <th>شماره تماس</th>
                                 <th>نقش کاربر</th>
                                 <th>جریمه</th>
-                                <th>نوع اشتراک</th>
                                 <th>عملیات</th>
                             </tr>
                         </tfoot>

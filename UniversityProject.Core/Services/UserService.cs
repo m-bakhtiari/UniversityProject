@@ -27,7 +27,7 @@ namespace UniversityProject.Core.Services
 
         public async Task<List<User>> GetAll()
         {
-            return await _context.Users.Include(x => x.Role).Include(x => x.SubscriptionType).ToListAsync();
+            return await _context.Users.Include(x => x.Role).ToListAsync();
         }
 
         public async Task<User> GetItem(int id)
@@ -55,6 +55,11 @@ namespace UniversityProject.Core.Services
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return null;
+        }
+
+        public async Task<User> LoginUser(User user)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == user.Id && x.Password == user.Password);
         }
 
         public async Task<string> Update(User user)

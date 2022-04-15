@@ -18,6 +18,7 @@ namespace UniversityProject.Core.DTOs
         public bool IsAvailable { get; set; }
         public DateTime AddedDate { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<Comment> Answers { get; set; }
         public int PageId { get; set; } = 1;
         public int CountAll { get; set; }
         public List<Category> Categories { get; set; }

@@ -21,7 +21,6 @@ namespace UniversityProject.Data.Context
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<SubscriptionType> SubscriptionTypes { get; set; }
         public DbSet<UserBook> UsersBook { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<Comment> Comments { get; set; }
@@ -29,6 +28,7 @@ namespace UniversityProject.Data.Context
         public DbSet<BookCategory> BookCategories { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<FavoriteBook> FavoriteBooks { get; set; }
         #endregion
 
 
@@ -46,6 +46,7 @@ namespace UniversityProject.Data.Context
 
             modelBuilder.Entity<ShoppingCart>().HasKey(x => new { x.UserId, x.BookId });
             modelBuilder.Entity<BookCategory>().HasKey(x => new { x.BookId, x.CategoryId });
+            modelBuilder.Entity<FavoriteBook>().HasKey(x => new { x.UserId, x.BookId });
 
             modelBuilder.Entity<Role>().HasData(new List<Role>()
             {

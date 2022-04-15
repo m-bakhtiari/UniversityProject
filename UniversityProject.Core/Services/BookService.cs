@@ -54,7 +54,8 @@ namespace UniversityProject.Core.Services
         public async Task<BookDetailsDto> GetBookDetails(int bookId, int pageId)
         {
             var book = await _context.Books.FindAsync(bookId);
-            var comment = await _context.Comments.Include(x => x.User).Where(x => x.BookId == bookId)
+            var comment = await _context.Comments.Include(x => x.User)
+                .Where(x => x.BookId == bookId && x.ParentId == null)
                 .OrderByDescending(x => x.RecordDate).Skip((pageId - 1) * 12).Take(12).ToListAsync();
             var category = await _context.BookCategories.Where(x => x.BookId == bookId).Select(x => x.Category).ToListAsync();
             var res = new BookDetailsDto()
@@ -75,6 +76,8 @@ namespace UniversityProject.Core.Services
                 Comments = comment,
                 Categories = category
             };
+            res.Answers = await _context.Comments.Where(x => res.Comments.Select(c => c.Id).Contains(x.ParentId.Value))
+                .ToListAsync();
             return res;
         }
 

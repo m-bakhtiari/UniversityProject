@@ -114,7 +114,7 @@
                     </div><!-- .End .tab-pane -->
                     <div class="tab-pane fade  active show" id="product-review-tab" role="tabpanel" aria-labelledby="product-review-link">
                         <form id="showComment" method="get" action="/Book/@Model.BookId#reviews">
-                            <input type="hidden" asp-for="PageId" value="@Model.PageId" id="pageId"/>
+                            <input type="hidden" asp-for="PageId" value="@Model.PageId" id="pageId" />
                             <div class="reviews">
                                 <div><a href="#" class="btn btn-outline-primary-2 mb-3" onclick="addComment(@Model.BookId)">نوشتن نظر جدید</a></div>
                                 @if (Model.Comments.Any())
@@ -130,13 +130,13 @@
                                                 <div class="col-12">
                                                     <div class="review-content">
                                                         <p>@item.Text</p>
-                                                        <a href="#" class="btn-success" onclick="addComment(@Model.BookId,null,true)">جواب به کامنت <i class="icon-arrow-left"></i></a>
+                                                        <a href="#" class="btn-success" onclick="addComment(@Model.BookId,@item.Id,true)">جواب به کامنت <i class="icon-arrow-left"></i></a>
                                                     </div><!-- End .review-content -->
                                                 </div><!-- End .col-auto -->
                                             </div><!-- End .row -->
-                                            @foreach (var answer in Model.Comments.Where(x => x.ParentId == item.Id))
+                                            @foreach (var answer in Model.Answers.Where(x => x.ParentId == item.Id))
                                             {
-                                                <div>
+                                                <div class="mt-1">
                                                     <div class="row no-gutters alert alert-secondary">
                                                         <div class="col-auto">
                                                             <h4><i class="icon-arrow-left"></i><b>جواب ادمین</b></h4>
@@ -145,7 +145,7 @@
                                                         <div class="col-12">
                                                             <div class="review-content">
                                                                 <p>@answer.Text</p>
-                                                                <a href="#" class="btn-success"  onclick="addComment(@Model.BookId,@answer.Id,true)">ویرایش <i class="icon-arrow-left"></i></a>
+                                                                <a href="#" class="btn-success" onclick="addComment(@Model.BookId,@answer.Id,false,'@answer.Text')">ویرایش <i class="icon-arrow-left"></i></a>
                                                             </div><!-- End .review-content -->
                                                         </div><!-- End .col-auto -->
                                                     </div><!-- End .row -->

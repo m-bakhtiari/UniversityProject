@@ -10,17 +10,27 @@ namespace UniversityProject.WebApp.Controllers
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IBookRepository _bookRepository;
+        private readonly IFavoriteBookRepository _favoriteBookRepository;
+        private readonly IShoppingCartRepository _shoppingCartRepository;
 
-        public LibraryController(ICategoryRepository categoryRepository, IBookRepository bookRepository)
+        public LibraryController(ICategoryRepository categoryRepository, IBookRepository bookRepository, IFavoriteBookRepository favoriteBookRepository, IShoppingCartRepository shoppingCartRepository)
         {
             _categoryRepository = categoryRepository;
             _bookRepository = bookRepository;
+            _favoriteBookRepository = favoriteBookRepository;
+            _shoppingCartRepository = shoppingCartRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(LibraryDto libraryDto)
         {
             ViewData["Category"] = await _categoryRepository.GetAll();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
+                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
+            }
+
             libraryDto.StartDate = libraryDto.StartDate.ToEnglishNumbers();
             libraryDto.EndDate = libraryDto.EndDate.ToEnglishNumbers();
             libraryDto.StartPublishDate = libraryDto.StartPublishDate.ToEnglishNumbers();

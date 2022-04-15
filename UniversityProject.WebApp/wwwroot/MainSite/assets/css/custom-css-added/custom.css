@@ -157,3 +157,14 @@
     background-color: red;
     font-weight: bold;
 }
+
+
+.product-action-vertical {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.product {
+    border: none;
+}

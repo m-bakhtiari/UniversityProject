@@ -41,11 +41,12 @@ namespace UniversityProject.WebApp
             services.AddTransient<IBookCategoryRepository, BookCategoryService>();
             services.AddTransient<ISliderRepository, SliderService>();
             services.AddTransient<IBannerRepository, BannerService>();
-            services.AddTransient<ISubscriptionTypeRepository, SubscriptionTypeService>();
             services.AddTransient<ICommentRepository, CommentService>();
             services.AddTransient<IUserBookRepository, UserBookService>();
             services.AddTransient<IUserRepository, UserService>();
             services.AddTransient<IRoleRepository, RoleService>();
+            services.AddTransient<IShoppingCartRepository, ShoppingCartService>();
+            services.AddTransient<IFavoriteBookRepository, FavoriteBookService>();
 
             #endregion
         }
