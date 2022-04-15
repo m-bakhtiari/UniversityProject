@@ -9,10 +9,6 @@ namespace UniversityProject.Data.Entities
         [Key]
         public int Id { get; set; }
 
-        //[Required]
-        //[DatabaseGenerated(DatabaseGeneratedOption.)]
-        //public int Username { get; set; }
-
         [MaxLength(300)]
         [Required]
         public string Name { get; set; }

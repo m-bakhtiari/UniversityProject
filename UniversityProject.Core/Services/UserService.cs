@@ -59,7 +59,7 @@ namespace UniversityProject.Core.Services
 
         public async Task<User> LoginUser(User user)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == user.Id && x.Password == user.Password);
+            return await _context.Users.FirstOrDefaultAsync(x => x.Phone == user.Phone && x.Password == user.Password);
         }
 
         public async Task<string> Update(User user)

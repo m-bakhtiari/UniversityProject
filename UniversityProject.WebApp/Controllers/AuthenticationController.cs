@@ -27,7 +27,7 @@ namespace UniversityProject.WebApp.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        [Route("Login")]
+        [Route("/Login")]
         public async Task<IActionResult> Login()
         {
             ViewData["Category"] = await _categoryRepository.GetAll();
@@ -37,14 +37,15 @@ namespace UniversityProject.WebApp.Controllers
                 ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
             }
 
-            return View();
+            return View(new LoginDto());
         }
 
         [HttpPost]
-        [Route("Login")]
+        [Route("/Login")]
         public async Task<IActionResult> Login(LoginDto login, string returnUrl = "/")
         {
-            var user = await _userRepository.LoginUser(new User() { Id = login.Username, Password = login.Password });
+            login.Password = PasswordHelper.EncodePasswordMd5(login.Password);
+            var user = await _userRepository.LoginUser(new User() { Phone = login.Username, Password = login.Password });
             if (user != null)
             {
                 var claims = new List<Claim>()
@@ -72,10 +73,19 @@ namespace UniversityProject.WebApp.Controllers
         }
 
 
-        [Route("Register")]
-        public async Task<string> Register(User user)
+        [HttpPost("/Register")]
+        public async Task<string> Register(LoginDto loginDto)
         {
-            user.RoleId = Const.UserRoleId;
+            if (loginDto.Password != loginDto.RePassword)
+            {
+                return null;
+            }
+            var user = new User()
+            {
+                Password = loginDto.Password,
+                Phone = loginDto.Username,
+                RoleId = Const.UserRoleId,
+            };
             var res = await _userRepository.Insert(user);
             if (string.IsNullOrWhiteSpace(res))
             {
