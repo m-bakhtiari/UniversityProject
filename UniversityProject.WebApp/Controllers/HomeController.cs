@@ -15,8 +15,9 @@ namespace UniversityProject.WebApp.Controllers
         private readonly ISliderRepository _sliderRepository;
         private readonly IFavoriteBookRepository _favoriteBookRepository;
         private readonly IShoppingCartRepository _shoppingCartRepository;
+        private readonly IMessageRepository _messageRepository;
 
-        public HomeController(ICategoryRepository categoryRepository, IBannerRepository bannerRepository, IBookRepository bookRepository, ISliderRepository sliderRepository, IFavoriteBookRepository favoriteBookRepository, IShoppingCartRepository shoppingCartRepository)
+        public HomeController(ICategoryRepository categoryRepository, IBannerRepository bannerRepository, IBookRepository bookRepository, ISliderRepository sliderRepository, IFavoriteBookRepository favoriteBookRepository, IShoppingCartRepository shoppingCartRepository, IMessageRepository messageRepository)
         {
             _categoryRepository = categoryRepository;
             _bannerRepository = bannerRepository;
@@ -24,6 +25,7 @@ namespace UniversityProject.WebApp.Controllers
             _sliderRepository = sliderRepository;
             _favoriteBookRepository = favoriteBookRepository;
             _shoppingCartRepository = shoppingCartRepository;
+            _messageRepository = messageRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -95,6 +97,25 @@ namespace UniversityProject.WebApp.Controllers
                 ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
             }
             return View();
+        }
+
+        [Route("/AboutUs")]
+        public async Task<IActionResult> AboutUs()
+        {
+            ViewData["Category"] = await _categoryRepository.GetAll();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
+                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
+            }
+            return View();
+        }
+
+        [HttpPost("/InsertMessage")]
+        public async Task<IActionResult> InsertMessage(Message message)
+        {
+            await _messageRepository.Insert(message);
+            return Redirect("/AboutUs");
         }
     }
 }

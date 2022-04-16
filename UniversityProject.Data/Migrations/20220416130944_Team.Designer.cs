@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityProject.Data.Context;
 
 namespace UniversityProject.Data.Migrations
 {
     [DbContext(typeof(UniversityProjectContext))]
-    partial class UniversityProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20220416130944_Team")]
+    partial class Team
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -185,6 +187,27 @@ namespace UniversityProject.Data.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("FavoriteBooks");
+                });
+
+            modelBuilder.Entity("UniversityProject.Data.Entities.GeneralInformation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Value")
+                        .HasMaxLength(5000)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GeneralInformation");
                 });
 
             modelBuilder.Entity("UniversityProject.Data.Entities.Message", b =>

@@ -49,6 +49,7 @@ namespace UniversityProject.WebApp
             services.AddTransient<IRoleRepository, RoleService>();
             services.AddTransient<IShoppingCartRepository, ShoppingCartService>();
             services.AddTransient<IFavoriteBookRepository, FavoriteBookService>();
+            services.AddTransient<IMessageRepository, MessageService>();
 
             #endregion
 

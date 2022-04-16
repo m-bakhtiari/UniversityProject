@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityProject.Data.Context;
 
 namespace UniversityProject.Data.Migrations
 {
     [DbContext(typeof(UniversityProjectContext))]
-    partial class UniversityProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20220416151404_Drop_GeneralInformation")]
+    partial class Drop_GeneralInformation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

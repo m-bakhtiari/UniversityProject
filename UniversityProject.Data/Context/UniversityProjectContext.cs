@@ -30,6 +30,7 @@ namespace UniversityProject.Data.Context
         public DbSet<Banner> Banners { get; set; }
         public DbSet<FavoriteBook> FavoriteBooks { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Team> Teams { get; set; }
         #endregion
 
 
