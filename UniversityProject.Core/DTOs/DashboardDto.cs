@@ -5,9 +5,15 @@ namespace UniversityProject.Core.DTOs
 {
     public class DashboardDto
     {
-        public List<Book> FavoriteBooks { get; set; }
-        public List<Book> ShoppingCartBooks { get; set; }
-        public List<Book> OldBooks { get; set; }
-        public User User { get; set; }
+        public List<FavoriteBookDto> FavoriteBooks { get; set; }
+        public List<FavoriteBookDto> ShoppingCartBooks { get; set; }
+        public List<UserBook> OldBooks { get; set; }
+        public LoginDto LoginDto { get; set; }
+    }
+
+    public class FavoriteBookDto
+    {
+        public Book Book { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

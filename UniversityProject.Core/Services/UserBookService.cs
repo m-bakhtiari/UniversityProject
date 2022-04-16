@@ -35,6 +35,11 @@ namespace UniversityProject.Core.Services
             return await _context.UsersBook.FindAsync(id);
         }
 
+        public async Task<List<UserBook>> GetItemByUserId(int userId)
+        {
+            return await _context.UsersBook.Where(x => x.UserId == userId).ToListAsync();
+        }
+
         public async Task<string> Insert(UserBook userBook)
         {
             if (await _context.UsersBook.AnyAsync(x => x.BookId == userBook.BookId && x.EndDate == null))

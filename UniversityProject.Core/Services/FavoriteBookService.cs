@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Data.Context;
 using UniversityProject.Data.Entities;
@@ -50,6 +51,22 @@ namespace UniversityProject.Core.Services
         {
             return await _context.FavoriteBooks.AnyAsync(x =>
                 x.BookId == favoriteBook.BookId && x.UserId == favoriteBook.UserId);
+        }
+
+        public async Task<List<FavoriteBookDto>> GetFavoriteBookByUserId(int userId)
+        {
+            var result = new List<FavoriteBookDto>();
+            var res = await _context.FavoriteBooks.Where(x => x.UserId == userId).Select(x => x.Book).ToListAsync();
+            foreach (var item in res)
+            {
+                result.Add(new FavoriteBookDto()
+                {
+                    Book = item,
+                    IsAvailable = await _context.UsersBook.AnyAsync(x => x.BookId == item.Id && x.EndDate == null)
+                });
+            }
+
+            return result;
         }
     }
 }

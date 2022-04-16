@@ -53,8 +53,8 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                     <ul class="dropdown-links">
-                        <li><a href="/Dashboard" data-toggle="modal"> @User.Identity.Name خوش آمدید</a></li>
-                        <li><a href="/Dashboard" data-toggle="modal">پروفایل </a></li>
+                        <li><a href="/Dashboard"> @User.Identity.Name خوش آمدید</a></li>
+                        <li><a href="/Dashboard">پروفایل </a></li>
                     </ul> }
                 else
                 {
@@ -95,7 +95,7 @@
                         {
             <div class="header-dropdown-link">
                 <div class="wishlist">
-                    <a href="wishlist.html" title="لیست علاقه مندی">
+                    <a href="/Dashboard" title="لیست علاقه مندی">
                         <div class="icon">
                             <i class="icon-heart-o"></i>
                             <span class="wishlist-count badge" id="wishlist-count">@ViewBag.WishlistCount</span>
@@ -105,7 +105,7 @@
                 </div><!-- End .compare-dropdown -->
 
                 <div class="dropdown cart-dropdown">
-                    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown"
+                    <a href="/Dashboard" class="dropdown-toggle" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false" data-display="static">
                         <div class="icon">
                             <i class="icon-shopping-cart"></i>
@@ -136,23 +136,32 @@
                                     </li>
                                     @foreach (var item in model.Where(x => x.ParentId == null))
                                     {
-                        <li>
-                            <a href="/" class="sf-with-ul">@item.Title</a>
-                            @if (model.Any(x => x.ParentId == item.Id))
-                            {
-            <ul>
-                @foreach (var sub in model.Where(x => x.ParentId == item.Id))
-                {
-<li><a href="#">@sub.Title</a></li>
-}
-            </ul>}
-                        </li>
-}
+                                        <li>
+                                            <a href="/" class="sf-with-ul">@item.Title</a>
+                                            @if (model.Any(x => x.ParentId == item.Id))
+                                            {
+                                                <ul>
+                                                    @foreach (var sub in model.Where(x => x.ParentId == item.Id))
+                                                    {
+                                                        <li><a href="#">@sub.Title</a></li>
+                                                    }
+                                                </ul>}
+                                        </li>
+                                    }
                                     <li class="megamenu-container">
                                         <a href="about.html" class="sf-with-ul">درباره ما</a>
                                     </li>
                                     <li class="megamenu-container">
                                         <a href="contact.html" class="sf-with-ul">تماس با ما</a>
+                                    </li>
+                                    <li>
+                                        <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
+                                        <ul>
+                                            <li><a href="/Dashboard">لیست علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
+                                            <li><a href="/Dashboard">سبد خرید (@ViewBag.CartCount)</a></li>
+                                            <li><a href="/Dashboard">تاریخچه کتاب ها</a></li>
+                                            <li><a href="/Dashboard">تغییر پروفایل</a></li>
+                                        </ul>
                                     </li>
                                 </ul><!-- End .menu -->
                             </nav><!-- End .main-nav -->

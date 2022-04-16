@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UniversityProject.Core.DTOs;
 using UniversityProject.Data.Entities;
 
 namespace UniversityProject.Core.Repositories
@@ -12,5 +13,6 @@ namespace UniversityProject.Core.Repositories
         Task DeleteByUserId(int userId);
         Task<bool> IsItemExist(FavoriteBook favoriteBook);
         Task<int> CountByUserId(int userId);
+        Task<List<FavoriteBookDto>> GetFavoriteBookByUserId(int userId);
     }
 }

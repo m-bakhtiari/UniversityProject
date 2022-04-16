@@ -84,5 +84,17 @@ namespace UniversityProject.WebApp.Controllers
         {
             return View();
         }
+
+        [Route("/ContactUs")]
+        public async Task<IActionResult> ContactUs()
+        {
+            ViewData["Category"] = await _categoryRepository.GetAll();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
+                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
+            }
+            return View();
+        }
     }
 }
