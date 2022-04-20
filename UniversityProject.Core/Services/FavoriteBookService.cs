@@ -62,7 +62,7 @@ namespace UniversityProject.Core.Services
                 result.Add(new FavoriteBookDto()
                 {
                     Book = item,
-                    IsAvailable = await _context.UsersBook.AnyAsync(x => x.BookId == item.Id && x.EndDate == null)
+                    IsAvailable = !await _context.UsersBook.AnyAsync(x => x.BookId == item.Id && x.EndDate == null)
                 });
             }
 

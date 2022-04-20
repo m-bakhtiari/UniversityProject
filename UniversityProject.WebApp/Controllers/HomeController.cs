@@ -70,7 +70,7 @@ namespace UniversityProject.WebApp.Controllers
                 BookId = id,
                 UserId = User.GetUserId()
             };
-            if (await _shoppingCartRepository.IsItemExist(shoppingCart) == false)
+            if (await _shoppingCartRepository.BookValidation(shoppingCart))
             {
                 var result = await _shoppingCartRepository.Insert(shoppingCart);
                 if (string.IsNullOrWhiteSpace(result) == false)

@@ -53,10 +53,17 @@ namespace UniversityProject.Core.Services
             return await _context.ShoppingCarts.CountAsync(x => x.UserId == userId);
         }
 
-        public async Task<bool> IsItemExist(ShoppingCart shoppingCart)
+        public async Task<bool> BookValidation(ShoppingCart shoppingCart)
         {
-            return await _context.FavoriteBooks.AnyAsync(x =>
-                x.BookId == shoppingCart.BookId && x.UserId == shoppingCart.UserId);
+            if (await _context.ShoppingCarts.AnyAsync(x => x.BookId == shoppingCart.BookId && x.UserId == shoppingCart.UserId))
+            {
+                return false;
+            }
+            if (await _context.UsersBook.AnyAsync(x => x.BookId == shoppingCart.BookId && x.EndDate == null))
+            {
+                return false;
+            }
+            return true;
         }
 
         public async Task<List<FavoriteBookDto>> GetShoppingCartByUserId(int userId)
@@ -68,7 +75,7 @@ namespace UniversityProject.Core.Services
                 result.Add(new FavoriteBookDto()
                 {
                     Book = item,
-                    IsAvailable = await _context.UsersBook.AnyAsync(x => x.BookId == item.Id && x.EndDate == null)
+                    IsAvailable = !await _context.UsersBook.AnyAsync(x => x.BookId == item.Id && x.EndDate == null)
                 });
             }
 

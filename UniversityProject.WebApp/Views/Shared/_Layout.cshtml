@@ -11,12 +11,12 @@
     <meta name="keywords" content="HTML5 Template">
     <meta name="description" content="Molla - Bootstrap eCommerce Template">
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/MainSite/assets/images/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/MainSite/assets/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/MainSite/assets/images/icons/favicon-16x16.png">
-    <link rel="manifest" href="/MainSite/assets/images/icons/site.webmanifest">
-    <link rel="mask-icon" href="/MainSite/assets/images/icons/apple-touch-icon.png" color="#666666">
-    <link rel="shortcut icon" href="/MainSite/assets/images/icons/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Images/Static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/Images/Static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/Images/Static/favicon-16x16.png">
+    <link rel="manifest" href="/Images/Static/site.webmanifest">
+    <link rel="mask-icon" href="/Images/Static/apple-touch-icon.png" color="#666666">
+    <link rel="shortcut icon" href="/Images/Static/favicon.ico">
     <meta name="apple-mobile-web-app-title" content="Molla">
     <meta name="application-name" content="Molla">
     <meta name="msapplication-TileColor" content="#cc9966">
@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="/MainSite/assets/css/demos/demo-20.css">
     <!-- Custom CSS File Added -->
     <link rel="stylesheet" href="/MainSite/assets/css/custom-css-added/custom.css" />
-
+    <title>@ViewBag.Title</title>
     @await RenderSectionAsync("Styles", false)
 </head>
 
@@ -48,7 +48,13 @@
                     <div class="header-right">
                         <ul class="top-menu">
                             <li>
-                                <a href="#">لینک ها</a>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                    <a href="/Dashboard">پروفایل</a> }
+                else
+                {
+    <a href="/Login">لاگین</a>}
+
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
@@ -136,18 +142,16 @@
                                     </li>
                                     @foreach (var item in model.Where(x => x.ParentId == null))
                                     {
-                                        <li>
-                                            <a href="/" class="sf-with-ul">@item.Title</a>
-                                            @if (model.Any(x => x.ParentId == item.Id))
-                                            {
-                                                <ul>
-                                                    @foreach (var sub in model.Where(x => x.ParentId == item.Id))
-                                                    {
-                                                        <li><a href="#">@sub.Title</a></li>
-                                                    }
-                                                </ul>}
-                                        </li>
-                                    }
+                        <li>
+                            <a href="/" class="sf-with-ul">@item.Title</a>
+                            @if (model.Any(x => x.ParentId == item.Id))
+                            {
+            <ul>
+                @foreach (var sub in model.Where(x => x.ParentId == item.Id))
+                {
+<li><a href="#">@sub.Title</a></li>}
+            </ul>}
+                        </li>}
                                     <li class="megamenu-container">
                                         <a href="about.html" class="sf-with-ul">درباره ما</a>
                                     </li>
@@ -304,138 +308,35 @@
                     <nav class="mobile-nav">
                         <ul class="mobile-menu">
                             <li class="active">
-                                <a href="index-1.html">خانه</a>
-
+                                <a href="/">خانه</a>
                             </li>
                             <li>
-                                <a href="category.html">فروشگاه</a>
+                                <a href="/Library">کتابخانه</a>
                             </li>
                             <li>
-                                <a href="product.html" class="sf-with-ul">محصولات</a>
+                                @foreach (var item in model.Where(x => x.ParentId == null))
+                                {
+                    <a href="product.html" class="sf-with-ul">@item.Title</a>
+                                    @if (model.Any(x => x.ParentId == item.Id))
+                                    {
+                    <ul>
+                        @foreach (var sub in model.Where(x => x.ParentId == item.Id))
+                        {
+    <li><a href="product.html">@sub.Title</a></li>}
+                    </ul>}}
+                            </li>
+                            <li>درباره ی ما</li>
+                            <li>تماس با ما</li>
+                            <li>
+                                <a href="#" class="sf-with-ul">داشبرد</a>
                                 <ul>
-                                    <li><a href="product.html">پیش فرض</a></li>
-                                    <li><a href="product-centered.html">توضیحات وسط چین</a></li>
-                                    <li>
-                                        <a href="product-extended.html">
-                                            <span>
-                                                توضیحات گسترده<span class="tip tip-new">جدید</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li><a href="product-gallery.html">گالری</a></li>
-                                    <li><a href="product-sticky.html">اطلاعات چسبیده</a></li>
-                                    <li class=""><a href="product-sidebar.html">صفحه جمع با سایدبار</a></li>
-                                    <li><a href="product-fullwidth.html">تمام صفحه</a></li>
-                                    <li><a href="product-masonry.html">اطلاعات چسبیده</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#">صفحات</a>
-                                <ul>
-                                    <li>
-                                        <a href="about.html" class="sf-with-ul">درباره ما</a>
-
-                                        <ul style="display: none;">
-                                            <li><a href="about.html">درباره ما 01</a></li>
-                                            <li><a href="about-2.html">درباره ما 02</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="contact.html" class="sf-with-ul">تماس با ما</a>
-
-                                        <ul style="display: none;">
-                                            <li><a href="contact.html">تماس با ما 01</a></li>
-                                            <li><a href="contact-2.html">تماس با ما 02</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="login.html">ورود</a></li>
-                                    <li><a href="faq.html">سوالات متداول</a></li>
-                                    <li><a href="404.html">خطای 404</a></li>
-                                    <li><a href="coming-soon.html">به زودی</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="blog.html">اخبار</a>
-
-                                <ul>
-                                    <li class=""><a href="blog.html">کلاسیک</a></li>
-                                    <li><a href="blog-listing.html">لیست</a></li>
-                                    <li>
-                                        <a href="#" class="sf-with-ul">شبکه بندی</a>
-                                        <ul style="display: none;">
-                                            <li><a href="blog-grid-2cols.html">2 ستونه</a></li>
-                                            <li><a href="blog-grid-3cols.html">3 ستونه</a></li>
-                                            <li><a href="blog-grid-4cols.html">4 ستونه</a></li>
-                                            <li><a href="blog-grid-sidebar.html">با سایدبار</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sf-with-ul">سایز های مختلف</a>
-                                        <ul style="display: none;">
-                                            <li><a href="blog-masonry-2cols.html">2 ستونه</a></li>
-                                            <li><a href="blog-masonry-3cols.html">3 ستونه</a></li>
-                                            <li><a href="blog-masonry-4cols.html">4 ستونه</a></li>
-                                            <li><a href="blog-masonry-sidebar.html">با سایدبار</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sf-with-ul">ماسک</a>
-                                        <ul style="display: none;">
-                                            <li><a href="blog-mask-grid.html">نوع 1</a></li>
-                                            <li><a href="blog-mask-masonry.html">نوع 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="sf-with-ul">پست تکی</a>
-                                        <ul style="display: none;">
-                                            <li><a href="single.html">پیش فرض با سایدبار</a></li>
-                                            <li><a href="single-fullwidth.html">تمام صفحه بدون سایدبار</a></li>
-                                            <li>
-                                                <a href="single-fullwidth-sidebar.html">تمام صفحه باسایدبار</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="elements-list.html">عناصر طراحی</a>
-                                <ul>
-                                    <li class=""><a href="elements-products.html">محصولات</a></li>
-                                    <li><a href="elements-typography.html">تایپوگرافی</a></li>
-                                    <li><a href="elements-titles.html">عناوین</a></li>
-                                    <li><a href="elements-banners.html">بنرها</a></li>
-
-                                    <li><a href="elements-product-category.html">دسته بندی محصولات</a></li>
-                                    <li><a href="elements-video-banners.html">بنرهای ویدیویی</a></li>
-                                    <li><a href="elements-buttons.html">دکمه ها</a></li>
-                                    <li><a href="elements-accordions.html">آکاردئون</a></li>
-                                    <li><a href="elements-tabs.html">تب ها</a></li>
-                                    <li><a href="elements-testimonials.html">توصیف و نقل قول</a></li>
-                                    <li><a href="elements-blog-posts.html">اخبار</a></li>
-                                    <li><a href="elements-portfolio.html">نمونه کار</a></li>
-                                    <li><a href="elements-cta.html">پاسخ به عمل</a></li>
-                                    <li><a href="elements-icon-boxes.html">باکس های آیکون</a></li>
+                                    <li><a href="#">سبد خرید (@ViewBag.CartCount)</a></li>
+                                    <li><a href="#">علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
+                                    <li><a href="#">تغییرات پروفایل</a></li>
                                 </ul>
                             </li>
                         </ul>
                     </nav><!-- End .mobile-nav -->
-                </div><!-- .End .tab-pane -->
-                <div class="tab-pane fade" id="mobile-cats-tab" role="tabpanel" aria-labelledby="mobile-cats-link">
-                    <nav class="mobile-cats-nav">
-                        <ul class="mobile-cats-menu">
-                            <li><a class="mobile-cats-lead" href="#">پیشنهاد روزانه</a></li>
-                            <li><a class="mobile-cats-lead" href="#">هدیه</a></li>
-                            <li><a href="#">تخت خواب</a></li>
-                            <li><a href="#">روشنایی</a></li>
-                            <li><a href="#">مبلمان</a></li>
-                            <li><a href="#">فضای ذخیره سازی</a></li>
-                            <li><a href="#">میز وصندلی</a></li>
-                            <li><a href="#">دکور </a></li>
-                            <li><a href="#">کابینت</a></li>
-                            <li><a href="#">قهوه</a></li>
-                            <li><a href="#">مبلمان خارج از منزل </a></li>
-                        </ul><!-- End .mobile-cats-menu -->
-                    </nav><!-- End .mobile-cats-nav -->
                 </div><!-- .End .tab-pane -->
             </div><!-- End .tab-content -->
 
@@ -483,6 +384,42 @@
                                             </button>
                                         </div><!-- End .form-footer -->
                                     </form>
+                                </div><!-- .End .tab-pane -->
+                            </div><!-- End .tab-content -->
+                        </div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+    <!-- Comment Modal -->
+    <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><i class="icon-close"></i></span>
+                    </button>
+                    <div class="form-box">
+                        <div class="form-tab">
+                            <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="error-tab" data-toggle="tab" href="#"
+                                       role="tab" aria-controls="comment" aria-selected="true">نظر شما</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="tab-content-5">
+                                <div class="tab-pane fade show active" id="error" role="tabpanel"
+                                     aria-labelledby="signin-tab">
+                                    <div class="form-group">
+                                        پیام خطا
+                                    </div><!-- End .form-group -->
+                                    <div class="form-footer">
+                                        <button type="submit" class="btn btn-outline-primary-2" onclick="closeComment()">
+                                            <span>ثبت نظر</span>
+                                            <i class="icon-long-arrow-left"></i>
+                                        </button>
+                                    </div><!-- End .form-footer -->
                                 </div><!-- .End .tab-pane -->
                             </div><!-- End .tab-content -->
                         </div><!-- End .form-tab -->

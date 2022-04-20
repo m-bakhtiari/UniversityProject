@@ -11,7 +11,7 @@ namespace UniversityProject.Core.Repositories
         Task Delete(int bookId, int userId);
         Task<List<ShoppingCart>> GetAll(int pageId);
         Task DeleteByUserId(int userId);
-        Task<bool> IsItemExist(ShoppingCart shoppingCart);
+        Task<bool> BookValidation(ShoppingCart shoppingCart);
         Task<int> CountByUserId(int userId);
         Task<List<FavoriteBookDto>> GetShoppingCartByUserId(int userId);
     }

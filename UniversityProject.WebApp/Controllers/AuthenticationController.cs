@@ -67,9 +67,9 @@ namespace UniversityProject.WebApp.Controllers
                 {
                     return Redirect(returnUrl);
                 }
-                return Redirect("Dashboard");
+                return Redirect("/Dashboard");
             }
-            return View("Login");
+            return Redirect("/Login");
         }
 
 

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProject.Core.DTOs;
@@ -45,13 +48,27 @@ namespace UniversityProject.WebApp.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> FinalizeCart(Book book)
+        [Route("/FinalizeCart")]
+        public async Task<IActionResult> FinalizeCart()
         {
-
-            return View("Index");
+            var cart = await _shoppingCartRepository.GetShoppingCartByUserId(User.GetUserId());
+            if (cart.Any(x => x.IsAvailable == false))
+            {
+                ViewBag.ShowModal = "true";
+                ViewBag.ModalText = "بعضی از کتاب ها در دسترس نیستند ، لطفا لیست خرید را به روز رسانی نمایید";
+                return Redirect("/Dashboard");
+            }
+            var userBook = new List<UserBook>();
+            foreach (var book in cart.Where(x => x.IsAvailable).Select(x => x.Book))
+            {
+                userBook.Add(new UserBook() { BookId = book.Id, StartDate = DateTime.Now, UserId = User.GetUserId() });
+            }
+            await _userBookRepository.InsertList(userBook);
+            await _shoppingCartRepository.DeleteByUserId(User.GetUserId());
+            return Redirect("/Dashboard");
         }
 
-        [HttpPost("UpdateUserInformation")]
+        [HttpPost("/UpdateUserInformation")]
         public async Task<IActionResult> UpdateUserInformation(LoginDto loginDto)
         {
             if (loginDto.Password != loginDto.RePassword)
@@ -66,11 +83,39 @@ namespace UniversityProject.WebApp.Controllers
             return Redirect("/Dashboard");
         }
 
-        [HttpPost("/Logout")]
+        [Route("/Logout")]
         public async Task<IActionResult> LogOut()
         {
             await HttpContext.SignOutAsync();
             return Redirect("/");
+        }
+
+        [Route("/DeleteShoppingCart")]
+        public async Task<IActionResult> DeleteShoppingCart()
+        {
+            await _shoppingCartRepository.DeleteByUserId(User.GetUserId());
+            return Redirect("/Dashboard");
+        }
+
+        [Route("/DeleteFavorite")]
+        public async Task<IActionResult> DeleteFavorite()
+        {
+            await _favoriteBookRepository.DeleteByUserId(User.GetUserId());
+            return Redirect("/Dashboard");
+        }
+
+        [Route("/DeleteItemShoppingCart/{bookId}")]
+        public async Task<IActionResult> DeleteItemShoppingCart(int bookId)
+        {
+            await _shoppingCartRepository.Delete(bookId, User.GetUserId());
+            return Redirect("/Dashboard");
+        }
+
+        [Route("/DeleteFavorite/{bookId}")]
+        public async Task<IActionResult> DeleteFavorite(int bookId)
+        {
+            await _favoriteBookRepository.Delete(bookId, User.GetUserId());
+            return Redirect("/Dashboard");
         }
     }
 }
