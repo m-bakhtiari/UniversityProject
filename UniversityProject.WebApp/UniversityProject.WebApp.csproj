@@ -24,6 +24,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\Images\Books\" />
     <Folder Include="wwwroot\Images\Banners\" />
+    <Folder Include="wwwroot\Images\Teams\" />
     <Folder Include="wwwroot\Images\Sliders\" />
   </ItemGroup>
 

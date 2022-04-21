@@ -209,7 +209,7 @@ namespace UniversityProject.Core.Services
                 await imgBook.CopyToAsync(stream);
             }
 
-            var insert = await _context.AddAsync(book);
+            var insert = await _context.Books.AddAsync(book);
             await _context.SaveChangesAsync();
             return insert.Entity.Id.ToString();
         }
@@ -248,7 +248,7 @@ namespace UniversityProject.Core.Services
                 await using var stream = new FileStream(imagePath, FileMode.Create);
                 await imgBook.CopyToAsync(stream);
             }
-            _context.Update(book);
+            _context.Books.Update(book);
             await _context.SaveChangesAsync();
             return null;
         }
