@@ -16,23 +16,25 @@
                 <div class="form-tab">
                     <ul class="nav nav-pills nav-fill" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="false">ورود</a>
+                            <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">ورود</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">ثبت نام</a>
+                            <a class="nav-link" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="false">ثبت نام</a>
                         </li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane fade" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+                        <div class="tab-pane fade active show" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
                             <form action="/Login" method="post">
                                 <div class="form-group">
                                     <label for="singin-email-2">شماره تماس *</label>
-                                    <input type="text" class="form-control" asp-for="Username">
+                                    <input type="text" class="form-control" asp-for="Username" required="required" placeholder="شماره تماس"
+                                           oninvalid="this.setCustomValidity('شماره تماس را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
 
                                 <div class="form-group">
                                     <label for="singin-password-2">رمز عبور *</label>
-                                    <input type="password" class="form-control" asp-for="Password">
+                                    <input type="password" class="form-control" asp-for="Password" required="required" placeholder="رمز عبور"
+                                           oninvalid="this.setCustomValidity('رمز عبور را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
 
                                 <div class="form-footer">
@@ -43,36 +45,37 @@
 
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="signin-remember-2" asp-for="RememberMe">
-                                        <label class="custom-control-label" for="signin-remember-2">
-                                            مرا به خاطر
-                                            بسپار
-                                        </label>
+                                        <label class="custom-control-label" for="signin-remember-2">مرا به خاطر بسپار</label>
                                     </div><!-- End .custom-checkbox -->
 
-                                    <a href="#" class="forgot-link">رمز عبور خود را فراموش کرده اید؟</a>
+                                    <a href="/ForgotPassword" class="forgot-link">رمز عبور خود را فراموش کرده اید؟</a>
                                 </div><!-- End .form-footer -->
                             </form>
                         </div><!-- .End .tab-pane -->
-                        <div class="tab-pane fade active show" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+                        <div class="tab-pane fade" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
                             <form action="/Register" method="post">
                                 <div class="form-group">
                                     <label for="register-email-2">شماره تماس *</label>
-                                    <input type="text" id="register-email-2" class="form-control" asp-for="Username">
+                                    <input type="text" id="register-email-2" class="form-control" asp-for="Username" required="required" placeholder="شماره تماس"
+                                           oninvalid="this.setCustomValidity('شماره تماس را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
 
                                 <div class="form-group">
                                     <label for="name">نام و نام خانوادگی *</label>
-                                    <input type="text" id="name" class="form-control" asp-for="Name">
+                                    <input type="text" id="name" class="form-control" asp-for="Name" required="required" placeholder="نام و نام خانوادگی"
+                                           oninvalid="this.setCustomValidity('نام را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="register-password-2">رمز عبور *</label>
-                                    <input type="password" id="register-password-2" class="form-control" asp-for="Password">
+                                    <input type="password" id="register-password-2" class="form-control" asp-for="Password" required="required" placeholder="رمز عبور"
+                                           oninvalid="this.setCustomValidity('رمز عبور را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
 
                                 <div class="form-group">
                                     <label for="register-rePassword-2"> تکرار رمز عبور *</label>
-                                    <input type="password" class="form-control" id="register-rePassword-2" asp-for="RePassword">
+                                    <input type="password" class="form-control" id="register-rePassword-2" asp-for="RePassword" required="required" placeholder="تکرار رمز عبور"
+                                           oninvalid="this.setCustomValidity('تکرار رمز عبور را وارد نمایید')" oninput="this.setCustomValidity('')" />
                                 </div><!-- End .form-group -->
 
                                 <div class="form-footer">
@@ -89,3 +92,15 @@
         </div><!-- End .container -->
     </div><!-- End .login-page section-bg -->
 </main>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            if ('@ViewBag.ErrorModal' == 'true') {
+                $("#error-text").html('@ViewBag.ErrorMessage');
+                $("#error-modal").modal('show');
+            }
+        });
+    </script>
+}

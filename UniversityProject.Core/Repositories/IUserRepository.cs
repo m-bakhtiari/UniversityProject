@@ -12,5 +12,8 @@ namespace UniversityProject.Core.Repositories
         Task<string> Update(User user);
         Task Delete(int id);
         Task<User> LoginUser(User user);
+        Task<User> GetItemByPhoneNumber(string phone);
+        Task<bool> GetUserByCode(string phone, int code);
+        Task ResetPassword(string phone, int code);
     }
 }

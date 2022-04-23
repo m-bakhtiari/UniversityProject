@@ -30,18 +30,11 @@ namespace UniversityProject.WebApp.Controllers
         [Route("/Login")]
         public async Task<IActionResult> Login()
         {
-            ViewData["Category"] = await _categoryRepository.GetAll();
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
-                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
-            }
-
+            await GetMenuData();
             return View(new LoginDto());
         }
 
-        [HttpPost]
-        [Route("/Login")]
+        [HttpPost("/Login")]
         public async Task<IActionResult> Login(LoginDto login, string returnUrl = "/")
         {
             login.Password = PasswordHelper.EncodePasswordMd5(login.Password);
@@ -69,16 +62,22 @@ namespace UniversityProject.WebApp.Controllers
                 }
                 return Redirect("/Dashboard");
             }
-            return Redirect("/Login");
+            await GetMenuData();
+            ViewBag.ErrorModal = "true";
+            ViewBag.ErrorMessage = "کاربری با این اطلاعات یافت نشد";
+            return View("Login");
         }
 
 
         [HttpPost("/Register")]
-        public async Task<string> Register(LoginDto loginDto)
+        public async Task<IActionResult> Register(LoginDto loginDto)
         {
             if (loginDto.Password != loginDto.RePassword)
             {
-                return null;
+                await GetMenuData();
+                ViewBag.ErrorModal = "true";
+                ViewBag.ErrorMessage = "رمز عبور با تکرار آن یکسان نمی باشد";
+                return View("Login");
             }
             var user = new User()
             {
@@ -89,9 +88,59 @@ namespace UniversityProject.WebApp.Controllers
             var res = await _userRepository.Insert(user);
             if (string.IsNullOrWhiteSpace(res))
             {
-                return res;
+                ViewBag.ErrorModal = "true";
+                ViewBag.ErrorMessage = res;
+                return View("Login");
             }
             return null;
+        }
+
+        [Route("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword()
+        {
+            await GetMenuData();
+            return View("ForgotPassword");
+        }
+
+        [HttpPost("AddUserCode")]
+        public async Task<IActionResult> AddUserCode(LoginDto loginDto)
+        {
+            await GetMenuData();
+            ViewBag.ErrorModal = "true";
+            ViewBag.ErrorMessage = "کد ارسالی به شماره تماس را وارد نمایید";
+            var user = await _userRepository.GetItemByPhoneNumber(loginDto.Username);
+            if (user == null)
+            {
+                return View("ForgotPassword");
+            }
+            return View("AddUserCode", new LoginDto() { Username = user.Phone, Code = user.Id });
+        }
+
+        [HttpPost("ResetPassword")]
+        public async Task<IActionResult> ResetPassword(LoginDto loginDto)
+        {
+            if (loginDto.Id != null)
+            {
+                var userData = await _userRepository.GetUserByCode(loginDto.Username, loginDto.Id.Value);
+                if (userData)
+                {
+                    await _userRepository.ResetPassword(loginDto.Username, loginDto.Id.Value);
+                }
+            }
+            await GetMenuData();
+            ViewBag.ErrorModal = "true";
+            ViewBag.ErrorMessage = "رمز عبور شما به 1234 تغییر یافت از طریق داشبرد می توانید رمز عبور خود را تغییر دهید";
+            return View("Login");
+        }
+
+        private async Task GetMenuData()
+        {
+            ViewData["Category"] = await _categoryRepository.GetAll();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
+                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
+            }
         }
     }
 }

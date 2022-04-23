@@ -35,6 +35,16 @@ namespace UniversityProject.Core.Services
             return await _context.Users.FindAsync(id);
         }
 
+        public async Task<User> GetItemByPhoneNumber(string phone)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Phone == phone);
+        }
+
+        public async Task<bool> GetUserByCode(string phone, int code)
+        {
+            return await _context.Users.AnyAsync(x => x.Id == code && x.Phone == phone);
+        }
+
         public async Task<string> Insert(User user)
         {
             if (string.IsNullOrWhiteSpace(user.Name))
@@ -49,6 +59,10 @@ namespace UniversityProject.Core.Services
             {
                 return "رمز عبور را وارد نمایید";
             }
+            if (await _context.Users.AnyAsync(x => x.Phone == user.Phone))
+            {
+                return "کاربری با این نام قبلا ثبت نام شده است";
+            }
             user.Password = PasswordHelper.EncodePasswordMd5(user.Password);
             user.RegisterTime = DateTime.Now;
             user.IsDelete = false;
@@ -60,6 +74,14 @@ namespace UniversityProject.Core.Services
         public async Task<User> LoginUser(User user)
         {
             return await _context.Users.FirstOrDefaultAsync(x => x.Phone == user.Phone && x.Password == user.Password);
+        }
+
+        public async Task ResetPassword(string phone, int code)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == code && x.Phone == phone);
+            user.Password = PasswordHelper.EncodePasswordMd5("1234");
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<string> Update(User user)
