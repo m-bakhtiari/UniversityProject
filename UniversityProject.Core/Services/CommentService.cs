@@ -17,6 +17,11 @@ namespace UniversityProject.Core.Services
             _context = context;
         }
 
+        public async Task<int> CommentCount()
+        {
+            return await _context.Comments.CountAsync();
+        }
+
         public async Task Delete(int id)
         {
             var comment = await _context.Comments.FindAsync(id);
@@ -38,13 +43,6 @@ namespace UniversityProject.Core.Services
         public async Task<Comment> GetItem(int id)
         {
             return await _context.Comments.Include(x => x.User).FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task<List<Comment>> GetItemByBookId(int bookId, int pageId)
-        {
-            return await _context.Comments.Where(x => x.BookId == bookId)
-                .Skip((pageId - 1) * 5).Take(5)
-                .ToListAsync();
         }
 
         public async Task<string> Insert(Comment comment)

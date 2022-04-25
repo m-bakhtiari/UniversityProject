@@ -15,5 +15,14 @@ namespace UniversityProject.Data.Entities
 
         [MaxLength(300)]
         public string Image { get; set; }
+
+        [MaxLength(200)]
+        public string Twitter { get; set; }
+
+        [MaxLength(200)]
+        public string Instagram { get; set; }
+
+        [MaxLength(200)]
+        public string Facebook { get; set; }
     }
 }

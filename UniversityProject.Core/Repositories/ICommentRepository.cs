@@ -11,6 +11,6 @@ namespace UniversityProject.Core.Repositories
         Task Delete(int id);
         Task<List<Comment>> GetAll();
         Task<Comment> GetItem(int id);
-        Task<List<Comment>> GetItemByBookId(int bookId, int pageId);
+        Task<int> CommentCount();
     }
 }

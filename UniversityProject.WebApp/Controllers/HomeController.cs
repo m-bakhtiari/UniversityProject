@@ -16,8 +16,11 @@ namespace UniversityProject.WebApp.Controllers
         private readonly IFavoriteBookRepository _favoriteBookRepository;
         private readonly IShoppingCartRepository _shoppingCartRepository;
         private readonly IMessageRepository _messageRepository;
+        private readonly ITeamRepository _teamRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly ICommentRepository _commentRepository;
 
-        public HomeController(ICategoryRepository categoryRepository, IBannerRepository bannerRepository, IBookRepository bookRepository, ISliderRepository sliderRepository, IFavoriteBookRepository favoriteBookRepository, IShoppingCartRepository shoppingCartRepository, IMessageRepository messageRepository)
+        public HomeController(ICategoryRepository categoryRepository, IBannerRepository bannerRepository, IBookRepository bookRepository, ISliderRepository sliderRepository, IFavoriteBookRepository favoriteBookRepository, IShoppingCartRepository shoppingCartRepository, IMessageRepository messageRepository, ITeamRepository teamRepository, IUserRepository userRepository, ICommentRepository commentRepository)
         {
             _categoryRepository = categoryRepository;
             _bannerRepository = bannerRepository;
@@ -26,17 +29,14 @@ namespace UniversityProject.WebApp.Controllers
             _favoriteBookRepository = favoriteBookRepository;
             _shoppingCartRepository = shoppingCartRepository;
             _messageRepository = messageRepository;
+            _teamRepository = teamRepository;
+            _userRepository = userRepository;
+            _commentRepository = commentRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            ViewData["Category"] = await _categoryRepository.GetAll();
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
-                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
-            }
-
+            await GetMenuData();
             var model = new MainPageDto()
             {
                 Banners = await _bannerRepository.GetAll(),
@@ -90,32 +90,42 @@ namespace UniversityProject.WebApp.Controllers
         [Route("/ContactUs")]
         public async Task<IActionResult> ContactUs()
         {
-            ViewData["Category"] = await _categoryRepository.GetAll();
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
-                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
-            }
+            await GetMenuData();
             return View();
         }
 
         [Route("/AboutUs")]
         public async Task<IActionResult> AboutUs()
         {
-            ViewData["Category"] = await _categoryRepository.GetAll();
-            if (User.Identity.IsAuthenticated)
+            await GetMenuData();
+            var model = new AboutUsDto()
             {
-                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
-                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
-            }
-            return View();
+                Teams = await _teamRepository.GetAll(),
+                BookCount = await _bookRepository.BookCount(),
+                CategoryCount = await _categoryRepository.CategoryCount(),
+                UserCount = await _userRepository.UserCount(),
+                CommentCount = await _commentRepository.CommentCount()
+            };
+            return View(model);
         }
 
         [HttpPost("/InsertMessage")]
         public async Task<IActionResult> InsertMessage(Message message)
         {
             await _messageRepository.Insert(message);
-            return Redirect("/AboutUs");
+            await GetMenuData();
+            ViewBag.ShowModal = "true";
+            return View("AboutUs");
+        }
+
+        private async Task GetMenuData()
+        {
+            ViewData["Category"] = await _categoryRepository.GetAll();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
+                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
+            }
         }
     }
 }

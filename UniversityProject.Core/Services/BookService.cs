@@ -21,6 +21,12 @@ namespace UniversityProject.Core.Services
         {
             _context = context;
         }
+
+        public async Task<int> BookCount()
+        {
+            return await _context.Books.CountAsync();
+        }
+
         public async Task Delete(int id)
         {
             var book = await _context.Books.FindAsync(id);

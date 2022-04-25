@@ -149,13 +149,11 @@
             <ul>
                 @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                 {
-<li><a href="#">@sub.Title</a></li>
-}
+<li><a href="#">@sub.Title</a></li>}
             </ul>}
-                        </li>
-}
+                        </li>}
                                     <li class="megamenu-container">
-                                        <a href="about.html" class="sf-with-ul">درباره ما</a>
+                                        <a href="/AboutUs" class="sf-with-ul">درباره ما</a>
                                     </li>
                                     <li class="megamenu-container">
                                         <a href="/ContactUs" class="sf-with-ul">تماس با ما</a>
@@ -324,8 +322,7 @@
                     <ul>
                         @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                         {
-    <li><a href="product.html">@sub.Title</a></li>
-}
+    <li><a href="product.html">@sub.Title</a></li>}
                     </ul>}}
                             </li>
                             <li>درباره ی ما</li>
@@ -344,10 +341,10 @@
             </div><!-- End .tab-content -->
 
             <div class="social-icons">
-                <a href="#" class="social-icon" target="_blank" title="فیسبوک"><i class="icon-facebook-f"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="توییتر"><i class="icon-twitter"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="اینستاگرام"><i class="icon-instagram"></i></a>
-                <a href="#" class="social-icon" target="_blank" title="یوتیوب"><i class="icon-youtube"></i></a>
+                <a href="https://www.facebook.com/" class="social-icon" target="_blank" title="فیسبوک"><i class="icon-facebook-f"></i></a>
+                <a href="https://www.twitter.com/" class="social-icon" target="_blank" title="توییتر"><i class="icon-twitter"></i></a>
+                <a href="https://www.instagram.com/" class="social-icon" target="_blank" title="اینستاگرام"><i class="icon-instagram"></i></a>
+                <a href="https://www.youtube.com/" class="social-icon" target="_blank" title="یوتیوب"><i class="icon-youtube"></i></a>
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
@@ -395,15 +392,29 @@
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
     </div><!-- End .modal -->
-    <!-- Comment Modal -->
+    <!-- Error Modal -->
     <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body rtl">
                     <div class="form-box">
                         <h3>خطا</h3>
-                        <hr style="border-top: 3px solid red;"/>
+                        <hr style="border-top: 3px solid red;" />
                         <div id="error-text"></div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+    <!-- Error Modal -->
+    <div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body rtl">
+                    <div class="form-box">
+                        <h3>با تشکر از پیام شما</h3>
+                        <hr style="border-top: 3px solid green;" />
+                        <div id="message-text">با تشکر از پیام شما .به زودی به شماره تماس یا ایمیل وارد شده شما جواب خواهیم داد ، برای پیگیری جواب از راه های ارتباطی ما هم می توانید استفاده کنید</div><!-- End .form-tab -->
                     </div><!-- End .form-box -->
                 </div><!-- End .modal-body -->
             </div><!-- End .modal-content -->

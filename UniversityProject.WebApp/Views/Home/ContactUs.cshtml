@@ -73,19 +73,22 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="cname" class="sr-only">نام</label>
-                                <input type="text" class="form-control" id="cname" placeholder="نام خود را وارد کنید *" required="" asp-for="Name">
+                                <input type="text" class="form-control" id="cname" placeholder="نام خود را وارد کنید *" required="required" asp-for="Name"
+                                       oninvalid="this.setCustomValidity('نام خود را وارد نمایید')" oninput="this.setCustomValidity('')">
                             </div><!-- End .col-sm-6 -->
 
                             <div class="col-sm-6">
                                 <label for="cemail" class="sr-only">ایمیل</label>
-                                <input type="email" class="form-control" id="cemail" placeholder="ایمیل خود را وارد کنید *" required="" asp-for="Email">
+                                <input type="email" class="form-control" id="cemail" placeholder="ایمیل خود را وارد کنید *" required="required" asp-for="Email"
+                                       oninvalid="this.setCustomValidity('ایمیل خود را وارد نمایید')" oninput="this.setCustomValidity('')">
                             </div><!-- End .col-sm-6 -->
                         </div><!-- End .row -->
 
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="cphone" class="sr-only">شماره موبایل</label>
-                                <input type="tel" class="form-control" id="cphone" placeholder="شماره موبایل خود را وارد کنید" asp-for="Phone">
+                                <input type="tel" class="form-control" id="cphone" required="required" placeholder="شماره تماس خود را وارد کنید" asp-for="Phone"
+                                       oninvalid="this.setCustomValidity('شماره تماس خود را وارد نمایید')" oninput="this.setCustomValidity('')">
                             </div><!-- End .col-sm-6 -->
 
                             <div class="col-sm-6">
@@ -95,7 +98,8 @@
                         </div><!-- End .row -->
 
                         <label for="cmessage" class="sr-only">پیام</label>
-                        <textarea class="form-control" cols="30" rows="4" id="cmessage" required="" placeholder="متن پیام شما *" asp-for="Text"></textarea>
+                        <textarea class="form-control" cols="30" rows="4" id="cmessage" required="required" placeholder="متن پیام شما *" asp-for="Text"
+                                  oninvalid="this.setCustomValidity('متن پیام را وارد نمایید')" oninput="this.setCustomValidity('')"></textarea>
 
                         <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm float-right">
                             <span>تایید و ارسال</span>
@@ -115,3 +119,16 @@
         </div>
     </div><!-- End .page-content -->
 </main>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function() {
+            if ('@ViewBag.ShowModal'=="true") {
+                $("#message-modal").modal('show');
+            }
+        });
+
+
+    </script>
+}

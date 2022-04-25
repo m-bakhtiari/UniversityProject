@@ -15,5 +15,6 @@ namespace UniversityProject.Core.Repositories
         Task<User> GetItemByPhoneNumber(string phone);
         Task<bool> GetUserByCode(string phone, int code);
         Task ResetPassword(string phone, int code);
+        Task<int> UserCount();
     }
 }

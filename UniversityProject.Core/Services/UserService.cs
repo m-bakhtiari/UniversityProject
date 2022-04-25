@@ -102,5 +102,10 @@ namespace UniversityProject.Core.Services
             await _context.SaveChangesAsync();
             return null;
         }
+
+        public async Task<int> UserCount()
+        {
+            return await _context.Users.CountAsync();
+        }
     }
 }

@@ -16,6 +16,12 @@ namespace UniversityProject.Core.Services
         {
             _context = context;
         }
+
+        public async Task<int> CategoryCount()
+        {
+            return await _context.Categories.CountAsync();
+        }
+
         public async Task Delete(int id)
         {
             var category = await _context.Categories.FindAsync(id);
@@ -36,7 +42,7 @@ namespace UniversityProject.Core.Services
 
         public async Task<List<Category>> GetAll()
         {
-            return await _context.Categories.Include(x=>x.BookCategories).ToListAsync();
+            return await _context.Categories.Include(x => x.BookCategories).ToListAsync();
         }
 
         public async Task<Category> GetItem(int id)
