@@ -20,6 +20,11 @@ namespace UniversityProject.Core.Services
             _context = context;
         }
 
+        public async Task<int> BannerCount()
+        {
+            return await _context.Banners.CountAsync();
+        }
+
         public async Task Delete(int id)
         {
             var banner = await _context.Banners.FindAsync(id);

@@ -13,5 +13,7 @@ namespace UniversityProject.Core.Repositories
         Task<UserBook> GetItem(int id);
         Task Delete(int id);
         Task<List<UserBook>> GetItemByUserId(int userId);
+        Task<int> UserBookCount();
+        Task<int> UserBookNotReturn();
     }
 }

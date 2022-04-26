@@ -57,6 +57,11 @@ namespace UniversityProject.Core.Services
             return null;
         }
 
+        public async Task<int> SliderCount()
+        {
+            return await _context.Sliders.CountAsync();
+        }
+
         public async Task<string> Update(Slider slider, IFormFile image)
         {
             if (image != null)

@@ -57,6 +57,11 @@ namespace UniversityProject.Core.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<int> TeamCount()
+        {
+            return await _context.Teams.CountAsync();
+        }
+
         public async Task Update(Team team, IFormFile image)
         {
             if (image != null)

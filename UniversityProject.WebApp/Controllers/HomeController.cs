@@ -115,7 +115,7 @@ namespace UniversityProject.WebApp.Controllers
             await _messageRepository.Insert(message);
             await GetMenuData();
             ViewBag.ShowModal = "true";
-            return View("AboutUs");
+            return View("ContactUs");
         }
 
         private async Task GetMenuData()

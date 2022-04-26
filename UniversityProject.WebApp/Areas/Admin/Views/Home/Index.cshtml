@@ -1,1 +1,191 @@
-﻿<title>داشبرد | کنترل پنل مدیریت</title>
+﻿@model UniversityProject.Core.DTOs.AdminPanelDto
+
+<title>داشبرد | کنترل پنل مدیریت</title>
+
+<section class="content-header">
+    <h1>
+        داشبرد
+        <small>کنترل پنل</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
+        <li class="active">داشبرد</li>
+    </ol>
+</section>
+
+<section class="content">
+    <div class="row">
+        <div class="box box-info">
+            <div class="box-header">
+                <i class="fa fa-info-circle"></i>
+                <h3 class="box-title">آمار کتابخانه</h3>
+                <!-- tools box -->
+                <div class="pull-left box-tools">
+                    <button type="button" class="btn bg-info btn-sm" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <div class="box-body">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>@Model.UserCount</h3>
+                            <p>کاربران</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <a href="/Admin/User" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>@Model.BookCount</h3>
+
+                            <p>کل کتاب های کتابخانه</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-book"></i>
+                        </div>
+                        <a href="/Admin/Book" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>@Model.CategoryCount</h3>
+
+                            <p>موضوعات کتاب</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-address-book"></i>
+                        </div>
+                        <a href="/Admin/Category" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>@Model.CommentCount</h3>
+                            <p>نظرات</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-comment"></i>
+                        </div>
+                        <a href="/Admin/Comment" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>@Model.BannerCount</h3>
+                            <p>بنرها</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-adversal"></i>
+                        </div>
+                        <a href="/Admin/Banner" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>@Model.SliderCount</h3>
+
+                            <p>اسلایدها</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-film"></i>
+                        </div>
+                        <a href="/Admin/Slider" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>@Model.MessageCount</h3>
+
+                            <p>پیام ها</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-mail-reply"></i>
+                        </div>
+                        <a href="/Admin/Message" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>@Model.UnreadMessageCount</h3>
+                            <p>پیام های خوانده نشده</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-mailchimp"></i>
+                        </div>
+                        <a href="/Admin/Message" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>@Model.Penalty.ToString("#,0")</h3>
+                            <p>مبلغ جریمه ها</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-money"></i>
+                        </div>
+                        <a href="/Admin/User" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>@Model.UserCount</h3>
+                            <p>کتاب های استفاده شده</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-book-reader"></i>
+                        </div>
+                        <a href="/Admin/UserBook" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>@Model.UserBookNotReturn</h3>
+                            <p>کتاب های در حال استفاده</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-book-dead"></i>
+                        </div>
+                        <a href="/Admin/UserBook" class="small-box-footer">اطلاعات بیشتر <i class="fa fa-arrow-circle-left"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+            </div>
+        </div>
+    </div>
+</section>

@@ -12,5 +12,7 @@ namespace UniversityProject.Core.Repositories
         Task<string> Insert(Message message);
         Task<List<Message>> GetAll();
         Task ToggleStatus(int messageId);
+        Task<int> MessageCount();
+        Task<int> UnreadMessageCount();
     }
 }

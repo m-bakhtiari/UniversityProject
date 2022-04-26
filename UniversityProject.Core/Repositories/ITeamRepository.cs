@@ -12,5 +12,6 @@ namespace UniversityProject.Core.Repositories
         Task Delete(int id);
         Task<List<Team>> GetAll();
         Task<Team> GetItem(int id);
+        Task<int> TeamCount();
     }
 }

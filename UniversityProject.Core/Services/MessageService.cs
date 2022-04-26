@@ -36,11 +36,21 @@ namespace UniversityProject.Core.Services
             return null;
         }
 
+        public async Task<int> MessageCount()
+        {
+            return await _context.Messages.CountAsync();
+        }
+
         public async Task ToggleStatus(int messageId)
         {
             var message = await _context.Messages.FindAsync(messageId);
             message.ReadingStatus = !message.ReadingStatus;
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> UnreadMessageCount()
+        {
+            return await _context.Messages.CountAsync(x => x.ReadingStatus == false);
         }
     }
 }

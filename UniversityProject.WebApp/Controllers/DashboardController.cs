@@ -83,13 +83,6 @@ namespace UniversityProject.WebApp.Controllers
             return Redirect("/Dashboard");
         }
 
-        [Route("/Logout")]
-        public async Task<IActionResult> LogOut()
-        {
-            await HttpContext.SignOutAsync();
-            return Redirect("/");
-        }
-
         [Route("/DeleteShoppingCart")]
         public async Task<IActionResult> DeleteShoppingCart()
         {

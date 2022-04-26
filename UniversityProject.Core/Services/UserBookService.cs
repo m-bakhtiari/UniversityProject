@@ -37,7 +37,7 @@ namespace UniversityProject.Core.Services
 
         public async Task<List<UserBook>> GetItemByUserId(int userId)
         {
-            return await _context.UsersBook.Include(x=>x.Book).Where(x => x.UserId == userId).ToListAsync();
+            return await _context.UsersBook.Include(x => x.Book).Where(x => x.UserId == userId).ToListAsync();
         }
 
         public async Task<string> Insert(UserBook userBook)
@@ -116,6 +116,16 @@ namespace UniversityProject.Core.Services
             }
             await _context.SaveChangesAsync();
             return null;
+        }
+
+        public async Task<int> UserBookCount()
+        {
+            return await _context.UsersBook.CountAsync();
+        }
+
+        public async Task<int> UserBookNotReturn()
+        {
+            return await _context.UsersBook.CountAsync(x => x.EndDate == null);
         }
     }
 }

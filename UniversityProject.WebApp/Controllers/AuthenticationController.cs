@@ -133,6 +133,13 @@ namespace UniversityProject.WebApp.Controllers
             return View("Login");
         }
 
+        [Route("/Logout")]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync();
+            return Redirect("/");
+        }
+
         private async Task GetMenuData()
         {
             ViewData["Category"] = await _categoryRepository.GetAll();

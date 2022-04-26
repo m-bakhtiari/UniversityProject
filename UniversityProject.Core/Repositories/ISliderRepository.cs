@@ -12,5 +12,6 @@ namespace UniversityProject.Core.Repositories
         Task<string> Insert(Slider slider, IFormFile image);
         Task<string> Update(Slider slider, IFormFile image);
         Task Delete(int id);
+        Task<int> SliderCount();
     }
 }

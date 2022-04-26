@@ -76,6 +76,11 @@ namespace UniversityProject.Core.Services
             return await _context.Users.FirstOrDefaultAsync(x => x.Phone == user.Phone && x.Password == user.Password);
         }
 
+        public async Task<double> PenaltySum()
+        {
+            return await _context.Users.SumAsync(x => x.Penalty.Value);
+        }
+
         public async Task ResetPassword(string phone, int code)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == code && x.Phone == phone);
