@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
+using UniversityProject.Core.Utils;
 
 namespace UniversityProject.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [PermissionChecker]
     public class HomeController : Controller
     {
         private readonly IUserRepository _userRepository;
@@ -45,7 +47,8 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 SliderCount = await _sliderRepository.SliderCount(),
                 UnreadMessageCount = await _messageRepository.UnreadMessageCount(),
                 UserBookCount = await _userBookRepository.UserBookCount(),
-                UserBookNotReturn = await _userBookRepository.UserBookNotReturn()
+                UserBookNotReturn = await _userBookRepository.UserBookNotReturn(),
+                TeamCount = await _teamRepository.TeamCount()
             };
             return View(model);
         }

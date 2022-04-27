@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Core.Utils;
@@ -11,6 +11,7 @@ using UniversityProject.Data.Entities;
 
 namespace UniversityProject.WebApp.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;

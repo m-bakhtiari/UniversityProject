@@ -3,11 +3,13 @@ using System;
 using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
+using UniversityProject.Core.Utils;
 using UniversityProject.Data.Entities;
 
 namespace UniversityProject.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [PermissionChecker]
     public class UserBookController : Controller
     {
         private readonly IUserBookRepository _userBookRepository;

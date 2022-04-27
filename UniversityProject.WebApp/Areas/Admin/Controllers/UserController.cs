@@ -8,6 +8,7 @@ using UniversityProject.Data.Entities;
 namespace UniversityProject.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [PermissionChecker]
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;

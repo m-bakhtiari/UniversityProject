@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using UniversityProject.Core.Repositories;
+using UniversityProject.Core.Utils;
 using UniversityProject.Data.Entities;
 
 namespace UniversityProject.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [PermissionChecker]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;

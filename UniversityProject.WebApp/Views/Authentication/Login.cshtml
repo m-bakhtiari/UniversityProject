@@ -25,15 +25,19 @@
                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
                             <form action="/Login" method="post">
+                                @if (!string.IsNullOrWhiteSpace(Model.ReturnUrl))
+                                {
+                                    <input type="hidden" value="@Model.ReturnUrl" asp-for="ReturnUrl" />
+                                }
                                 <div class="form-group">
                                     <label for="singin-email-2">شماره تماس *</label>
-                                    <input type="text" class="form-control" asp-for="Username" required="required" placeholder="شماره تماس"
+                                    <input type="text" class="form-control" id="singin-email-2" asp-for="Username" required="required" placeholder="شماره تماس"
                                            oninvalid="this.setCustomValidity('شماره تماس را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
 
                                 <div class="form-group">
                                     <label for="singin-password-2">رمز عبور *</label>
-                                    <input type="password" class="form-control" asp-for="Password" required="required" placeholder="رمز عبور"
+                                    <input type="password" class="form-control" id="singin-password-2" asp-for="Password" required="required" placeholder="رمز عبور"
                                            oninvalid="this.setCustomValidity('رمز عبور را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
 

@@ -32,5 +32,16 @@ namespace UniversityProject.Core.Utils
             }
             throw new Exception("User id is not defined");
         }
+        public static int GetRoleId(this IPrincipal principal)
+        {
+            var simplePrinciple = (ClaimsPrincipal)principal;
+            if (simplePrinciple.Identity is ClaimsIdentity identity)
+            {
+                var roleIdClaim = identity.FindFirst(ClaimTypes.Role);
+
+                return int.Parse(roleIdClaim.Value);
+            }
+            throw new Exception("User id is not defined");
+        }
     }
 }

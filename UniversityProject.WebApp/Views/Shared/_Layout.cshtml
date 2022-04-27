@@ -149,24 +149,33 @@
             <ul>
                 @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                 {
-<li><a href="#">@sub.Title</a></li>}
+<li><a href="#">@sub.Title</a></li>
+}
             </ul>}
-                        </li>}
+                        </li>
+}
                                     <li class="megamenu-container">
                                         <a href="/AboutUs" class="sf-with-ul">درباره ما</a>
                                     </li>
                                     <li class="megamenu-container">
                                         <a href="/ContactUs" class="sf-with-ul">تماس با ما</a>
                                     </li>
-                                    <li>
-                                        <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
-                                        <ul>
-                                            <li><a href="/Dashboard">لیست علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
-                                            <li><a href="/Dashboard">سبد خرید (@ViewBag.CartCount)</a></li>
-                                            <li><a href="/Dashboard">تاریخچه کتاب ها</a></li>
-                                            <li><a href="/Dashboard">تغییر پروفایل</a></li>
-                                        </ul>
-                                    </li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                        <li>
+                            <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
+                            <ul>
+                                <li><a href="/Dashboard">لیست علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
+                                <li><a href="/Dashboard">سبد خرید (@ViewBag.CartCount)</a></li>
+                                <li><a href="/Dashboard">تاریخچه کتاب ها</a></li>
+                                <li><a href="/Dashboard">تغییر پروفایل</a></li>
+                            </ul>
+                        </li> }
+                                    else
+                                    {
+                        <li class="megamenu-container">
+                            <a href="/Login" class="sf-with-ul">ورود/ ثبت نام</a>
+                        </li>}
                                 </ul><!-- End .menu -->
                             </nav><!-- End .main-nav -->
                         </div>
@@ -322,7 +331,8 @@
                     <ul>
                         @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                         {
-    <li><a href="product.html">@sub.Title</a></li>}
+    <li><a href="product.html">@sub.Title</a></li>
+}
                     </ul>}}
                             </li>
                             <li>درباره ی ما</li>
@@ -398,7 +408,7 @@
             <div class="modal-content">
                 <div class="modal-body rtl">
                     <div class="form-box">
-                        <h3>خطا</h3>
+                        <h3 class="text-center"><i class="icon-info-circle"></i> خطا <i class="icon-info-circle"></i></h3>
                         <hr style="border-top: 3px solid red;" />
                         <div id="error-text"></div><!-- End .form-tab -->
                     </div><!-- End .form-box -->

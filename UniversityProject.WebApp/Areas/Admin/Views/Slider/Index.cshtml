@@ -1,34 +1,29 @@
 ﻿@model List<UniversityProject.Data.Entities.Slider>
 
-<title>دسته بندی کتاب ها</title>
+<title>اسلایدها</title>
 @{
     var counter = 1;
 }
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        جدول ها
-        <small>پیشرفته</small>
+        اسلایدها
     </h1>
     <ol class="breadcrumb">
         <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
-        <li><a href="/Admin/Book" class="active">جدول</a></li>
+        <li><a href="/Admin/Slider" class="active">اسلایدها</a></li>
     </ol>
 </section>
 
 <section class="content-header">
-    <a class="btn btn-success" href="/Admin/Slider/Create">افزودن گروه جدید</a>
+    <a class="btn btn-success" href="/Admin/Slider/Create">افزودن اسلاید جدید</a>
 </section>
 
 <!-- Main content -->
 <section class="content">
     <div class="row">
         <div class="col-xs-12">
-
             <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">جدول داده مثال ۲</h3>
-                </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <table id="example1" class="table table-bordered table-striped">
@@ -61,7 +56,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>عنوان</th>
-                                <th>زیر گروه</th>
+                                <th>لینک</th>
+                                <th>تصویر</th>
                                 <th>عملیات</th>
                             </tr>
                         </tfoot>

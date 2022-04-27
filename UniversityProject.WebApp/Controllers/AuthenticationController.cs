@@ -27,45 +27,44 @@ namespace UniversityProject.WebApp.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        [Route("/Login")]
-        public async Task<IActionResult> Login()
+        [HttpGet("/Login")]
+        [HttpGet("/Login/{returnUrl}")]
+        public async Task<IActionResult> Login(string returnUrl)
         {
             await GetMenuData();
-            return View(new LoginDto());
+            return View(new LoginDto() { ReturnUrl = returnUrl });
         }
 
         [HttpPost("/Login")]
-        public async Task<IActionResult> Login(LoginDto login, string returnUrl = "/")
+        public async Task<IActionResult> Login(LoginDto login)
         {
             login.Password = PasswordHelper.EncodePasswordMd5(login.Password);
             var user = await _userRepository.LoginUser(new User() { Phone = login.Username, Password = login.Password });
             if (user != null)
             {
                 var claims = new List<Claim>()
-                    {
-                        new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
-                        new Claim(ClaimTypes.Name,user.Name)
-                    };
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.Name),
+                    new Claim(ClaimTypes.Role, user.RoleId.ToString())
+                };
                 var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var principal = new ClaimsPrincipal(identity);
-
                 var properties = new AuthenticationProperties
                 {
                     IsPersistent = login.RememberMe
                 };
                 await HttpContext.SignInAsync(principal, properties);
-
-                ViewBag.IsSuccess = true;
-                if (returnUrl != "/")
+                if (!string.IsNullOrWhiteSpace(login.ReturnUrl))
                 {
-                    return Redirect(returnUrl);
+                    return Redirect(login.ReturnUrl);
                 }
                 return Redirect("/Dashboard");
             }
             await GetMenuData();
             ViewBag.ErrorModal = "true";
             ViewBag.ErrorMessage = "کاربری با این اطلاعات یافت نشد";
-            return View("Login");
+            return View("Login", new LoginDto() { ReturnUrl = login.ReturnUrl });
         }
 
 

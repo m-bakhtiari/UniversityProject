@@ -1,10 +1,12 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProject.Core.Repositories;
+using UniversityProject.Core.Utils;
 
 namespace UniversityProject.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [PermissionChecker]
     public class MessageController : Controller
     {
         private readonly IMessageRepository _messageRepository;

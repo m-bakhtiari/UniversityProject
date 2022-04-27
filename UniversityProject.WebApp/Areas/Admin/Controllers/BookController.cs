@@ -11,6 +11,7 @@ using UniversityProject.Data.Entities;
 namespace UniversityProject.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [PermissionChecker]
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;

@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UniversityProject.Core.Repositories;
+using UniversityProject.Core.Utils;
 using UniversityProject.Data.Entities;
 
 namespace UniversityProject.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [PermissionChecker]
     public class CommentController : Controller
     {
         private readonly ICommentRepository _commentRepository;

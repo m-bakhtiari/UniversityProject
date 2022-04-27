@@ -13,5 +13,6 @@
         public int UserBookCount { get; set; }
         public double Penalty { get; set; }
         public int UserBookNotReturn { get; set; }
+        public int TeamCount { get; set; }
     }
 }

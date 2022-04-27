@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
+using UniversityProject.Core.Utils;
 using UniversityProject.Data.Entities;
 
 namespace UniversityProject.WebApp.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [PermissionChecker]
     public class TeamController : Controller
     {
         private readonly ITeamRepository _teamRepository;

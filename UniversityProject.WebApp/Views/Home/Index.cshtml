@@ -1,63 +1,44 @@
 ﻿
 @model UniversityProject.Core.DTOs.MainPageDto
 
-@section Styles
-{
-    <link rel="stylesheet" href="/MainSite/assets/css/plugins/owl-carousel/owl.carousel.css">
-    <link rel="stylesheet" href="/MainSite/assets/css/plugins/jquery.countdown.css">
+@{
+    var j = 1;
+    var counter = 1;
 }
 
 <main class="main">
-    <div class="intro-slider-container mb-5 container">
-        <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light owl-rtl owl-loaded owl-drag" data-toggle="owl" data-owl-options="{
-                        &quot;dots&quot;: true,
-                        &quot;nav&quot;: false,
-                        &quot;rtl&quot;: true,
-                            &quot;responsive&quot;: {
-                            &quot;1200&quot;: {
-                                &quot;nav&quot;: true,
-                                &quot;dots&quot;: false
-                            }
-                        }
-                    }">
-            <!-- End .intro-slide -->
-            <!-- End .intro-slide -->
-            <div class="owl-stage-outer">
-                <div class="owl-stage" style="transform: translate3d(1583px, 0px, 0px); transition: all 0.4s ease 0s; width: 9498px;">
-                    @foreach (var item in Model.Sliders)
-                    {
-                        <div class="owl-item" style="width: 1583px;">
-                            <div class="intro-slide" style="background-image: url(/Images/Sliders/@item.Image);">
-                                <div class="container intro-content">
-                                    <div class="row justify-content-end">
-                                        <div class="col-auto col-sm-7 col-md-6 col-lg-5">
-                                            <h1 class="intro-title">@item.Title</h1><!-- End .intro-title -->
-                                            @if (string.IsNullOrWhiteSpace(item.LinkUrl) == false)
-                                            {
-                                                <a href="/@item.LinkUrl" class="btn btn-primary btn-round">
-                                                    <span>مشاهده</span>
-                                                    <i class="icon-long-arrow-left"></i>
-                                                </a>
-                                            }
-                                        </div><!-- End .col-lg-11 offset-lg-1 -->
-                                    </div><!-- End .row -->
-                                </div><!-- End .intro-content -->
+    <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                @for (int i = 0; i < Model.Sliders.Count; i++)
+                {
+                    <li data-target="#carouselExampleIndicators" data-slide-to="@i" @(counter==1?"class='active'":"")></li>
+                    counter++;
+                }
+            </ol>
+            <div class="carousel-inner">
+                @foreach (var item in Model.Sliders)
+                {
+                    <div class="carousel-item @(j==1?"active":" ")">
+                        <a href="@item.LinkUrl">
+                            <img class="d-block w-100" src="/Images/Sliders/@item.Image" alt="@item.Title">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>@item.Title</h5>
                             </div>
-                        </div>
-                    }
-
-                </div>
+                        </a>
+                    </div>
+                    j++;
+                }
             </div>
-            <div class="owl-nav">
-                <button type="button" role="presentation" class="owl-prev">
-                    <i class="icon-angle-left"></i>
-                </button><button type="button" role="presentation" class="owl-next">
-                    <i class="icon-angle-right"></i>
-                </button>
-            </div><div class="owl-dots disabled"></div>
-        </div><!-- End .intro-slider owl-carousel owl-simple -->
-
-        <span class="slider-loader"></span><!-- End .slider-loader -->
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
     </div>
 
     <div class="bestseller-products bg-light pt-5 pb-5 mb-5">
@@ -76,66 +57,6 @@
                         </div><!-- End .heading-right -->
                     </div><!-- End .header-flex -->
 
-                    <div class="owl-carousel carousel-equal-height owl-simple" data-toggle="owl"
-                         data-owl-options='{
-                                    "nav": false,
-                                    "dots": true,
-                                    "margin": 20,
-                                    "loop": false,
-                                    "rtl": true,
-                            "responsive": {
-                                        "0": {
-                                            "items":2
-                                        },
-                                        "480": {
-                                            "items":2
-                                        },
-                                        "768": {
-                                            "items":3
-                                        },
-                                        "992": {
-                                            "items":4
-                                        },
-                                        "1440": {
-                                            "items":5
-                                        }
-                                    }
-                                }'>
-
-                        @foreach (var item in Model.FavoriteBooks)
-                        {
-                            <div class="product product-7 text-center">
-                                <figure class="product-media">
-                                    <span class="product-label label-new">ناموجود</span>
-                                    <a href="/Product/@item.Id">
-                                        <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
-                                    </a>
-
-                                    <div class="product-action-vertical">
-                                        <a class="btn-product-icon btn-wishlist btn-expandable" onclick="AddToFavoriteBook(@item.Id)">
-                                            <span>افزودن به علاقه مندی</span>
-                                        </a>
-                                    </div><!-- End .product-action-vertical -->
-
-                                    <div class="product-action">
-                                        <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)">
-                                            <span>افزودن به سبد خرید</span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </figure><!-- End .product-media -->
-
-                                <div class="product-body">
-                                    <div class="product-cat text-center">
-                                        <a href="#">نام نویسنده : @item.AuthorName</a>
-                                    </div><!-- End .product-cat -->
-                                    <h3 class="product-title text-center">
-                                        <a href="/Product/@item.Id">@item.Title</a>
-                                    </h3><!-- End .product-title -->
-                                </div><!-- End .product-body -->
-                            </div><!-- End .product -->
-                        }
-
-                    </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->
             </div><!-- End .block-wrapper -->
         </div><!-- End .block -->
@@ -154,73 +75,6 @@
             </div><!-- End .heading-right -->
         </div><!-- End .header-flex -->
 
-        <div class="row">
-            <div class="col-xl-8">
-                <div class="block-wrapper ">
-                    <div class="owl-carousel carousel-equal-height owl-simple" data-toggle="owl"
-                         data-owl-options='{
-                                    "nav": false,
-                                    "dots": true,
-                                    "margin": 20,
-                                    "loop": false,
-                                    "rtl": true,
-                            "responsive": {
-                                        "0": {
-                                            "items":2
-                                        },
-                                        "480": {
-                                            "items":2
-                                        },
-                                        "768": {
-                                            "items":3
-                                        },
-                                        "992": {
-                                            "items":4
-                                        },
-                                        "1200": {
-                                            "items":3
-                                        },
-                                        "1440": {
-                                            "items":4
-                                        }
-                                    }
-                                }'>
-                        @foreach (var item in Model.LatestBooks)
-                        {
-                            <div class="product product-7 text-center">
-                                <figure class="product-media">
-                                    <span class="product-label label-new">ناموجود</span>
-                                    <a href="/Product/@item.Id">
-                                        <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
-                                    </a>
-
-                                    <div class="product-action-vertical">
-                                        <a class="btn-product-icon btn-wishlist btn-expandable" onclick="AddToFavoriteBook(@item.Id)">
-                                            <span>افزودن به لیست علاقه مندی</span>
-                                        </a>
-                                    </div><!-- End .product-action-vertical -->
-
-                                    <div class="product-action">
-                                        <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)">
-                                            <span>افزودن به سبد خرید</span>
-                                        </a>
-                                    </div><!-- End .product-action -->
-                                </figure><!-- End .product-media -->
-
-                                <div class="product-body">
-                                    <div class="product-cat text-center">
-                                        <a href="#">نام نویسنده : @item.AuthorName</a>
-                                    </div><!-- End .product-cat -->
-                                    <h3 class="product-title text-center">
-                                        <a href="product.html">@item.Title</a>
-                                    </h3><!-- End .product-title -->
-                                </div><!-- End .product-body -->
-                            </div><!-- End .product -->
-                        }
-                    </div><!-- End .owl-carousel -->
-                </div><!-- End .block-wrapper -->
-            </div><!-- End .col-lg-8 -->
-        </div><!-- End .row -->
     </div><!-- End .container -->
 
     <div class="mb-5"></div><!-- End .mb-3 -->
@@ -297,12 +151,16 @@
     <div class="mb-5"></div><!-- End .mb-5 -->
 </main><!-- End .main -->
 
+@section Styles
+{
+    <link rel="stylesheet" href="/MainSite/assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/MainSite/assets/css/plugins/jquery.countdown.css">
+}
 
 @section Scripts
 {
     <script src="/MainSite/assets/js/jquery.hoverIntent.min.js"></script>
     <script src="/MainSite/assets/js/superfish.min.js"></script>
-    <script src="/MainSite/assets/js/owl.carousel.min.js"></script>
     <script src="/MainSite/assets/js/jquery.magnific-popup.min.js"></script>
     <script src="/MainSite/assets/js/bootstrap-input-spinner.js"></script>
     <script src="/MainSite/assets/js/jquery.plugin.min.js"></script>

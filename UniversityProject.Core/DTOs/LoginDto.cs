@@ -9,5 +9,6 @@
         public string Name { get; set; }
         public int? Id { get; set; }
         public int Code { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }

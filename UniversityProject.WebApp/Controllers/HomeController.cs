@@ -81,7 +81,7 @@ namespace UniversityProject.WebApp.Controllers
             return await _shoppingCartRepository.CountByUserId(User.GetUserId());
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View();
