@@ -28,7 +28,8 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="@Model.Title">عنوان</label>
-                            <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="عنوان">
+                            <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="عنوان" required="required"
+                                   oninvalid="this.setCustomValidity('عنوان را وارد نمایید')" oninput="this.setCustomValidity('')">
                         </div>
                     </div>
                     <!-- /.box-body -->

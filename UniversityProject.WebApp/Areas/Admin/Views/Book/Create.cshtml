@@ -39,11 +39,13 @@ else
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="@Model.Title">عنوان</label>
-                                <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="عنوان">
+                                <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="عنوان"required="required"
+                                       oninvalid="this.setCustomValidity('عنوان را وارد نمایید')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group col-md-6 no-padding">
                                 <label for="@Model.AuthorName">نام نویسنده</label>
-                                <input type="text" class="form-control" asp-for="@Model.AuthorName" id="@Model.AuthorName" placeholder="نام نویسنده">
+                                <input type="text" class="form-control" asp-for="@Model.AuthorName" id="@Model.AuthorName" placeholder="نام نویسنده" required="required"
+                                       oninvalid="this.setCustomValidity('نام نویسنده را وارد نمایید')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="@Model.PublisherName">نام ناشر</label>
@@ -82,12 +84,14 @@ else
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="@Model.UsableDays">تعداد روز در دسترس</label>
-                                    <input type="number" class="form-control" asp-for="@Model.UsableDays" id="@Model.UsableDays" placeholder="تعداد روز در دسترس">
+                                    <input type="number" class="form-control" asp-for="@Model.UsableDays" id="@Model.UsableDays" placeholder="تعداد روز در دسترس" required="required"
+                                           oninvalid="this.setCustomValidity('تعداد روز را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="@Model.Description">توضیحات</label>
-                                <textarea type="text" class="form-control mytextarea" asp-for="@Model.Description" id="@Model.Description" placeholder="توضیحات"></textarea>
+                                <textarea type="text" class="form-control mytextarea" asp-for="@Model.Description" id="@Model.Description" placeholder="توضیحات" required="required"
+                                   oninvalid="this.setCustomValidity('توضیحات را وارد نمایید')" oninput="this.setCustomValidity('')"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>دسته بندی کتاب</label>
@@ -115,7 +119,8 @@ else
                             </div>
                             <div class="form-group">
                                 <label>تصویر</label>
-                                <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" />
+                                <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" required="required"
+                                       oninvalid="this.setCustomValidity('تصویر را وارد نمایید')" oninput="this.setCustomValidity('')"/>
                             </div>
                             <div class="form-group">
                                 <img id="previewImg" src="@(Model.ImageName!=null?"/Images/Books/"+Model.ImageName:" ")" alt="Placeholder" class="img-responsive">
@@ -161,7 +166,7 @@ else
                 directionality :"rtl"
             });
 
-            if ('@Model.ImageName' == " ") {
+            if ('@string.IsNullOrWhiteSpace(Model.ImageName)'=='True') {
                 $("#previewImg").addClass("hidden");
             }
         });
@@ -178,7 +183,7 @@ else
             $("#previewImg").removeClass("hidden");
         }
 
-        var showModal =@ViewBag.ShowModal;
+        var showModal ='@ViewBag.ShowModal';
         $(function() {
             if (showModal==true) {
                 $('#myModal').modal('show');

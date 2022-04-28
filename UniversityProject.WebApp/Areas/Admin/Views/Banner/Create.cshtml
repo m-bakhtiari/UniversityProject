@@ -23,8 +23,8 @@
                             <input type="number" class="form-control" asp-for="@Model.Position" id="@Model.Position" />
                         </div>
                         <div class="form-group">
-                            <label for="@Model.Title">متن</label>
-                            <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="عنوان">
+                            <label for="@Model.Title">توضیحات</label>
+                            <input type="text" class="form-control" asp-for="@Model.Title" id="@Model.Title" placeholder="توضیحات">
                         </div>
                         <div>
                             <div class="form-group">
@@ -44,7 +44,8 @@
                         </div>
                         <div class="form-group">
                             <label>تصویر</label>
-                            <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" />
+                            <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" required="required"
+                                   oninvalid="this.setCustomValidity('تصویر را وارد نمایید')" oninput="this.setCustomValidity('')"/>
                         </div>
                         <div class="form-group">
                             <img id="previewImg" src="@(Model.ImageName != null ? "/Images/Banners/" + Model.ImageName : " ")" alt="Placeholder" class="img-responsive">
@@ -74,7 +75,7 @@
         $(document).ready(function () {
             $('.selectLink').select2();
 
-            if ('@Model.ImageName' == " ") {
+            if ('@string.IsNullOrWhiteSpace(Model.ImageName)'=='True') {
                 $("#previewImg").addClass("hidden");
             }
         });

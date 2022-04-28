@@ -26,7 +26,8 @@
                         </div>
                         <div class="form-group">
                             <label for="@Model.Text">متن جواب</label>
-                            <input type="text" class="form-control" asp-for="@Model.Text" id="@Model.Text" placeholder="متن جواب">
+                            <input type="text" class="form-control" asp-for="@Model.Text" id="@Model.Text" placeholder="متن جواب" required="required"
+                                   oninvalid="this.setCustomValidity('متن جواب را وارد نمایید')" oninput="this.setCustomValidity('')">
                         </div>
                     </div>
                     <!-- /.box-body -->

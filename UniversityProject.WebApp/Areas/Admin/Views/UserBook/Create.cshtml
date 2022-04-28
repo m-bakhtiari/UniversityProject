@@ -1,12 +1,12 @@
 ﻿@model UniversityProject.Core.DTOs.UserBookDto
 
-<title>افزودن کتاب جدید</title>
+<title>افزودن امانت جدید</title>
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>افزودن کتاب جدید</h1>
     <ol class="breadcrumb">
         <li><a href="/Admin"><i class="fa fa-dashboard"></i> خانه</a></li>
-        <li class="active"> <a href="/Admin/Banner">لیست کتاب ها</a></li>
+        <li class="active"> <a href="/Admin/UserBook">لیست امانات</a></li>
     </ol>
 </section>
 <section class="content">
@@ -37,7 +37,8 @@
                         </div>
                         <div>
                             <label>تاریخ شروع</label>
-                            <input type="text" id="date1" asp-for="StartDate" class="form-control" autocomplete="off">
+                            <input type="text" id="date1" asp-for="StartDate" class="form-control" autocomplete="off" required="required"
+                                   oninvalid="this.setCustomValidity('تاریخ شروع را وارد نمایید')" oninput="this.setCustomValidity('')">
                         </div>
                         <div>
                             <label>تاریخ پایان</label>
