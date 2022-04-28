@@ -2,6 +2,27 @@
     margin-top: 0.5em;
 }
 
+.product-label.label-new {
+    color: #fff;
+    background-color: red;
+    font-weight: bold;
+}
+
+
+.product-action-vertical {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.product {
+    border: none;
+}
+
+.header-top {
+    margin-top: 0.5em;
+}
+
 .owl-theme .owl-nav [class*='owl-'] {
     color: #3399ff;
 }
@@ -156,15 +177,4 @@
     color: #fff;
     background-color: red;
     font-weight: bold;
-}
-
-
-.product-action-vertical {
-    visibility: visible;
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.product {
-    border: none;
 }

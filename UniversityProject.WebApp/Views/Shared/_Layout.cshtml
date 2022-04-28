@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="description" content="Library">
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/Images/Static/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/Images/Static/favicon-32x32.png">
@@ -17,12 +17,13 @@
     <link rel="manifest" href="/Images/Static/site.webmanifest">
     <link rel="mask-icon" href="/Images/Static/apple-touch-icon.png" color="#666666">
     <link rel="shortcut icon" href="/Images/Static/favicon.ico">
-    <meta name="apple-mobile-web-app-title" content="Molla">
-    <meta name="application-name" content="Molla">
+    <meta name="apple-mobile-web-app-title" content="Library">
+    <meta name="application-name" content="Library">
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="/MainSite/assets/images/icons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/MainSite/assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="/MainSite/assets/vendor/font-awesome/css/all.css">
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="/MainSite/assets/css/bootstrap-rtl.min.css">
     <link rel="stylesheet" href="/MainSite/assets/css/plugins/magnific-popup/magnific-popup.css">
@@ -79,19 +80,17 @@
                             <span class="sr-only">فهرست</span>
                             <i class="icon-bars"></i>
                         </button>
-
                         <a href="/" class="logo">
-                            <img src="/Images/Static/page-header-bg.jpg" alt="Molla Logo" width="105" height="25">
+                            <img src="/Images/Static/print-174013990.jpg" alt="Logo" width="105" height="25">
                         </a>
                     </div><!-- End .header-left -->
-
                     <div class="header-right">
                         <div class="header-search header-search-extended header-search-visible header-search-no-radius">
                             <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
-                            <form action="#" method="get">
+                            <form action="/Search" method="get">
                                 <div class="header-search-wrapper search-wrapper-wide">
                                     <label for="q" class="sr-only">جستجو</label>
-                                    <input type="search" class="form-control" name="q" id="q" placeholder="جستجوی کتاب ..." required>
+                                    <input type="search" class="form-control" name="title" id="q" placeholder="جستجوی کتاب ..." required>
                                     <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
                                 </div><!-- End .header-search-wrapper -->
                             </form>
@@ -142,15 +141,17 @@
                                     @foreach (var item in model.Where(x => x.ParentId == null))
                                     {
                         <li>
-                            <a href="/" class="sf-with-ul">@item.Title</a>
+                            <a href="/Search?category=@item.Id" class="sf-with-ul">@item.Title</a>
                             @if (model.Any(x => x.ParentId == item.Id))
                             {
             <ul>
                 @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                 {
-<li><a href="#">@sub.Title</a></li>}
+<li><a href="/Search?category=@item.Id">@sub.Title</a></li>
+}
             </ul>}
-                        </li>}
+                        </li>
+}
                                     <li class="megamenu-container">
                                         <a href="/AboutUs" class="sf-with-ul">درباره ما</a>
                                     </li>
@@ -167,14 +168,12 @@
                                 <li><a href="/Dashboard">تاریخچه کتاب ها</a></li>
                                 <li><a href="/Dashboard">تغییر پروفایل</a></li>
                             </ul>
-                        </li>
- }
-                    else
-                    {
-        <li class="megamenu-container">
-            <a href="/Login" class="sf-with-ul">ورود/ ثبت نام</a>
-        </li>
-}
+                        </li> }
+                                    else
+                                    {
+                        <li class="megamenu-container">
+                            <a href="/Login" class="sf-with-ul">ورود/ ثبت نام</a>
+                        </li>}
                                 </ul><!-- End .menu -->
                             </nav><!-- End .main-nav -->
                         </div>
@@ -191,14 +190,8 @@
                     <div class="row">
                         <div class="col-sm-12 col-lg-6 col-xl-5">
                             <div class="widget widget-about">
-                                <img src="/MainSite/assets/images/demos/demo-20/logo-footer.png" class="footer-logo"
-                                     alt="Footer Logo" width="105" height="25">
-                                <p>
-                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با تولید سادگی
-                                    نامفهوم.لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم لورم ایپسوم متن ساختگی با
-                                    تولید سادگی نامفهوم.
-                                </p>
-
+                                <img src="/Images/Static/print-174013990.jpg" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                                <p>سامانه اهدا و امانت هوشمند کتاب</p>
                                 <div class="widget-about-info">
                                     <div class="row">
                                         <div class="col-sm-6 col-md-4">
@@ -217,40 +210,35 @@
                                         <h4 class="widget-title">لینک های مفید</h4><!-- End .widget-title -->
 
                                         <ul class="widget-list">
-                                            <li><a href="about.html">درباره ما</a></li>
-                                            <li><a href="#">خدمات</a></li>
-                                            <li><a href="#">نحوه خرید</a></li>
-                                            <li><a href="faq.html">سوالات متداول</a></li>
-                                            <li><a href="contact.html">تماس با ما</a></li>
+                                            <li><a href="/">خانه</a></li>
+                                            <li><a href="/Library">کتابخانه</a></li>
+                                            <li><a href="/AboutUs">درباره ما</a></li>
+                                            <li><a href="/ContactUs">تماس با ما</a></li>
                                         </ul><!-- End .widget-list -->
                                     </div><!-- End .widget -->
                                 </div><!-- End .col-sm-4 -->
 
                                 <div class="col-sm-4">
                                     <div class="widget">
-                                        <h4 class="widget-title">خدمات مشتری</h4><!-- End .widget-title -->
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                            <h4 class="widget-title">عضویت</h4><!-- End .widget-title -->
+                                            <ul class="widget-list">
+                                                <li><a href="/Login">ورود</a></li>
+                                                <li><a href="/Register">ثبت نام</a></li>
+                                                <li><a href="/ForgotPassword">فراموشی رمز عبور</a></li>
+                                            </ul> }
+                                        else
+                                        {
+                            <h4 class="widget-title">حساب کاربری</h4><!-- End .widget-title -->
+                                            <ul class="widget-list">
+                                                <li><a href="/Dashboard">پروفایل</a></li>
+                                                <li><a href="/Dashboard">تغییر اطلاعات</a></li>
+                                                <li><a href="/Dashboard">سبد خرید</a></li>
+                                                <li><a href="/Dashboard">علاقه مندی ها</a></li>
+                                                <li><a href="/Dashboard">سابقه امانات</a></li>
+                                            </ul>}
 
-                                        <ul class="widget-list">
-                                            <li><a href="#">شیوه پرداخت</a></li>
-                                            <li><a href="#">گارانتی بازگشت وجه</a></li>
-                                            <li><a href="#">شیوه ارسال محصولات</a></li>
-                                            <li><a href="#">قوانین و مقررات</a></li>
-                                            <li><a href="#">خط مشی</a></li>
-                                        </ul><!-- End .widget-list -->
-                                    </div><!-- End .widget -->
-                                </div><!-- End .col-sm-4 -->
-
-                                <div class="col-sm-4">
-                                    <div class="widget">
-                                        <h4 class="widget-title">حساب کاربری</h4><!-- End .widget-title -->
-
-                                        <ul class="widget-list">
-                                            <li><a href="#">ورود</a></li>
-                                            <li><a href="cart.html">سبد خرید</a></li>
-                                            <li><a href="#">لیست علاقه مندی ها</a></li>
-                                            <li><a href="#">پیگیری سفارشات</a></li>
-                                            <li><a href="#">راهنما</a></li>
-                                        </ul><!-- End .widget-list -->
                                     </div><!-- End .widget -->
                                 </div><!-- End .col-sm-4 -->
                             </div><!-- End .row -->
@@ -261,24 +249,24 @@
 
             <div class="footer-bottom">
                 <div class="container">
-                    <p class="footer-copyright">کپی رایت © 2019 تمامی حقوق محفوظ است.</p>
+                    <p class="footer-copyright">کپی رایت © 1401 تمامی حقوق محفوظ است.</p>
                     <!-- End .footer-copyright -->
 
                     <div class="social-icons social-icons-color">
                         <span class="social-label">شبکه های اجتماعی</span>
-                        <a href="#" class="social-icon social-facebook" title="فیسبوک" target="_blank">
+                        <a href="https://facebook.com" class="social-icon social-facebook" title="فیسبوک" target="_blank">
                             <i class="icon-facebook-f"></i>
                         </a>
-                        <a href="#" class="social-icon social-twitter" title="توییتر" target="_blank">
+                        <a href="https://twitter.com" class="social-icon social-twitter" title="توییتر" target="_blank">
                             <i class="icon-twitter"></i>
                         </a>
-                        <a href="#" class="social-icon social-instagram" title="اینستاگرام" target="_blank">
+                        <a href="https://instagram.com" class="social-icon social-instagram" title="اینستاگرام" target="_blank">
                             <i class="icon-instagram"></i>
                         </a>
-                        <a href="#" class="social-icon social-youtube" title="یوتیوب" target="_blank">
+                        <a href="https://youtube.com" class="social-icon social-youtube" title="یوتیوب" target="_blank">
                             <i class="icon-youtube"></i>
                         </a>
-                        <a href="#" class="social-icon social-pinterest" title="پینترست" target="_blank">
+                        <a href="https://www.pinterest.co.uk/" class="social-icon social-pinterest" title="پینترست" target="_blank">
                             <i class="icon-pinterest"></i>
                         </a>
                     </div><!-- End .soial-icons -->
@@ -324,23 +312,25 @@
                             <li>
                                 @foreach (var item in model.Where(x => x.ParentId == null))
                                 {
-                    <a href="product.html" class="sf-with-ul">@item.Title</a>
+                    <a href="/Search?category=@item.Id" class="sf-with-ul">@item.Title</a>
                                     @if (model.Any(x => x.ParentId == item.Id))
                                     {
                     <ul>
                         @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                         {
-    <li><a href="product.html">@sub.Title</a></li>}
+    <li><a href="/Search?category=@item.Id">@sub.Title</a></li>
+}
                     </ul>}}
                             </li>
-                            <li>درباره ی ما</li>
-                            <li>تماس با ما</li>
+                            <li><a href="/AboutUs">درباره ی ما</a></li>
+                            <li><a href="ContactUs">تماس با ما</a></li>
                             <li>
-                                <a href="#" class="sf-with-ul">داشبرد</a>
+                                <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
                                 <ul>
-                                    <li><a href="#">سبد خرید (@ViewBag.CartCount)</a></li>
-                                    <li><a href="#">علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
-                                    <li><a href="#">تغییرات پروفایل</a></li>
+                                    <li><a href="/Dashboard">سبد خرید (@ViewBag.CartCount)</a></li>
+                                    <li><a href="/Dashboard">علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
+                                    <li><a href="/Dashboard">تاریخچه امانات</a></li>
+                                    <li><a href="/Dashboard">تغییرات پروفایل</a></li>
                                 </ul>
                             </li>
                         </ul>

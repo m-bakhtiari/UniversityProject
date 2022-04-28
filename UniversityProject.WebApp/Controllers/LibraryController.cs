@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
@@ -24,12 +25,7 @@ namespace UniversityProject.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(LibraryDto libraryDto)
         {
-            ViewData["Category"] = await _categoryRepository.GetAll();
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
-                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
-            }
+            await GetMenuData();
 
             libraryDto.StartDate = libraryDto.StartDate.ToEnglishNumbers();
             libraryDto.EndDate = libraryDto.EndDate.ToEnglishNumbers();
@@ -39,5 +35,28 @@ namespace UniversityProject.WebApp.Controllers
             return View(model);
         }
 
+        [HttpGet("Search")]
+        public async Task<IActionResult> Search(int categoryId, string authorName, string title)
+        {
+            await GetMenuData();
+            var data = new LibraryDto()
+            {
+                Authors = authorName,
+                Title = title,
+                CategoryIdSearch = new List<int>() { categoryId }
+            };
+            var model = await _bookRepository.GetLibraryData(data);
+            return View("Index", model);
+        }
+
+        private async Task GetMenuData()
+        {
+            ViewData["Category"] = await _categoryRepository.GetAll();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
+                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
+            }
+        }
     }
 }
