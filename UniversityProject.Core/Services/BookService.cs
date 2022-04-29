@@ -64,7 +64,7 @@ namespace UniversityProject.Core.Services
                 .Where(x => x.BookId == bookId && x.ParentId == null)
                 .OrderByDescending(x => x.RecordDate).Skip((pageId - 1) * 12).Take(12).ToListAsync();
             var category = await _context.BookCategories.Where(x => x.BookId == bookId).Select(x => x.Category).ToListAsync();
-            var res = new BookDetailsDto()
+            var res = new BookDetailsDto
             {
                 AddedDate = book.AddedDate,
                 AuthorName = book.AuthorName,
@@ -72,7 +72,6 @@ namespace UniversityProject.Core.Services
                 BookId = book.Id,
                 ShortDescription = book.ShortDescription,
                 ImageName = book.ImageName,
-                IsAvailable = book.IsAvailable,
                 PublishDate = book.PublishDate,
                 PublisherName = book.PublisherName,
                 Title = book.Title,
@@ -80,7 +79,8 @@ namespace UniversityProject.Core.Services
                 PageId = pageId,
                 CountAll = await _context.Comments.CountAsync(x => x.BookId == bookId),
                 Comments = comment,
-                Categories = category
+                Categories = category,
+                IsAvailable = !await _context.UsersBook.AnyAsync(x => x.BookId == bookId && x.EndDate == null)
             };
             res.Answers = await _context.Comments.Where(x => res.Comments.Select(c => c.Id).Contains(x.ParentId.Value))
                 .ToListAsync();
@@ -130,9 +130,9 @@ namespace UniversityProject.Core.Services
             {
                 result = result.Where(x => x.Title.Contains(libraryDto.Title));
             }
-            if (libraryDto.SortBy == "addedDate")
+            if (libraryDto.SortBy == "popularity")
             {
-                result = result.OrderByDescending(x => x.AddedDate);
+                result = result.OrderByDescending(x => x.UserBooks.Count);
             }
             else if (libraryDto.SortBy == "publishDate")
             {
@@ -140,7 +140,7 @@ namespace UniversityProject.Core.Services
             }
             else
             {
-                result = result.OrderByDescending(x => x.UserBooks.Count);
+                result = result.OrderByDescending(x => x.AddedDate);
             }
 
             if (libraryDto.Authors != null)
@@ -151,18 +151,38 @@ namespace UniversityProject.Core.Services
             {
                 result = result.Where(x => x.PublisherName.Contains(libraryDto.Publishers));
             }
+
+            var notAvailable = new List<Book>();
             if (libraryDto.IsAvailable)
             {
-                result = result.Where(x => x.IsAvailable == libraryDto.IsAvailable);
+                notAvailable = await _context.UsersBook.Where(x => x.EndDate == null).Select(x => x.Book)
+                    .ToListAsync();
             }
-
             result = result.Distinct();
             var countAll = await result.CountAsync();
             var skip = (libraryDto.PageId - 1) * 12;
             result = result.Skip(skip).Take(12);
+            var bookResult = await result.ToListAsync();
+            if (notAvailable.Any())
+            {
+                bookResult = bookResult.Except(notAvailable).ToList();
+            }
+
+            var books = bookResult.Select(x => new BookDto()
+            {
+                AuthorName = x.AuthorName,
+                Description = x.Description,
+                Id = x.Id,
+                ImageName = x.ImageName,
+                IsDelete = x.IsDelete,
+                Title = x.Title,
+                ShortDescription = x.ShortDescription,
+                UsableDays = x.UsableDays,
+                IsAvailable = !_context.UsersBook.Any(u => u.BookId == x.Id && u.EndDate.HasValue == false)
+            }).ToList();
             var res = new LibraryDto
             {
-                Books = await result.ToListAsync(),
+                Books = books,
                 Categories = await _context.Categories.Include(x => x.BookCategories).ToListAsync(),
                 CountAll = countAll,
                 Title = libraryDto.Title,
@@ -206,7 +226,6 @@ namespace UniversityProject.Core.Services
             }
             book.IsDelete = false;
             book.AddedDate = DateTime.Now;
-            book.IsAvailable = true;
             if (imgBook != null)
             {
                 book.ImageName = NameGenerator.GenerateUniqCode() + Path.GetExtension(imgBook.FileName);

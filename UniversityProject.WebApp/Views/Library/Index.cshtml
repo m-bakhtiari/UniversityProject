@@ -9,14 +9,14 @@
     <main class="main">
         <div class="page-header text-center" style="background-image: url('/Images/Static/page-header-bg.jpg')">
             <div class="container">
-                <h1 class="page-title">4 ستونه<span>فروشگاه</span></h1>
+                <h1 class="page-title"><span>کتابخانه</span></h1>
             </div><!-- End .container -->
         </div><!-- End .page-header -->
         <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
             <div class="container">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/">خانه</a></li>
-                    <li class="breadcrumb-item active"><a href="/Library">فروشگاه</a></li>
+                    <li class="breadcrumb-item active"><a href="/Library">کتابخانه</a></li>
                 </ol>
             </div><!-- End .container -->
         </nav><!-- End .breadcrumb-nav -->
@@ -30,9 +30,9 @@
                                 <div class="toolbox-sort">
                                     <label for="sortby">مرتب سازی براساس : </label>
                                     <select name="SortBy" id="sortby" class="form-control">
-                                        <option value="popularity" selected="selected">بیشترین خرید</option>
-                                        <option value="publishDate">تاریخ انتشار</option>
+                                        <option value="publishDate" selected="selected">تاریخ انتشار</option>
                                         <option value="addedDate">تاریخ حضور</option>
+                                        <option value="popularity">محبوب ترین</option>
                                     </select>
                                 </div><!-- End .toolbox-sort -->
                             </div><!-- End .toolbox-right -->
@@ -40,14 +40,18 @@
 
                         <div class="products mb-3">
                             <div class="row justify-content-center">
-                                @if (Model.Books != null)
+                                @if (Model.Books.Any())
                                 {
                                     foreach (var item in Model.Books)
                                     {
                                         <div class="col-6 col-md-4 col-lg-4 col-xl-3">
                                             <div class="product product-7 text-center">
                                                 <figure class="product-media">
-                                                    <span class="product-label label-new">ناموجود</span>
+                                                    @if (item.IsAvailable == false)
+                                                    {
+                                                        <span class="product-label label-new">ناموجود</span>
+                                                    }
+
                                                     <a href="/Product/@item.Id">
                                                         <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
                                                     </a>
@@ -67,10 +71,10 @@
 
                                                 <div class="product-body">
                                                     <div class="product-cat text-center">
-                                                        <a href="#">نام نویسنده : @item.AuthorName</a>
+                                                        <a href="/Search?authorName=@item.AuthorName">نام نویسنده : @item.AuthorName</a>
                                                     </div><!-- End .product-cat -->
                                                     <h3 class="product-title text-center">
-                                                        <a href="product.html">@item.Title</a>
+                                                        <a href="/Book/@item.Id">@item.Title</a>
                                                     </h3><!-- End .product-title -->
                                                 </div><!-- End .product-body -->
                                             </div><!-- End .product -->
@@ -160,7 +164,7 @@
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
-                                        بر اساس تاریخ
+                                        بر اساس تاریخ حضور در کتابخانه
                                     </a>
                                 </h3><!-- End .widget-title -->
 
@@ -175,7 +179,7 @@
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
-                                        بر اساس تاریخ
+                                        بر اساس تاریخ چاپ
                                     </a>
                                 </h3><!-- End .widget-title -->
 
@@ -190,22 +194,22 @@
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-7" role="button" aria-expanded="true" aria-controls="widget-7">
-                                        دسته بندی
+                                        موجود برای امانتدر دسترس بودن
                                     </a>
                                 </h3><!-- End .widget-title -->
 
                                 <div class="collapse show" id="widget-7">
                                     <div class="widget-body">
                                         <div class="filter-items filter-items-count">
-                                            <label>موجود در کتابخانه</label>
-                                            <input type="checkbox" asp-for="IsAvailable" />
+                                            <input type="checkbox" asp-for="IsAvailable" style="transform:scale(1.3)" class="pull-right"/>
+                                            <label class="mr-2">موجود در کتابخانه</label>
                                         </div><!-- End .filter-items -->
                                     </div><!-- End .widget-body -->
                                 </div><!-- End .collapse -->
 
                             </div><!-- End .widget -->
 
-                            <input type="submit" title="بیاب" />
+                            <input type="submit" class="btn btn-primary btn-block" title="اعمال فیلتر" value="اعمال فیلتر" />
 
                         </div><!-- End .sidebar sidebar-shop -->
                     </aside><!-- End .col-lg-3 -->

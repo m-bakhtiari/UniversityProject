@@ -33,23 +33,23 @@
                             <!-- End .product-title -->
                             <div class="product-cat text-right">
                                 <span>نام نویسنده : </span>
-                                <a href="#">@Model.AuthorName</a>
+                                <a href="/Search?authorName=@Model.AuthorName">@Model.AuthorName</a>
                             </div>
                             <div class="product-cat text-right mt-1">
                                 <span>نام ناشر : </span>
-                                <a href="#">@Model.PublisherName</a>
+                                <a href="/Search?publisherName=@Model.AuthorName">@Model.PublisherName</a>
                             </div>
                             <div class="product-cat text-right mt-1">
                                 <span>تاریخ انتشار </span>
-                                <a href="#">@Model.PublishDate</a>
+                                <a>@Model.PublishDate</a>
                             </div>
                             <div class="product-cat text-right mt-1 mb-3">
                                 <span>تاریخ ورود : </span>
-                                <a href="#">@Model.AddedDate</a>
+                                <a>@Model.AddedDate</a>
                             </div>
                             <div class="product-cat text-right mt-1 mb-3">
                                 <span>تعداد روز در دسترس : </span>
-                                <a href="#">@Model.UsableDays</a>
+                                <a>@Model.UsableDays</a>
                             </div>
 
                             <div class="product-content">
@@ -59,10 +59,10 @@
                             </div><!-- End .product-content -->
 
                             <div class="product-details-action">
-                                <a href="#" class="btn-product btn-cart"><span>افزودن به سبد خرید</span></a>
+                                <a href="#" class="btn-product btn-cart" onclick="AddToShoppingCart(@Model.BookId)"><span>افزودن به سبد خرید</span></a>
 
                                 <div class="details-action-wrapper">
-                                    <a href="#" class="btn-product btn-wishlist" title="لیست علاقه مندی">
+                                    <a href="#" class="btn-product btn-wishlist" title="علاقه مندی ها" onclick="AddToFavoriteBook(@Model.BookId)">
                                         <span>افزودن به علاقه مندی</span>
                                     </a>
                                 </div><!-- End .details-action-wrapper -->
@@ -204,5 +204,30 @@
             $("#comment-modal").modal('hide');
         }
 
+        function AddToFavoriteBook(bookId) {
+            $.ajax({
+                type: "GET",
+                url: "AddToFavoriteBook/" + bookId,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    document.getElementById("wishlist-count").innerText = response;
+                }
+            });
+        }
+
+        function AddToShoppingCart(bookId) {
+            $.ajax({
+                type: "GET",
+                url: "AddToShoppingCart/" + bookId,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response != -1) {
+                        document.getElementById("cart-count").innerText = response;
+                    }
+                }
+            });
+        }
     </script>
 }

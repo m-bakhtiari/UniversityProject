@@ -36,8 +36,6 @@ namespace UniversityProject.Data.Entities
         [MaxLength(300)]
         public string ImageName { get; set; }
 
-        public bool IsAvailable { get; set; }
-
         [Required]
         public DateTime AddedDate { get; set; }
 

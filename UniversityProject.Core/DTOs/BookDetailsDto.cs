@@ -22,8 +22,6 @@ namespace UniversityProject.Core.DTOs
         public int PageId { get; set; } = 1;
         public int CountAll { get; set; }
         public List<Category> Categories { get; set; }
-        public string UserCommentText { get; set; }
-        public bool CommentPart { get; set; }
     }
 
 }

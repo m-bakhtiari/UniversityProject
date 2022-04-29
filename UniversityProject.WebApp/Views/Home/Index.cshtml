@@ -69,7 +69,7 @@
                         </div><!-- End .heading-left -->
 
                         <div class="heading-right">
-                            <a href="#" class="title-link">
+                            <a href="/Search?popularity=true" class="title-link">
                                 مشاهده محصولات بیشتر <i class="icon-long-arrow-left"></i>
                             </a>
                         </div><!-- End .heading-right -->
@@ -105,24 +105,20 @@
                         {
                             <div class="product product-7 text-center">
                                 <figure class="product-media">
-                                    <span class="product-label label-new">ناموجود</span>
                                     <a href="/Book/@item.Id">
                                         <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
                                     </a>
-
                                     <div class="product-action-vertical">
                                         <a class="btn-product-icon btn-wishlist btn-expandable" onclick="AddToFavoriteBook(@item.Id)">
                                             <span>افزودن به علاقه مندی</span>
                                         </a>
                                     </div><!-- End .product-action-vertical -->
-
                                     <div class="product-action">
                                         <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)">
                                             <span>افزودن به سبد خرید</span>
                                         </a>
                                     </div><!-- End .product-action -->
                                 </figure><!-- End .product-media -->
-
                                 <div class="product-body">
                                     <div class="product-cat text-center">
                                         <a href="/Search?authorName=@item.AuthorName">نام نویسنده : @item.AuthorName</a>
@@ -133,7 +129,6 @@
                                 </div><!-- End .product-body -->
                             </div><!-- End .product -->
                         }
-
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->
             </div><!-- End .block-wrapper -->
@@ -147,7 +142,7 @@
             </div><!-- End .heading-left -->
 
             <div class="heading-right">
-                <a href="/Library" class="title-link">
+                <a href="/Search?addedDate=true" class="title-link">
                     مشاهده محصولات بیشتر <i class="icon-long-arrow-left"></i>
                 </a>
             </div><!-- End .heading-right -->
@@ -188,7 +183,6 @@
                         {
                             <div class="product product-7 text-center">
                                 <figure class="product-media">
-                                    <span class="product-label label-new">ناموجود</span>
                                     <a href="/Book/@item.Id">
                                         <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
                                     </a>

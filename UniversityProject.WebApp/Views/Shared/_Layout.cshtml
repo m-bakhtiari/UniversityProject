@@ -141,13 +141,13 @@
                                     @foreach (var item in model.Where(x => x.ParentId == null))
                                     {
                         <li>
-                            <a href="/Search?category=@item.Id" class="sf-with-ul">@item.Title</a>
+                            <a href="/Search?categoryId=@item.Id" class="sf-with-ul">@item.Title</a>
                             @if (model.Any(x => x.ParentId == item.Id))
                             {
             <ul>
                 @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                 {
-<li><a href="/Search?category=@item.Id">@sub.Title</a></li>
+<li><a href="/Search?categoryId=@item.Id">@sub.Title</a></li>
 }
             </ul>}
                         </li>

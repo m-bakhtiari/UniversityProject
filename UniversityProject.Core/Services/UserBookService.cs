@@ -65,15 +65,6 @@ namespace UniversityProject.Core.Services
                     _context.Users.Update(user);
                 }
             }
-
-            if (userBook.EndDate != null)
-            {
-                book.IsAvailable = true;
-            }
-            else
-            {
-                book.IsAvailable = false;
-            }
             await _context.UsersBook.AddAsync(userBook);
             await _context.SaveChangesAsync();
             return null;
@@ -96,14 +87,6 @@ namespace UniversityProject.Core.Services
                 userBook.EndDate = null;
             }
             var book = await _context.Books.FindAsync(userBook.BookId);
-            if (userBook.EndDate != null)
-            {
-                book.IsAvailable = true;
-            }
-            else
-            {
-                book.IsAvailable = false;
-            }
             _context.UsersBook.Update(userBook);
             if (userBook.EndDate.HasValue)
             {

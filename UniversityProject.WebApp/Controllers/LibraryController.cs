@@ -36,14 +36,15 @@ namespace UniversityProject.WebApp.Controllers
         }
 
         [HttpGet("Search")]
-        public async Task<IActionResult> Search(int categoryId, string authorName, string title)
+        public async Task<IActionResult> Search(int categoryId, string authorName, string title, string publisherName,bool addedDate,bool popularity)
         {
             await GetMenuData();
             var data = new LibraryDto()
             {
                 Authors = authorName,
                 Title = title,
-                CategoryIdSearch = new List<int>() { categoryId }
+                CategoryIdSearch = new List<int>() { categoryId },
+                Publishers = publisherName
             };
             var model = await _bookRepository.GetLibraryData(data);
             return View("Index", model);
