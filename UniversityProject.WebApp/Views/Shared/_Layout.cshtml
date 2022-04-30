@@ -43,17 +43,19 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-left">
-                        <a href="tel_3A#"><i class="icon-phone"></i>تلفن تماس : 02155667788</a>
+                        <a href="#"><i class="icon-phone"></i>تلفن تماس : 02155667788</a>
                     </div><!-- End .header-left -->
                     <div class="header-right">
                         <ul class="top-menu">
                             <li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                    <a href="/Dashboard">پروفایل</a> }
-                else
-                {
-    <a href="/Login">لاگین</a>}
+                    <a href="/Dashboard"> @User.Identity.Name خوش آمدید</a>
+                                    <a href="/Dashboard">پروفایل</a>
+                                                    <a href="/Logout">خروج از حساب</a> }
+                                                else
+                                                {
+                                    <a href="/Login">لاگین</a>}
 
 
                                 @if (User.Identity.IsAuthenticated)
@@ -61,6 +63,7 @@
                     <ul class="dropdown-links">
                         <li><a href="/Dashboard"> @User.Identity.Name خوش آمدید</a></li>
                         <li><a href="/Dashboard">پروفایل </a></li>
+                        <li><a href="/Logout">خروج از حساب</a></li>
                     </ul> }
                 else
                 {
@@ -90,7 +93,8 @@
                             <form action="/Search" method="get">
                                 <div class="header-search-wrapper search-wrapper-wide">
                                     <label for="q" class="sr-only">جستجو</label>
-                                    <input type="search" class="form-control" name="title" id="q" placeholder="جستجوی کتاب ..." required>
+                                    <input type="search" class="form-control" name="title" id="q" placeholder="جستجوی کتاب ..." required="required"
+                                           oninvalid="this.setCustomValidity('عنوان برای جستجو را وارد نمایید')" oninput="this.setCustomValidity('')">
                                     <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
                                 </div><!-- End .header-search-wrapper -->
                             </form>
@@ -167,6 +171,7 @@
                                 <li><a href="/Dashboard">امانات (@ViewBag.CartCount)</a></li>
                                 <li><a href="/Dashboard">تاریخچه کتاب ها</a></li>
                                 <li><a href="/Dashboard">تغییر پروفایل</a></li>
+                                <li><a href="/Logout">خروج از حساب</a></li>
                             </ul>
                         </li> }
                                     else
@@ -237,6 +242,7 @@
                                                 <li><a href="/Dashboard">امانات</a></li>
                                                 <li><a href="/Dashboard">علاقه مندی ها</a></li>
                                                 <li><a href="/Dashboard">سابقه امانات</a></li>
+                                                <li><a href="/Logout">خروج از حساب</a></li>
                                             </ul>}
 
                                     </div><!-- End .widget -->
@@ -283,10 +289,10 @@
         <div class="mobile-menu-wrapper">
             <span class="mobile-menu-close"><i class="icon-close"></i></span>
 
-            <form action="#" method="get" class="mobile-search">
+            <form action="/Search" method="get" class="mobile-search">
                 <label for="mobile-search" class="sr-only">جستجو</label>
-                <input type="search" class="form-control" name="mobile-search" id="mobile-search"
-                       placeholder="جستجو در ..." required>
+                <input type="search" class="form-control" name="title" id="mobile-search" placeholder="جستجو در ..." required="required"
+                       oninvalid="this.setCustomValidity('عنوان برای جستجو را وارد نمایید')" oninput="this.setCustomValidity('')">
                 <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
             </form>
 
@@ -295,7 +301,6 @@
                     <a class="nav-link active" id="mobile-menu-link" data-toggle="tab" href="#mobile-menu-tab"
                        role="tab" aria-controls="mobile-menu-tab" aria-selected="true">منو</a>
                 </li>
-
             </ul>
 
             <div class="tab-content">
@@ -312,27 +317,41 @@
                             <li>
                                 @foreach (var item in model.Where(x => x.ParentId == null))
                                 {
-                    <a href="/Search?category=@item.Id" class="sf-with-ul">@item.Title</a>
+                    <a href="/Search?categoryId=@item.Id" class="sf-with-ul">@item.Title</a>
                                     @if (model.Any(x => x.ParentId == item.Id))
                                     {
                     <ul>
                         @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                         {
-    <li><a href="/Search?category=@item.Id">@sub.Title</a></li>
+    <li><a href="/Search?categoryId=@item.Id">@sub.Title</a></li>
 }
                     </ul>}}
                             </li>
                             <li><a href="/AboutUs">درباره ی ما</a></li>
                             <li><a href="ContactUs">تماس با ما</a></li>
-                            <li>
-                                <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
-                                <ul>
-                                    <li><a href="/Dashboard">امانات (@ViewBag.CartCount)</a></li>
-                                    <li><a href="/Dashboard">علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
-                                    <li><a href="/Dashboard">تاریخچه امانات</a></li>
-                                    <li><a href="/Dashboard">تغییرات پروفایل</a></li>
-                                </ul>
-                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                <li>
+                    <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
+                    <ul>
+                        <li><a href="/Dashboard">امانات (@ViewBag.CartCount)</a></li>
+                        <li><a href="/Dashboard">علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
+                        <li><a href="/Dashboard">تاریخچه امانات</a></li>
+                        <li><a href="/Dashboard">تغییرات پروفایل</a></li>
+                        <li><a href="/Logout">خروج از حساب</a></li>
+                    </ul>
+                </li> }
+                            else
+                            {
+                <li>
+                    <a href="/Dashboard" class="sf-with-ul">عضویت</a>
+                    <ul>
+                        <li><a href="/Login">ورود</a></li>
+                        <li><a href="/Login">ثبت نام</a></li>
+                        <li><a href="/ForgotPassword">فراموشی رمز عبور</a></li>
+                    </ul>
+                </li>}
+
                         </ul>
                     </nav><!-- End .mobile-nav -->
                 </div><!-- .End .tab-pane -->
@@ -417,29 +436,72 @@
                 </div><!-- End .modal-body -->
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
-</div><!-- End .modal -->
-
-<!-- Error Modal -->
-<div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-body rtl">
-                <div class="form-box">
-                    <h3>عملیات موفق</h3>
-                    <hr style="border-top: 3px solid blue;" />
-                    <div id="info-text"></div><!-- End .form-tab -->
-                </div><!-- End .form-box -->
-            </div><!-- End .modal-body -->
-        </div><!-- End .modal-content -->
-    </div><!-- End .modal-dialog -->
-</div><!-- End .modal -->
-<!-- Plugins JS File -->
+    </div><!-- End .modal -->
+    <!-- Error Modal -->
+    <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body rtl">
+                    <div class="form-box">
+                        <h3>عملیات موفق</h3>
+                        <hr style="border-top: 3px solid blue;" />
+                        <div id="info-text"></div><!-- End .form-tab -->
+                    </div><!-- End .form-box -->
+                </div><!-- End .modal-body -->
+            </div><!-- End .modal-content -->
+        </div><!-- End .modal-dialog -->
+    </div><!-- End .modal -->
+    <!-- Plugins JS File -->
     <script src="/MainSite/assets/js/jquery.min.js"></script>
     <script src="/MainSite/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/MainSite/assets/js/main.js"></script>
     <script src="/MainSite/assets/js/jquery.waypoints.min.js"></script>
     <script src="/MainSite/assets/js/demos/demo-20.js"></script>
 
+    <script>
+        function AddToFavoriteBook(bookId) {
+            if ('@User.Identity.IsAuthenticated'=='True') {
+                $.ajax({
+                    type: "GET",
+                    url: "AddToFavoriteBook/" + bookId,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(response) {
+                        document.getElementById("wishlist-count").innerText = response;
+                        $("#info-text").html("کتاب به لیست علاقه مندی شما اضافه شد");
+                        $("#info-modal").modal('show');
+                    }
+                });
+            } else {
+                $("#error-text").html("برای فعال کردن لیست علاقه مندی ها ابتدا لاگین نمایید");
+                $("#error-modal").modal('show');
+            }
+        }
+
+        function AddToShoppingCart(bookId) {
+            if ('@User.Identity.IsAuthenticated'=='True') {
+                $.ajax({
+                    type: "GET",
+                    url: "AddToShoppingCart/" + bookId,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response == -1) {
+                            $("#error-text").html("کتاب مورد نظر فعلا موجود نمی باشد");
+                            $("#error-modal").modal('show');
+                        } else {
+                            document.getElementById("cart-count").innerText = response;
+                            $("#info-text").html("کتاب به لیست امانات شما اضافه شد");
+                            $("#info-modal").modal('show');
+                        }
+                    }
+                });
+            } else {
+                $("#error-text").html("برای فعال کردن لیست امانات ابتدا لاگین نمایید");
+                $("#error-modal").modal('show');
+            }
+        }
+    </script>
     <!-- Main JS File -->
 
     @await RenderSectionAsync("Scripts", false)

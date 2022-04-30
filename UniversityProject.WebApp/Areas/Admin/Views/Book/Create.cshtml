@@ -123,7 +123,8 @@ else
                                        oninvalid="this.setCustomValidity('تصویر را وارد نمایید')" oninput="this.setCustomValidity('')"/>
                             </div>
                             <div class="form-group">
-                                <img id="previewImg" src="@(Model.ImageName!=null?"/Images/Books/"+Model.ImageName:" ")" alt="Placeholder" class="img-responsive">
+                                <img id="previewImg" src="@(Model.ImageName!=null?"/Images/Books/"+Model.ImageName:" ")" alt="Placeholder" class="img-responsive"
+                                     style="max-height: 400px">
                             </div>
                         </div>
                         <!-- /.box-body -->

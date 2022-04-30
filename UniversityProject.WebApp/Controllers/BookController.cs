@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Core.Utils;
 using UniversityProject.Data.Entities;
@@ -41,6 +42,7 @@ namespace UniversityProject.WebApp.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpPost("AddComment")]
         public async Task<IActionResult> AddComment(int bookId, int? commentId, string isAnswer, string commentText, int pageId = 1)
         {

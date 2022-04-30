@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
@@ -48,6 +49,7 @@ namespace UniversityProject.WebApp.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpGet("AddToFavoriteBook/{id}")]
         public async Task<int> AddToFavoriteBook(int id)
         {
@@ -63,6 +65,7 @@ namespace UniversityProject.WebApp.Controllers
             return await _favoriteBookRepository.CountByUserId(User.GetUserId());
         }
 
+        [Authorize]
         [HttpGet("AddToShoppingCart/{id}")]
         public async Task<int> AddToShoppingCart(int id)
         {

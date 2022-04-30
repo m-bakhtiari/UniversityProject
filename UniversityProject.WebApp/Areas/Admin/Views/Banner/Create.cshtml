@@ -50,7 +50,8 @@
                             <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" />
                         </div>
                         <div class="form-group">
-                            <img id="previewImg" src="@(Model.ImageName != null ? "/Images/Banners/" + Model.ImageName : " ")" alt="Placeholder" class="img-responsive">
+                            <img id="previewImg" src="@(Model.ImageName != null ? "/Images/Banners/" + Model.ImageName : " ")" alt="Placeholder" class="img-responsive"
+                                  style="max-height: 400px">
                         </div>
                     </div>
                     <!-- /.box-body -->

@@ -194,7 +194,7 @@
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-7" role="button" aria-expanded="true" aria-controls="widget-7">
-                                        موجود برای امانتدر دسترس بودن
+                                        در دسترس بودن
                                     </a>
                                 </h3><!-- End .widget-title -->
 
@@ -260,39 +260,6 @@
         function changePage(pageId) {
             $("#pageId").val(pageId);
             $("#bookSearch").submit();
-        }
-
-        function AddToFavoriteBook(bookId) {
-            $.ajax({
-                type: "GET",
-                url: "AddToFavoriteBook/" + bookId,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    document.getElementById("wishlist-count").innerText = response;
-                    $("#info-text").html("کتاب به لیست علاقه مندی شما اضافه شد");
-                    $("#info-modal").modal('show');
-                }
-            });
-        }
-
-        function AddToShoppingCart(bookId) {
-            $.ajax({
-                type: "GET",
-                url: "AddToShoppingCart/" + bookId,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    if (response == -1) {
-                        $("#error-text").html("کتاب مورد نظر فعلا موجود نمی باشد");
-                        $("#error-modal").modal('show');
-                    } else {
-                        document.getElementById("cart-count").innerText = response;
-                        $("#info-text").html("کتاب به لیست امانات شما اضافه شد");
-                        $("#info-modal").modal('show');
-                    }
-                }
-            });
         }
     </script>
 }

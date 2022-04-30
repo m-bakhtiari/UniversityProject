@@ -73,7 +73,7 @@
                                     <span>دسته بندی : </span>
                                     @foreach (var item in Model.Categories)
                                     {
-                                        <a href="/Search?categoryId=@item.Id">@item.Title</a>
+                                        <a href="/Search?categoryId=@item.Id">@item.Title - </a>
                                     }
                                 </div><!-- End .product-cat -->
                             </div><!-- End .product-details-footer -->
@@ -175,58 +175,30 @@
     <script>
         $(document).ready(function () {
             if ("@ViewBag.ShowComment" == "true") {
-               $("#reviews").show();
-           }
+                $("#reviews").show();
+            }
         });
 
         function changePage(pageId) {
             $("#pageId").val(pageId);
             $("#showComment").submit();
         }
-
         function addComment(bookId, commentId, isAnswer, text) {
-            $("#bookId").val(bookId);
-            $("#commentId").val(commentId);
-            $("#isAnswer").val(isAnswer);
-            $("#comment-text").val(text);
-            $("#comment-modal").modal('show');
-        }
+            if ('@User.Identity.IsAuthenticated' =='True')
+            {
+                $("#bookId").val(bookId);
+                $("#commentId").val(commentId);
+                $("#isAnswer").val(isAnswer);
+                $("#comment-text").val(text);
+                $("#comment-modal").modal('show');
+            } else {
+                $("#error-text").html("برای ثبت ابتدا لاگین نمایید");
+                $("#error-modal").modal('show');
+            }
 
+        }
         function closeComment() {
             $("#comment-modal").modal('hide');
-        }
-
-        function AddToFavoriteBook(bookId) {
-            $.ajax({
-                type: "GET",
-                url: "AddToFavoriteBook/" + bookId,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    document.getElementById("wishlist-count").innerText = response;
-                    $("#info-text").html("کتاب به لیست علاقه مندی شما اضافه شد");
-                    $("#info-modal").modal('show');
-                }
-            });
-        }
-
-        function AddToShoppingCart(bookId) {
-            $.ajax({
-                type: "GET",
-                url: "AddToShoppingCart/" + bookId,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    if (response == -1) {
-                        $("#error-text").html("کتاب مورد نظر فعلا موجود نمی باشد");
-                        $("#error-modal").modal('show');
-                    } else {
-                        document.getElementById("cart-count").innerText = response;
-                        $("#info-text").html("کتاب به لیست امانات شما اضافه شد");
-                        $("#info-modal").modal('show');
-                    }
-                }
-            });
         }
     </script>
 }
