@@ -115,7 +115,7 @@
                             <i class="icon-shopping-cart"></i>
                             <span class="cart-count" id="cart-count">@ViewBag.CartCount</span>
                         </div>
-                        <p>سبد خرید</p>
+                        <p>امانات</p>
                     </a>
                 </div><!-- End .cart-dropdown -->
             </div>}
@@ -136,7 +136,7 @@
                                         <a href="/" class="sf-with-ul">خانه</a>
                                     </li>
                                     <li class="megamenu-container">
-                                        <a href="/" class="sf-with-ul">کتابخانه</a>
+                                        <a href="/Library" class="sf-with-ul">کتابخانه</a>
                                     </li>
                                     @foreach (var item in model.Where(x => x.ParentId == null))
                                     {
@@ -164,7 +164,7 @@
                             <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
                             <ul>
                                 <li><a href="/Dashboard">لیست علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
-                                <li><a href="/Dashboard">سبد خرید (@ViewBag.CartCount)</a></li>
+                                <li><a href="/Dashboard">امانات (@ViewBag.CartCount)</a></li>
                                 <li><a href="/Dashboard">تاریخچه کتاب ها</a></li>
                                 <li><a href="/Dashboard">تغییر پروفایل</a></li>
                             </ul>
@@ -234,7 +234,7 @@
                                             <ul class="widget-list">
                                                 <li><a href="/Dashboard">پروفایل</a></li>
                                                 <li><a href="/Dashboard">تغییر اطلاعات</a></li>
-                                                <li><a href="/Dashboard">سبد خرید</a></li>
+                                                <li><a href="/Dashboard">امانات</a></li>
                                                 <li><a href="/Dashboard">علاقه مندی ها</a></li>
                                                 <li><a href="/Dashboard">سابقه امانات</a></li>
                                             </ul>}
@@ -327,7 +327,7 @@
                             <li>
                                 <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
                                 <ul>
-                                    <li><a href="/Dashboard">سبد خرید (@ViewBag.CartCount)</a></li>
+                                    <li><a href="/Dashboard">امانات (@ViewBag.CartCount)</a></li>
                                     <li><a href="/Dashboard">علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
                                     <li><a href="/Dashboard">تاریخچه امانات</a></li>
                                     <li><a href="/Dashboard">تغییرات پروفایل</a></li>
@@ -417,8 +417,23 @@
                 </div><!-- End .modal-body -->
             </div><!-- End .modal-content -->
         </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
-    <!-- Plugins JS File -->
+</div><!-- End .modal -->
+
+<!-- Error Modal -->
+<div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body rtl">
+                <div class="form-box">
+                    <h3>عملیات موفق</h3>
+                    <hr style="border-top: 3px solid blue;" />
+                    <div id="info-text"></div><!-- End .form-tab -->
+                </div><!-- End .form-box -->
+            </div><!-- End .modal-body -->
+        </div><!-- End .modal-content -->
+    </div><!-- End .modal-dialog -->
+</div><!-- End .modal -->
+<!-- Plugins JS File -->
     <script src="/MainSite/assets/js/jquery.min.js"></script>
     <script src="/MainSite/assets/js/bootstrap.bundle.min.js"></script>
     <script src="/MainSite/assets/js/main.js"></script>

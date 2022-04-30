@@ -46,6 +46,7 @@ namespace UniversityProject.WebApp.Controllers
                 OldBooks = await _userBookRepository.GetItemByUserId(User.GetUserId()),
                 LoginDto = new LoginDto() { Name = user.Name, Username = user.Phone }
             };
+            ViewBag.Title = "داشبرد";
             return View(model);
         }
 

@@ -37,6 +37,7 @@ namespace UniversityProject.WebApp.Controllers
             var model = await _bookRepository.GetBookDetails(bookId, pageId);
             ViewBag.ShowComment = "false";
             ViewBag.PageId = pageId;
+            ViewBag.Title = "مشخصات کتاب";
             return View(model);
         }
 

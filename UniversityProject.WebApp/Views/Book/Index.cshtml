@@ -59,10 +59,10 @@
                             </div><!-- End .product-content -->
 
                             <div class="product-details-action">
-                                <a href="#" class="btn-product btn-cart" onclick="AddToShoppingCart(@Model.BookId)"><span>افزودن به سبد خرید</span></a>
+                                <a href="#" class="btn-product btn-cart" style="cursor: pointer" onclick="AddToShoppingCart(@Model.BookId)"><span>افزودن به امانات</span></a>
 
                                 <div class="details-action-wrapper">
-                                    <a href="#" class="btn-product btn-wishlist" title="علاقه مندی ها" onclick="AddToFavoriteBook(@Model.BookId)">
+                                    <a href="#" class="btn-product btn-wishlist" style="cursor: pointer" title="علاقه مندی ها" onclick="AddToFavoriteBook(@Model.BookId)">
                                         <span>افزودن به علاقه مندی</span>
                                     </a>
                                 </div><!-- End .details-action-wrapper -->
@@ -73,17 +73,9 @@
                                     <span>دسته بندی : </span>
                                     @foreach (var item in Model.Categories)
                                     {
-                                        <a href="#">@item.Title</a>
+                                        <a href="/Search?categoryId=@item.Id">@item.Title</a>
                                     }
                                 </div><!-- End .product-cat -->
-
-                                <div class="social-icons social-icons-sm">
-                                    <span class="social-label">اشتراک گذاری : </span>
-                                    <a href="#" class="social-icon" title="فیسبوک" target="_blank"><i class="icon-facebook-f"></i></a>
-                                    <a href="#" class="social-icon" title="توییتر" target="_blank"><i class="icon-twitter"></i></a>
-                                    <a href="#" class="social-icon" title="اینستاگرام" target="_blank"><i class="icon-instagram"></i></a>
-                                    <a href="#" class="social-icon" title="پینترست" target="_blank"><i class="icon-pinterest"></i></a>
-                                </div>
                             </div><!-- End .product-details-footer -->
                         </div><!-- End .product-details -->
                     </div><!-- End .col-md-6 -->
@@ -212,6 +204,8 @@
                 dataType: "json",
                 success: function (response) {
                     document.getElementById("wishlist-count").innerText = response;
+                    $("#info-text").html("کتاب به لیست علاقه مندی شما اضافه شد");
+                    $("#info-modal").modal('show');
                 }
             });
         }
@@ -223,8 +217,13 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    if (response != -1) {
+                    if (response == -1) {
+                        $("#error-text").html("کتاب مورد نظر فعلا موجود نمی باشد");
+                        $("#error-modal").modal('show');
+                    } else {
                         document.getElementById("cart-count").innerText = response;
+                        $("#info-text").html("کتاب به لیست امانات شما اضافه شد");
+                        $("#info-modal").modal('show');
                     }
                 }
             });

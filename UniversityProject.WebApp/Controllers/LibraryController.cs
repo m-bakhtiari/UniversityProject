@@ -53,6 +53,7 @@ namespace UniversityProject.WebApp.Controllers
         private async Task GetMenuData()
         {
             ViewData["Category"] = await _categoryRepository.GetAll();
+            ViewBag.Title = "کتابخانه";
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());

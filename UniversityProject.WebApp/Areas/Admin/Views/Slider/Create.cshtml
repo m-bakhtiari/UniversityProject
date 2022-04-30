@@ -34,17 +34,20 @@
                                 <option value=" ">بدون لینک</option>
                                 @foreach (var item in Model.BookTitles)
                                 {
-                                    <option value="@item.LinkType/@item.Id">
-                                        @(item.LinkType == "Book" ? "کتاب" : "گروه")
-                                        @item.Title
-                                    </option>
+                                    @if (item.LinkType == "Book")
+                                    {
+                                        <option value="Book/@item.Id">@item.Title</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="Search?categoryId=@item.Id">@item.Title</option>
+                                    }
                                 }
                             </select>
                         </div>
                         <div class="form-group">
                             <label>تصویر</label>
-                            <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" required="required"
-                                   oninvalid="this.setCustomValidity('تصویر را وارد نمایید')" oninput="this.setCustomValidity('')"/>
+                            <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" />
                         </div>
                         <div class="form-group">
                             <img id="previewImg" src="@(Model.ImageName != null ? "/Images/Sliders/" + Model.ImageName : " ")" alt="Placeholder" class="img-responsive">

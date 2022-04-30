@@ -53,17 +53,17 @@ namespace UniversityProject.Core.Services
             return await _context.ShoppingCarts.CountAsync(x => x.UserId == userId);
         }
 
-        public async Task<bool> BookValidation(ShoppingCart shoppingCart)
+        public async Task<int> BookValidation(ShoppingCart shoppingCart)
         {
-            if (await _context.ShoppingCarts.AnyAsync(x => x.BookId == shoppingCart.BookId && x.UserId == shoppingCart.UserId))
-            {
-                return false;
-            }
             if (await _context.UsersBook.AnyAsync(x => x.BookId == shoppingCart.BookId && x.EndDate == null))
             {
-                return false;
+                return -1;
             }
-            return true;
+            if (await _context.ShoppingCarts.AnyAsync(x => x.BookId == shoppingCart.BookId && x.UserId == shoppingCart.UserId))
+            {
+                return -2;
+            }
+            return 0;
         }
 
         public async Task<List<FavoriteBookDto>> GetShoppingCartByUserId(int userId)

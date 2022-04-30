@@ -5,7 +5,6 @@
     var j = 1;
     var counter = 1;
 }
-
 <main class="main">
     <div class="intro-slider-container mb-5 container">
         <div class="intro-slider owl-carousel owl-theme owl-nav-inside owl-light owl-rtl owl-loaded owl-drag" data-toggle="owl" data-owl-options="{
@@ -109,13 +108,13 @@
                                         <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
                                     </a>
                                     <div class="product-action-vertical">
-                                        <a class="btn-product-icon btn-wishlist btn-expandable" onclick="AddToFavoriteBook(@item.Id)">
+                                        <a class="btn-product-icon btn-wishlist btn-expandable" onclick="AddToFavoriteBook(@item.Id)" style="cursor: pointer">
                                             <span>افزودن به علاقه مندی</span>
                                         </a>
                                     </div><!-- End .product-action-vertical -->
                                     <div class="product-action">
-                                        <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)">
-                                            <span>افزودن به سبد خرید</span>
+                                        <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)" style="cursor: pointer">
+                                            <span>افزودن به امانات</span>
                                         </a>
                                     </div><!-- End .product-action -->
                                 </figure><!-- End .product-media -->
@@ -192,10 +191,9 @@
                                             <span>افزودن به لیست علاقه مندی</span>
                                         </a>
                                     </div><!-- End .product-action-vertical -->
-
                                     <div class="product-action">
                                         <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)">
-                                            <span>افزودن به سبد خرید</span>
+                                            <span>افزودن به امانات</span>
                                         </a>
                                     </div><!-- End .product-action -->
                                 </figure><!-- End .product-media -->
@@ -310,11 +308,15 @@
     <script src="/MainSite/assets/js/jquery.plugin.min.js"></script>
     <script src="/MainSite/assets/js/jquery.magnific-popup.min.js"></script>
     <script src="/MainSite/assets/js/owl.carousel.min.js"></script>
+    <script src="/MainSite/assets/js/demos/demo-20.js"></script>
     <!--Main JS File -->
 
-    <script src="/MainSite/assets/js/demos/demo-20.js"></script>
-
     <script>
+        var owl = $('.owl-carousel');
+        $(document).ready(function () {
+            owl.trigger('play.owl.autoplay', [7000]);
+        });
+
         function AddToFavoriteBook(bookId) {
             $.ajax({
                 type: "GET",
@@ -323,6 +325,8 @@
                 dataType: "json",
                 success: function (response) {
                     document.getElementById("wishlist-count").innerText = response;
+                    $("#info-text").html("کتاب به لیست علاقه مندی شما اضافه شد");
+                    $("#info-modal").modal('show');
                 }
             });
         }
@@ -334,8 +338,13 @@
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
-                    if (response != -1) {
+                    if (response == -1) {
+                        $("#error-text").html("کتاب مورد نظر فعلا موجود نمی باشد");
+                        $("#error-modal").modal('show');
+                    } else {
                         document.getElementById("cart-count").innerText = response;
+                        $("#info-text").html("کتاب به لیست امانات شما اضافه شد");
+                        $("#info-modal").modal('show');
                     }
                 }
             });

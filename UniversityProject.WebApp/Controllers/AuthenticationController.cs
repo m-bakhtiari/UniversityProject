@@ -147,6 +147,7 @@ namespace UniversityProject.WebApp.Controllers
                 ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
                 ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
             }
+            ViewBag.Title = "ورود / ثبت نام";
         }
     }
 }

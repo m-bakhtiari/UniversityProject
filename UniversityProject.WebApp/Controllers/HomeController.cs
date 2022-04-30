@@ -44,6 +44,7 @@ namespace UniversityProject.WebApp.Controllers
                 FavoriteBooks = await _bookRepository.GetLatestBook(),
                 LatestBooks = await _bookRepository.GetPopularBooks(),
             };
+            ViewBag.Title = "صفحه اصلی";
             return View(model);
         }
 
@@ -70,20 +71,17 @@ namespace UniversityProject.WebApp.Controllers
                 BookId = id,
                 UserId = User.GetUserId()
             };
-            if (await _shoppingCartRepository.BookValidation(shoppingCart))
-            {
-                var result = await _shoppingCartRepository.Insert(shoppingCart);
-                if (string.IsNullOrWhiteSpace(result) == false)
-                {
-                    return -1;
-                }
-            }
+            var res = await _shoppingCartRepository.BookValidation(shoppingCart);
+            if (res != 0) return res;
+            await _shoppingCartRepository.Insert(shoppingCart);
             return await _shoppingCartRepository.CountByUserId(User.GetUserId());
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
+            await GetMenuData();
+            ViewBag.Title = "خطا";
             return View();
         }
 
@@ -91,6 +89,7 @@ namespace UniversityProject.WebApp.Controllers
         public async Task<IActionResult> ContactUs()
         {
             await GetMenuData();
+            ViewBag.Title = "تماس با ما";
             return View();
         }
 
@@ -98,6 +97,7 @@ namespace UniversityProject.WebApp.Controllers
         public async Task<IActionResult> AboutUs()
         {
             await GetMenuData();
+            ViewBag.Title = "درباره ی ما";
             var model = new AboutUsDto()
             {
                 Teams = await _teamRepository.GetAll(),
@@ -115,6 +115,7 @@ namespace UniversityProject.WebApp.Controllers
             await _messageRepository.Insert(message);
             await GetMenuData();
             ViewBag.ShowModal = "true";
+            ViewBag.Title = "تماس با ما";
             return View("ContactUs");
         }
 
