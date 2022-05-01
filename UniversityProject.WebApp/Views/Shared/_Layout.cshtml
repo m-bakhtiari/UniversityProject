@@ -1,4 +1,6 @@
 ﻿@using UniversityProject.Data.Entities
+@using UniversityProject.Core.Utils
+@using UniversityProject.Data.Consts
 @{ var model = (List<Category>)ViewData["Category"]; }
 
 <!DOCTYPE html>
@@ -50,26 +52,32 @@
                             <li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                    <a href="/Dashboard"> @User.Identity.Name خوش آمدید</a>
+                                    <a href="/Dashboard"> @User.Identity.Name خوش آمدید</a>
                                     <a href="/Dashboard">پروفایل</a>
-                                                    <a href="/Logout">خروج از حساب</a> }
-                                                else
-                                                {
-                                    <a href="/Login">لاگین</a>}
-
-
+                                    <a href="/Logout">خروج از حساب</a>
+                                }
+                                else
+                                {
+                                    <a href="/Login">لاگین</a>
+                                }
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                    <ul class="dropdown-links">
-                        <li><a href="/Dashboard"> @User.Identity.Name خوش آمدید</a></li>
-                        <li><a href="/Dashboard">پروفایل </a></li>
-                        <li><a href="/Logout">خروج از حساب</a></li>
-                    </ul> }
-                else
-                {
-    <ul class="dropdown-links">
-        <li><a href="/Login">ورود / ثبت نام</a></li>
-    </ul>}
+                                    <ul class="dropdown-links">
+                                        <li><a href="/Dashboard"> @User.Identity.Name خوش آمدید</a></li>
+                                        <li><a href="/Dashboard">پروفایل </a></li>
+                                        <li><a href="/Logout">خروج از حساب</a></li>
+                                        @if (User.GetRoleId() == Const.AdminRoleId)
+                                        {
+                                        <li><a href="/Admin">ورود به پنل مدیریت</a></li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <ul class="dropdown-links">
+                                        <li><a href="/Login">ورود / ثبت نام</a></li>
+                                    </ul>
+                                }
 
                             </li>
                         </ul><!-- End .top-menu -->
@@ -101,29 +109,27 @@
                         </div><!-- End .header-search -->
                         @if (User.Identity.IsAuthenticated)
                         {
-            <div class="header-dropdown-link">
-                <div class="wishlist">
-                    <a href="/Dashboard" title="لیست علاقه مندی">
-                        <div class="icon">
-                            <i class="icon-heart-o"></i>
-                            <span class="wishlist-count badge" id="wishlist-count">@ViewBag.WishlistCount</span>
-                        </div>
-                        <p>موردعلاقه</p>
-                    </a>
-                </div><!-- End .compare-dropdown -->
-
-                <div class="dropdown cart-dropdown">
-                    <a href="/Dashboard" class="dropdown-toggle" role="button" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false" data-display="static">
-                        <div class="icon">
-                            <i class="icon-shopping-cart"></i>
-                            <span class="cart-count" id="cart-count">@ViewBag.CartCount</span>
-                        </div>
-                        <p>امانات</p>
-                    </a>
-                </div><!-- End .cart-dropdown -->
-            </div>}
-
+                            <div class="header-dropdown-link">
+                                <div class="wishlist">
+                                    <a href="/Dashboard" title="لیست علاقه مندی">
+                                        <div class="icon">
+                                            <i class="icon-heart-o"></i>
+                                            <span class="wishlist-count badge" id="wishlist-count">@ViewBag.WishlistCount</span>
+                                        </div>
+                                        <p>موردعلاقه</p>
+                                        </a>
+                                </div>
+                                <div class="dropdown cart-dropdown">
+                                    <a href="/Dashboard" class="dropdown-toggle" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false" data-display="static">
+                                        <div class="icon">
+                                            <i class="icon-shopping-cart"></i>
+                                            <span class="cart-count" id="cart-count">@ViewBag.CartCount</span>
+                                        </div>
+                                        <p>امانات</p>
+                                    </a>
+                                </div><!-- End .cart-dropdown -->
+                            </div>
+                        }
                     </div><!-- End .header-right -->
                 </div><!-- End .container -->
             </div><!-- End .header-middle -->
@@ -144,18 +150,19 @@
                                     </li>
                                     @foreach (var item in model.Where(x => x.ParentId == null))
                                     {
-                        <li>
-                            <a href="/Search?categoryId=@item.Id" class="sf-with-ul">@item.Title</a>
-                            @if (model.Any(x => x.ParentId == item.Id))
-                            {
-            <ul>
-                @foreach (var sub in model.Where(x => x.ParentId == item.Id))
-                {
-<li><a href="/Search?categoryId=@item.Id">@sub.Title</a></li>
-}
-            </ul>}
-                        </li>
-}
+                                        <li>
+                                            <a href="/Search?categoryId=@item.Id" class="sf-with-ul">@item.Title</a>
+                                            @if (model.Any(x => x.ParentId == item.Id))
+                                            {
+                                                <ul>
+                                                    @foreach (var sub in model.Where(x => x.ParentId == item.Id))
+                                                    {
+                                                        <li><a href="/Search?categoryId=@item.Id">@sub.Title</a></li>
+                                                    }
+                                                </ul>
+                                            }
+                                        </li>
+                                    }
                                     <li class="megamenu-container">
                                         <a href="/AboutUs" class="sf-with-ul">درباره ما</a>
                                     </li>
@@ -164,21 +171,29 @@
                                     </li>
                                     @if (User.Identity.IsAuthenticated)
                                     {
-                        <li>
-                            <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
-                            <ul>
-                                <li><a href="/Dashboard">لیست علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
-                                <li><a href="/Dashboard">امانات (@ViewBag.CartCount)</a></li>
-                                <li><a href="/Dashboard">تاریخچه کتاب ها</a></li>
-                                <li><a href="/Dashboard">تغییر پروفایل</a></li>
-                                <li><a href="/Logout">خروج از حساب</a></li>
-                            </ul>
-                        </li> }
+                                        <li>
+                                            <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
+                                            <ul>
+                                                <li><a href="/Dashboard">لیست علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
+                                                <li><a href="/Dashboard">امانات (@ViewBag.CartCount)</a></li>
+                                                <li><a href="/Dashboard">تاریخچه کتاب ها</a></li>
+                                                <li><a href="/Dashboard">تغییر پروفایل</a></li>
+                                                <li><a href="/Logout">خروج از حساب</a></li>
+                                            </ul>
+                                        </li>
+                                        @if (User.GetRoleId() == Const.AdminRoleId)
+                                        {
+                                            <li>
+                                                <a href="/Admin">ورود به پنل مدیریت</a>
+                                            </li>
+                                        }
+                                    }
                                     else
                                     {
-                        <li class="megamenu-container">
-                            <a href="/Login" class="sf-with-ul">ورود/ ثبت نام</a>
-                        </li>}
+                                        <li class="megamenu-container">
+                                            <a href="/Login" class="sf-with-ul">ورود/ ثبت نام</a>
+                                        </li>
+                                    }
                                 </ul><!-- End .menu -->
                             </nav><!-- End .main-nav -->
                         </div>
@@ -232,7 +247,14 @@
                                                 <li><a href="/Login">ورود</a></li>
                                                 <li><a href="/Register">ثبت نام</a></li>
                                                 <li><a href="/ForgotPassword">فراموشی رمز عبور</a></li>
-                                            </ul> }
+                                            </ul>
+                                            @if (User.GetRoleId() == Const.AdminRoleId)
+                                            {
+                                                <ul class="widget-list">
+                                                    <li><a href="/Admin">ورود به پنل مدیریت</a></li>
+                                                </ul>
+                                            }
+                                        }
                                         else
                                         {
                             <h4 class="widget-title">حساب کاربری</h4><!-- End .widget-title -->
@@ -325,7 +347,10 @@
                         {
     <li><a href="/Search?categoryId=@item.Id">@sub.Title</a></li>
 }
-                    </ul>}}
+                    </ul>
+
+                                    }
+                                }
                             </li>
                             <li><a href="/AboutUs">درباره ی ما</a></li>
                             <li><a href="ContactUs">تماس با ما</a></li>
@@ -340,7 +365,9 @@
                         <li><a href="/Dashboard">تغییرات پروفایل</a></li>
                         <li><a href="/Logout">خروج از حساب</a></li>
                     </ul>
-                </li> }
+                </li>
+                                <li><a href="/Admin">ورود به پنل مدیریت</a></li>
+                            }
                             else
                             {
                 <li>
@@ -350,7 +377,9 @@
                         <li><a href="/Login">ثبت نام</a></li>
                         <li><a href="/ForgotPassword">فراموشی رمز عبور</a></li>
                     </ul>
-                </li>}
+                </li>
+
+                            }
 
                         </ul>
                     </nav><!-- End .mobile-nav -->
