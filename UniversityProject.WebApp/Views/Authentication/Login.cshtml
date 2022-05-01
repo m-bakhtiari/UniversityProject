@@ -105,6 +105,10 @@
                 $("#error-text").html('@ViewBag.ErrorMessage');
                 $("#error-modal").modal('show');
             }
+           else if ('@ViewBag.InfoModal' == 'true') {
+                $("#info-text").html('ثبت نام با موفقیت انجام شد . اکنون لاگین نمایید');
+                $("#info-modal").modal('show');
+            }
         });
     </script>
 }

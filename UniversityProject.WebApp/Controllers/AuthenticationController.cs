@@ -71,34 +71,46 @@ namespace UniversityProject.WebApp.Controllers
         [HttpPost("/Register")]
         public async Task<IActionResult> Register(LoginDto loginDto)
         {
+            await GetMenuData();
+            ViewBag.Title = "لاگین";
             if (loginDto.Password != loginDto.RePassword)
             {
-                await GetMenuData();
                 ViewBag.ErrorModal = "true";
                 ViewBag.ErrorMessage = "رمز عبور با تکرار آن یکسان نمی باشد";
-                return View("Login");
+                return View("Login", loginDto);
             }
             var user = new User()
             {
                 Password = loginDto.Password,
                 Phone = loginDto.Username,
                 RoleId = Const.UserRoleId,
+                Name = loginDto.Name
             };
-            var res = await _userRepository.Insert(user);
-            if (string.IsNullOrWhiteSpace(res))
+            if (user.Phone.Length == 8 || user.Phone.Length == 11)
+            {
+                var res = await _userRepository.Insert(user);
+                if (string.IsNullOrWhiteSpace(res) == false)
+                {
+                    ViewBag.ErrorModal = "true";
+                    ViewBag.ErrorMessage = res;
+                    return View("Login", loginDto);
+                }
+                ViewBag.InfoModal = "true";
+                return View("Login", new LoginDto());
+            }
+            else
             {
                 ViewBag.ErrorModal = "true";
-                ViewBag.ErrorMessage = res;
-                return View("Login");
+                ViewBag.ErrorMessage = "شماره تماس معتبر نمی باشد";
+                return View("Login", loginDto);
             }
-            return null;
         }
 
         [Route("ForgotPassword")]
         public async Task<IActionResult> ForgotPassword()
         {
             await GetMenuData();
-            return View("ForgotPassword");
+            return View("ForgotPassword", new LoginDto());
         }
 
         [HttpPost("AddUserCode")]
@@ -106,12 +118,13 @@ namespace UniversityProject.WebApp.Controllers
         {
             await GetMenuData();
             ViewBag.ErrorModal = "true";
-            ViewBag.ErrorMessage = "کد ارسالی به شماره تماس را وارد نمایید";
             var user = await _userRepository.GetItemByPhoneNumber(loginDto.Username);
             if (user == null)
             {
-                return View("ForgotPassword");
+                ViewBag.ErrorMessage = "کاربری یا این شماره یافت نشد";
+                return View("ForgotPassword", new LoginDto());
             }
+            ViewBag.ErrorMessage = "کد ارسالی به شماره تماس را وارد نمایید";
             return View("AddUserCode", new LoginDto() { Username = user.Phone, Code = user.Id });
         }
 
@@ -129,7 +142,7 @@ namespace UniversityProject.WebApp.Controllers
             await GetMenuData();
             ViewBag.ErrorModal = "true";
             ViewBag.ErrorMessage = "رمز عبور شما به 1234 تغییر یافت از طریق داشبرد می توانید رمز عبور خود را تغییر دهید";
-            return View("Login");
+            return View("Login", new LoginDto());
         }
 
         [Route("/Logout")]

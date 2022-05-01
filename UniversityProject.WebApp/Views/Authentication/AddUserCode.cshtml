@@ -1,6 +1,5 @@
 ﻿@model UniversityProject.Core.DTOs.LoginDto
 
-<title>وارد کردن کد</title>
 <main class="main">
     <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
         <div class="container">
@@ -17,7 +16,7 @@
                 <div class="form-tab">
                     <ul class="nav nav-pills nav-fill" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">ورود</a>
+                            <a class="nav-link active" id="signin-tab-2" data-toggle="tab" href="#signin-2" role="tab" aria-controls="signin-2" aria-selected="true">کد ارسالی</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -51,8 +50,8 @@
     <script>
         $(document).ready(function () {
             if ('@ViewBag.ErrorModal' == 'true') {
-                $("#error-text").html('@ViewBag.ErrorMessage');
-                $("#error-modal").modal('show');
+                $("#info-text").html('@ViewBag.ErrorMessage');
+                $("#info-modal").modal('show');
             }
         });
     </script>
