@@ -43,7 +43,8 @@ namespace UniversityProject.WebApp.Controllers
             {
                 Authors = authorName,
                 Title = title,
-                Publishers = publisherName
+                Publishers = publisherName,
+                CategoryIdSearch = new List<int>(),
             };
             if (categoryId.HasValue)
             {

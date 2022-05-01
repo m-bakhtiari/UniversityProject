@@ -38,7 +38,10 @@ namespace UniversityProject.WebApp.Controllers
         [HttpPost("/Login")]
         public async Task<IActionResult> Login(LoginDto login)
         {
-            login.Password = PasswordHelper.EncodePasswordMd5(login.Password);
+            if (string.IsNullOrWhiteSpace(login.Password) == false)
+            {
+                login.Password = PasswordHelper.EncodePasswordMd5(login.Password);
+            }
             var user = await _userRepository.LoginUser(new User() { Phone = login.Username, Password = login.Password });
             if (user != null)
             {

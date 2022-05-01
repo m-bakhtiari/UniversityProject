@@ -178,3 +178,7 @@
     background-color: red;
     font-weight: bold;
 }
+
+.header-12 .header-bottom .container::after {
+    visibility: hidden;
+}

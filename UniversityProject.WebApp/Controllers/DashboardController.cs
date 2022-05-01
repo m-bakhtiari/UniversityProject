@@ -31,21 +31,7 @@ namespace UniversityProject.WebApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewData["Category"] = await _categoryRepository.GetAll();
-            if (User.Identity.IsAuthenticated)
-            {
-                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
-                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
-            }
-
-            var user = await _userRepository.GetItem(User.GetUserId());
-            var model = new DashboardDto()
-            {
-                FavoriteBooks = await _favoriteBookRepository.GetFavoriteBookByUserId(User.GetUserId()),
-                ShoppingCartBooks = await _shoppingCartRepository.GetShoppingCartByUserId(User.GetUserId()),
-                OldBooks = await _userBookRepository.GetItemByUserId(User.GetUserId()),
-                LoginDto = new LoginDto() { Name = user.Name, Username = user.Phone }
-            };
+            var model = await GetMenuData();
             ViewBag.Title = "داشبرد";
             return View(model);
         }
@@ -53,12 +39,13 @@ namespace UniversityProject.WebApp.Controllers
         [Route("/FinalizeCart")]
         public async Task<IActionResult> FinalizeCart()
         {
+            var model = await GetMenuData();
             var cart = await _shoppingCartRepository.GetShoppingCartByUserId(User.GetUserId());
             if (cart.Any(x => x.IsAvailable == false))
             {
                 ViewBag.ShowModal = "true";
                 ViewBag.ModalText = "بعضی از کتاب ها در دسترس نیستند ، لطفا لیست خرید را به روز رسانی نمایید";
-                return Redirect("/Dashboard");
+                return View("Index", model);
             }
             var userBook = new List<UserBook>();
             foreach (var book in cart.Where(x => x.IsAvailable).Select(x => x.Book))
@@ -67,50 +54,92 @@ namespace UniversityProject.WebApp.Controllers
             }
             await _userBookRepository.InsertList(userBook);
             await _shoppingCartRepository.DeleteByUserId(User.GetUserId());
-            return Redirect("/Dashboard");
+
+            ViewBag.InfoModal = "true";
+            ViewBag.ModalText = "کتاب ها برای شما ثبت شدند ، به تعداد روز استفاده برای هر کتاب توجه فرمایید";
+            return View("Index", model);
         }
 
         [HttpPost("/UpdateUserInformation")]
         public async Task<IActionResult> UpdateUserInformation(LoginDto loginDto)
         {
+            var model = await GetMenuData();
+            var user = await _userRepository.GetItem(User.GetUserId());
+
             if (loginDto.Password != loginDto.RePassword)
             {
-                return Redirect("/Dashboard");
+                ViewBag.ErrorModal = "true";
+                ViewBag.ModalText = "رمز عبور و تکرار آن یکسان نمی باشد";
+                return View("Index", model);
             }
-            var user = await _userRepository.GetItem(User.GetUserId());
             user.Name = loginDto.Name;
             user.Phone = loginDto.Username;
             user.Password = PasswordHelper.EncodePasswordMd5(user.Password);
             await _userRepository.Update(user);
-            return Redirect("/Dashboard");
+
+            ViewBag.InfoModal = "true";
+            ViewBag.ModalText = "اطلاعات با موفقیت تغییر کرد";
+
+            return View("Index", model);
         }
 
         [Route("/DeleteShoppingCart")]
         public async Task<IActionResult> DeleteShoppingCart()
         {
             await _shoppingCartRepository.DeleteByUserId(User.GetUserId());
-            return Redirect("/Dashboard");
+            var model = await GetMenuData();
+            ViewBag.InfoModal = "true";
+            ViewBag.ModalText = "لیست امانات شما به روز رسانی شد";
+            return View("Index", model);
         }
 
         [Route("/DeleteFavorite")]
         public async Task<IActionResult> DeleteFavorite()
         {
             await _favoriteBookRepository.DeleteByUserId(User.GetUserId());
-            return Redirect("/Dashboard");
+            var model = await GetMenuData();
+            ViewBag.InfoModal = "true";
+            ViewBag.ModalText = "لیست علاقه مندی شما به روز رسانی شد";
+            return View("Index", model);
         }
 
         [Route("/DeleteItemShoppingCart/{bookId}")]
         public async Task<IActionResult> DeleteItemShoppingCart(int bookId)
         {
             await _shoppingCartRepository.Delete(bookId, User.GetUserId());
-            return Redirect("/Dashboard");
+            var model = await GetMenuData();
+            ViewBag.InfoModal = "true";
+            ViewBag.ModalText = "لیست امانات شما به روز رسانی شد";
+            return View("Index", model);
         }
 
         [Route("/DeleteFavorite/{bookId}")]
         public async Task<IActionResult> DeleteFavorite(int bookId)
         {
             await _favoriteBookRepository.Delete(bookId, User.GetUserId());
-            return Redirect("/Dashboard");
+            ViewBag.InfoModal = "true";
+            ViewBag.ModalText = "لیست علاقه مندی شما به روز رسانی شد";
+            var model = await GetMenuData();
+            return View("Index", model);
+        }
+
+        private async Task<DashboardDto> GetMenuData()
+        {
+            ViewData["Category"] = await _categoryRepository.GetAll();
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
+                ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
+            }
+            var user = await _userRepository.GetItem(User.GetUserId());
+            var res = new DashboardDto()
+            {
+                FavoriteBooks = await _favoriteBookRepository.GetFavoriteBookByUserId(User.GetUserId()),
+                ShoppingCartBooks = await _shoppingCartRepository.GetShoppingCartByUserId(User.GetUserId()),
+                OldBooks = await _userBookRepository.GetItemByUserId(User.GetUserId()),
+                LoginDto = new LoginDto() { Name = user.Name, Username = user.Phone }
+            };
+            return res;
         }
     }
 }
