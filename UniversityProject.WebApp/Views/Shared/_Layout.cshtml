@@ -252,10 +252,6 @@
                                                 <li><a href="/Dashboard">سابقه امانات</a></li>
                                                 <li><a href="/Logout">خروج از حساب</a></li>
                                             </ul>
-                                            <h4 class="widget-title"><a href="/Admin">مدیریت سایت</a></h4>
-                                            <ul class="widget-list">
-                                                <li><a href="/Admin">مدیریت سایت</a></li>
-                                            </ul>
                                         }
                                         else
                                         {
@@ -266,7 +262,16 @@
                                                 <li><a href="/ForgotPassword">فراموشی رمز عبور</a></li>
                                             </ul>
                                         }
-
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            @if (User.GetRoleId() == Const.AdminRoleId)
+                                            {
+                                                <h4 class="widget-title"><a href="/Admin">مدیریت سایت</a></h4>
+                                                <ul class="widget-list">
+                                                    <li><a href="/Admin">مدیریت سایت</a></li>
+                                                </ul>
+                                            }
+                                        }
                                     </div>
                                 </div>
                             </div>
