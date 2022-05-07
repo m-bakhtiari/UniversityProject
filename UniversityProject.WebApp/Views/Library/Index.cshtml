@@ -51,24 +51,20 @@
                                                     {
                                                         <span class="product-label label-new">ناموجود</span>
                                                     }
-
-                                                    <a href="/Product/@item.Id">
+                                                    <a href="/Book/@item.Id">
                                                         <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
                                                     </a>
-
                                                     <div class="product-action-vertical">
                                                         <a class="btn-product-icon btn-wishlist btn-expandable" onclick="AddToFavoriteBook(@item.Id)" style="cursor: pointer">
                                                             <span>افزودن به لیست علاقه مندی</span>
                                                         </a>
                                                     </div><!-- End .product-action-vertical -->
-
                                                     <div class="product-action">
                                                         <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)" style="cursor: pointer">
                                                             <span>افزودن به امانات</span>
                                                         </a>
                                                     </div><!-- End .product-action -->
                                                 </figure><!-- End .product-media -->
-
                                                 <div class="product-body">
                                                     <div class="product-cat text-center">
                                                         <a href="/Search?authorName=@item.AuthorName">نام نویسنده : @item.AuthorName</a>
@@ -87,8 +83,6 @@
                                 }
                             </div><!-- End .row -->
                         </div><!-- End .products -->
-
-
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
                                 @for (int i = 1; i <= Math.Ceiling((double)Model.CountAll / 12); i++)
@@ -103,14 +97,12 @@
                             <div class="widget widget-clean">
                                 <label>فیلترها : </label>
                             </div><!-- End .widget widget-clean -->
-
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-6" role="button" aria-expanded="true" aria-controls="widget-6">
                                         دسته بندی
                                     </a>
                                 </h3><!-- End .widget-title -->
-
                                 <div class="collapse show" id="widget-6">
                                     <div class="widget-body">
                                         <div class="filter-items filter-items-count">
@@ -128,9 +120,7 @@
                                         <!-- End .filter-items -->
                                     </div><!-- End .widget-body -->
                                 </div><!-- End .collapse -->
-
                             </div><!-- End .widget -->
-
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
@@ -160,14 +150,12 @@
                                     </div><!-- End .widget-body -->
                                 </div><!-- End .collapse -->
                             </div><!-- End .widget -->
-
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true" aria-controls="widget-4">
                                         بر اساس تاریخ حضور در کتابخانه
                                     </a>
                                 </h3><!-- End .widget-title -->
-
                                 <div class="collapse show" id="widget-4">
                                     <label>تاریخ شروع</label>
                                     <input class="date1 pwt-datepicker-input-element form-control" asp-for="StartDate" autocomplete="off">
@@ -175,14 +163,12 @@
                                     <input class="date2 pwt-datepicker-input-element form-control" asp-for="EndDate" autocomplete="off">
                                 </div><!-- End .collapse -->
                             </div><!-- End .widget -->
-
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true" aria-controls="widget-5">
                                         بر اساس تاریخ چاپ
                                     </a>
                                 </h3><!-- End .widget-title -->
-
                                 <div class="collapse show" id="widget-5">
                                     <label>تاریخ شروع</label>
                                     <input class="date3 pwt-datepicker-input-element form-control" asp-for="StartPublishDate" autocomplete="off">
@@ -190,7 +176,6 @@
                                     <input class="date4 pwt-datepicker-input-element form-control" asp-for="EndPublishDate" autocomplete="off">
                                 </div><!-- End .collapse -->
                             </div><!-- End .widget -->
-
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-7" role="button" aria-expanded="true" aria-controls="widget-7">
