@@ -1,0 +1,132 @@
+﻿@using UniversityProject.Core.Utils
+@model UniversityProject.Core.DTOs.DashboardDto
+@{
+    var counter = 1;
+    var cartCounter = 1;
+    var oldCounter = 1;
+}
+
+<main class="main">
+    <div class="page-header text-center" style="background-image: url('/Images/Static/page-header-bg.jpg')">
+        <div class="container">
+            <h1 class="page-title">داشبورد<span></span></h1>
+        </div><!-- End .container -->
+    </div><!-- End .page-header -->
+    <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">خانه</a></li>
+                <li class="breadcrumb-item active" aria-current="page">تاریخچه</li>
+            </ol>
+        </div><!-- End .container -->
+    </nav><!-- End .breadcrumb-nav -->
+
+    <div class="page-content">
+        <div class="dashboard">
+            <div class="container">
+                <div class="row">
+                    <aside class="col-md-4 col-lg-3">
+                        <ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link">جزئیات حساب کاربری</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/ShoppingCart">امانات</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/FavoriteBook">لیست علاقه مندی</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/History">تاریخچه</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/Logout">خروج از حساب کاربری</a>
+                            </li>
+                        </ul>
+                    </aside><!-- End .col-lg-3 -->
+
+                    <div class="col-md-8 col-lg-9">
+                        <div class="tab-content">
+                            
+                            <div class="tab-pane fade active show">
+                                @if (Model.OldBooks.Any())
+                                {
+                                    <div class="container">
+                                        <table class="table table-wishlist table-mobile">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>کتاب</th>
+                                                    <th>تاریخ شروع</th>
+                                                    <th>تاریخ پایان</th>
+                                                    <th>تعداد روز قابل استفاده</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach (var item in Model.OldBooks)
+                                                {
+                                                    <tr>
+                                                        <td>@oldCounter</td>
+                                                        <td class="product-col">
+                                                            <div class="product">
+                                                                <figure class="product-media">
+                                                                    <a href="/Product/@item.Id">
+                                                                        <img src="/Images/Books/@item.Book.ImageName" alt="@item.Book.Title">
+                                                                    </a>
+                                                                </figure>
+                                                                <h3 class="product-title">
+                                                                    <a href="/Product/@item.Id">@item.Book.Title</a>
+                                                                </h3><!-- End .product-title -->
+                                                            </div><!-- End .product -->
+                                                        </td>
+                                                        <td>@item.StartDate.ToShamsi()</td>
+                                                        <td>@item.EndDate?.ToShamsi()</td>
+                                                        <td>@item.Book.UsableDays روز</td>
+                                                    </tr>
+                                                    oldCounter++;
+                                                }
+                                            </tbody>
+                                        </table><!-- End .table table-wishlist -->
+                                        <div class="cart-bottom">
+                                            <a href="/Dashboard" class="btn btn-outline-dark-2 ml-auto display-7 px-5">
+                                                <span>
+                                                    به روز رسانی لیست
+                                                </span><i class="icon-refresh"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <p>سفارش جدیدی وجود ندارد</p>
+                                    <a href="/Library" class="btn btn-outline-primary-2">
+                                        <span>
+                                            رفتن به
+                                            کتابخانه
+                                        </span><i class="icon-long-arrow-left"></i>
+                                    </a>
+                                }
+                            </div><!-- .End .tab-pane -->
+
+                        </div>
+                    </div><!-- End .col-lg-9 -->
+                </div><!-- End .row -->
+            </div><!-- End .container -->
+        </div><!-- End .dashboard -->
+    </div><!-- End .page-content -->
+</main>
+
+@section Scripts
+{
+    <script>
+        if ('@ViewBag.ShowModal' == 'true') {
+            $("#errorText").html("@ViewBag.ModalText");
+            $("#errorModal").modal("show");
+        }
+        else if ('@ViewBag.InfoModal'=='true') {
+            $("#info-text").html("@ViewBag.ModalText");
+            $("#info-modal").modal("show");
+        }
+    </script>
+}

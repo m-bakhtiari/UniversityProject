@@ -28,4 +28,8 @@
     <Folder Include="wwwroot\Images\Sliders\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\Dashboard\Index.cshtml" />
+  </ItemGroup>
+
 </Project>

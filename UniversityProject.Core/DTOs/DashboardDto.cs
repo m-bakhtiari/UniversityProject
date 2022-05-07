@@ -9,7 +9,6 @@ namespace UniversityProject.Core.DTOs
         public List<FavoriteBookDto> ShoppingCartBooks { get; set; }
         public List<UserBook> OldBooks { get; set; }
         public LoginDto LoginDto { get; set; }
-        public User User { get; set; }
     }
 
     public class FavoriteBookDto
