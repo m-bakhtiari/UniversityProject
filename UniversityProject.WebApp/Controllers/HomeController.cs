@@ -87,7 +87,7 @@ namespace UniversityProject.WebApp.Controllers
             await GetMenuData();
             ViewBag.ShowModal = "true";
             ViewBag.Title = "تماس با ما";
-            return View("ContactUs");
+            return View("ContactUs", new Message());
         }
 
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -103,7 +103,7 @@ namespace UniversityProject.WebApp.Controllers
         {
             await GetMenuData();
             ViewBag.Title = "تماس با ما";
-            return View();
+            return View(new Message());
         }
 
         [Route("/AboutUs")]

@@ -83,6 +83,5 @@ namespace UniversityProject.WebApp.Controllers
 
             return Redirect($"Book/{bookId}?PageId={pageId}#reviews");
         }
-
     }
 }

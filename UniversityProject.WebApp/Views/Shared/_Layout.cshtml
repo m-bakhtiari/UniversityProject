@@ -60,7 +60,6 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <a href="/Dashboard">پروفایل</a>
-                                    <a href="/Logout">خروج از حساب</a>
                                 }
                                 else
                                 {
@@ -70,10 +69,13 @@
                                 {
                                     <ul class="dropdown-links">
                                         <li><a href="/Dashboard">پروفایل </a></li>
+                                        <li><a href="/ShoppingCart">امانات</a></li>
+                                        <li><a href="/FavoriteBook">علاقه مندی ها </a></li>
+                                        <li><a href="/History">تاریخچه </a></li>
                                         <li><a href="/Logout">خروج از حساب</a></li>
                                         @if (User.GetRoleId() == Const.AdminRoleId)
                                         {
-                                        <li><a href="/Admin">ورود به پنل مدیریت</a></li>
+                                            <li><a href="/Admin">ورود به پنل مدیریت</a></li>
                                         }
                                     </ul>
                                 }
@@ -147,7 +149,7 @@
 
                             <nav class="main-nav">
                                 <ul class="menu sf-arrows">
-                                    <li class="megamenu-container active">
+                                    <li class="megamenu-container">
                                         <a href="/" class="sf-with-ul">خانه</a>
                                     </li>
                                     <li class="megamenu-container">
@@ -405,92 +407,10 @@
             </div><!-- End .social-icons -->
         </div><!-- End .mobile-menu-wrapper -->
     </div><!-- End .mobile-menu-container -->
-    <!-- Comment Modal -->
-    <div class="modal fade" id="comment-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><i class="icon-close"></i></span>
-                    </button>
-                    <div class="form-box">
-                        <div class="form-tab">
-                            <ul class="nav nav-pills nav-fill nav-border-anim" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="comment-tab" data-toggle="tab" href="#signin"
-                                       role="tab" aria-controls="comment" aria-selected="true">نظر شما</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="tab-content-6">
-                                <div class="tab-pane fade show active" id="comment" role="tabpanel"
-                                     aria-labelledby="signin-tab">
-                                    <form method="post" action="/AddComment">
-                                        <div class="form-group">
-                                            <input type="hidden" id="bookId" name="bookId" />
-                                            <input type="hidden" id="commentId" name="commentId" />
-                                            <input type="hidden" id="isAnswer" name="isAnswer" />
-                                            <input type="hidden" id="parentId" name="parentId" />
-                                            <input type="hidden" id="pageId" name="pageId" value="@ViewBag.PageId" />
-                                            <label for="singin-email">متن نظر *</label>
-                                            <textarea class="form-control" id="comment-text" name="commentText" required></textarea>
-                                        </div><!-- End .form-group -->
-                                        <div class="form-footer">
-                                            <button type="submit" class="btn btn-outline-primary-2" onclick="closeComment()">
-                                                <span>ثبت نظر</span>
-                                                <i class="icon-long-arrow-left"></i>
-                                            </button>
-                                        </div><!-- End .form-footer -->
-                                    </form>
-                                </div><!-- .End .tab-pane -->
-                            </div><!-- End .tab-content -->
-                        </div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
-    <!-- Error Modal -->
-    <div class="modal fade" id="error-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body rtl">
-                    <div class="form-box">
-                        <h3 class="text-center"><i class="icon-info-circle"></i> خطا <i class="icon-info-circle"></i></h3>
-                        <hr style="border-top: 3px solid red;" />
-                        <div id="error-text"></div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
-    <!-- Error Modal -->
-    <div class="modal fade" id="message-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body rtl">
-                    <div class="form-box">
-                        <h3>با تشکر از پیام شما</h3>
-                        <hr style="border-top: 3px solid green;" />
-                        <div id="message-text">با تشکر از پیام شما .به زودی به شماره تماس یا ایمیل وارد شده شما جواب خواهیم داد ، برای پیگیری جواب از راه های ارتباطی ما هم می توانید استفاده کنید</div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
-    <!-- Error Modal -->
-    <div class="modal fade" id="info-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body rtl">
-                    <div class="form-box">
-                        <h3>عملیات موفق</h3>
-                        <hr style="border-top: 3px solid blue;" />
-                        <div id="info-text"></div><!-- End .form-tab -->
-                    </div><!-- End .form-box -->
-                </div><!-- End .modal-body -->
-            </div><!-- End .modal-content -->
-        </div><!-- End .modal-dialog -->
-    </div><!-- End .modal -->
+    <partial name="_CommentModal"/>
+    <partial name="_ErrorModal" />
+    <partial name="_MessageModal" />
+    <partial name="_InfoModal" />
     <!-- Plugins JS File -->
     <script src="/MainSite/assets/js/jquery.min.js"></script>
     <script src="/MainSite/assets/js/bootstrap.bundle.min.js"></script>
@@ -503,7 +423,7 @@
             if ('@User.Identity.IsAuthenticated'=='True') {
                 $.ajax({
                     type: "GET",
-                    url: "AddToFavoriteBook/" + bookId,
+                    url: "/AddToFavoriteBook/" + bookId,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function(response) {
@@ -522,7 +442,7 @@
             if ('@User.Identity.IsAuthenticated'=='True') {
                 $.ajax({
                     type: "GET",
-                    url: "AddToShoppingCart/" + bookId,
+                    url: "/AddToShoppingCart/" + bookId,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {

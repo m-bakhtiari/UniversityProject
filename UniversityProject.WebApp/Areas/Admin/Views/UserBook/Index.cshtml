@@ -54,7 +54,7 @@
                                     <td>
                                         @if (item.EndDate.HasValue)
                                         {
-                                            item.EndDate.Value.ToShamsi();
+                                            @item.EndDate.Value.ToShamsi()
                                         }
                                         else
                                         {

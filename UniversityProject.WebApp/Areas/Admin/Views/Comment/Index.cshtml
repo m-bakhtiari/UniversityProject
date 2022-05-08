@@ -40,12 +40,13 @@
                                     <td>@counter</td>
                                     <td>@item.User.Name</td>
                                     <td>@item.Book.Title</td>
+                                    <td>@item.Text</td>
                                     <td>
                                         @foreach (var answer in Model.Where(x => x.ParentId == item.Id))
                                         {
-                                            <i class="fa fa-circle-o text-success"></i>
                                             @answer.Text
                                             <a class="btn btn-warning btn-xs" href="/Admin/Comment/Update/@item.Id"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-danger btn-xs" href="/Admin/Comment/Delete/@item.Id"><i class="fa fa-trash"></i></a>
                                         }
                                     </td>
                                     <td>

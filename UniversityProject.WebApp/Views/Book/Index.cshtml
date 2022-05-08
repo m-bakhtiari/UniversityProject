@@ -1,4 +1,5 @@
 ﻿@using UniversityProject.Core.Utils
+@using UniversityProject.Data.Consts
 @model UniversityProject.Core.DTOs.BookDetailsDto
 
 <main class="main">
@@ -122,7 +123,14 @@
                                                 <div class="col-12">
                                                     <div class="review-content">
                                                         <p>@item.Text</p>
-                                                        <a href="#" class="btn-success" onclick="addComment(@Model.BookId,@item.Id,true)">جواب به کامنت <i class="icon-arrow-left"></i></a>
+                                                        @if (User.Identity.IsAuthenticated)
+                                                        {
+                                                            @if (User.GetRoleId() == Const.AdminRoleId)
+                                                            {
+                                                                <a href="#" class="btn-success" onclick="addComment(@Model.BookId,@item.Id,true)">جواب به کامنت <i class="icon-arrow-left"></i></a>
+                                                            }
+                                                        }
+
                                                     </div><!-- End .review-content -->
                                                 </div><!-- End .col-auto -->
                                             </div><!-- End .row -->
@@ -132,12 +140,19 @@
                                                     <div class="row no-gutters alert alert-secondary">
                                                         <div class="col-auto">
                                                             <h4><i class="icon-arrow-left"></i><b>جواب ادمین</b></h4>
-                                                            <span class="review-date">@answer.RecordDate</span>
+                                                            <span class="review-date">@answer.RecordDate.ToShamsi()</span>
                                                         </div><!-- End .col -->
                                                         <div class="col-12">
                                                             <div class="review-content">
                                                                 <p>@answer.Text</p>
-                                                                <a href="#" class="btn-success" onclick="addComment(@Model.BookId,@answer.Id,false,'@answer.Text')">ویرایش <i class="icon-arrow-left"></i></a>
+                                                                @if (User.Identity.IsAuthenticated)
+                                                                {
+                                                                    @if (User.GetRoleId() == Const.AdminRoleId)
+                                                                    {
+                                                                        <a href="#" class="btn-success" onclick="addComment(@Model.BookId, @answer.Id, false, '@answer.Text')">ویرایش <i class="icon-arrow-left"></i></a>
+                                                                    }
+                                                                }
+
                                                             </div><!-- End .review-content -->
                                                         </div><!-- End .col-auto -->
                                                     </div><!-- End .row -->
@@ -192,7 +207,7 @@
                 $("#comment-text").val(text);
                 $("#comment-modal").modal('show');
             } else {
-                $("#error-text").html("برای ثبت ابتدا لاگین نمایید");
+                $("#error-text").html("برای ثبت نظر ابتدا لاگین نمایید");
                 $("#error-modal").modal('show');
             }
 
@@ -200,5 +215,6 @@
         function closeComment() {
             $("#comment-modal").modal('hide');
         }
+
     </script>
 }

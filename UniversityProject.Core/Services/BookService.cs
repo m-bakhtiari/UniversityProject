@@ -66,13 +66,11 @@ namespace UniversityProject.Core.Services
             var category = await _context.BookCategories.Where(x => x.BookId == bookId).Select(x => x.Category).ToListAsync();
             var res = new BookDetailsDto
             {
-                AddedDate = book.AddedDate,
                 AuthorName = book.AuthorName,
                 Description = book.Description,
                 BookId = book.Id,
                 ShortDescription = book.ShortDescription,
                 ImageName = book.ImageName,
-                PublishDate = book.PublishDate,
                 PublisherName = book.PublisherName,
                 Title = book.Title,
                 UsableDays = book.UsableDays,
@@ -80,7 +78,9 @@ namespace UniversityProject.Core.Services
                 CountAll = await _context.Comments.CountAsync(x => x.BookId == bookId),
                 Comments = comment,
                 Categories = category,
-                IsAvailable = !await _context.UsersBook.AnyAsync(x => x.BookId == bookId && x.EndDate == null)
+                IsAvailable = !await _context.UsersBook.AnyAsync(x => x.BookId == bookId && x.EndDate == null),
+                AddedDate = book.AddedDate.ToPersianMonth(),
+                PublishDate = book.PublishDate.ToPersianMonth()
             };
             res.Answers = await _context.Comments.Where(x => res.Comments.Select(c => c.Id).Contains(x.ParentId.Value))
                 .ToListAsync();
