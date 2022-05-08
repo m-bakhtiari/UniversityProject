@@ -46,6 +46,7 @@ namespace UniversityProject.WebApp.Controllers
         [HttpPost("/UpdateUserInformation")]
         public async Task<IActionResult> UpdateUserInformation(LoginDto loginDto)
         {
+            ViewBag.Title = "داشبرد";
             var user = await _userRepository.GetItem(User.GetUserId());
             var model = new DashboardDto()
             {
@@ -81,7 +82,7 @@ namespace UniversityProject.WebApp.Controllers
                 FavoriteBooks = await _favoriteBookRepository.GetFavoriteBookByUserId(User.GetUserId()),
             };
             await GetMenuData();
-            ViewBag.Title = "داشبرد";
+            ViewBag.Title = "علاقه مندی ها";
             return View(model);
         }
 
@@ -96,6 +97,7 @@ namespace UniversityProject.WebApp.Controllers
             await GetMenuData();
             ViewBag.InfoModal = "true";
             ViewBag.ModalText = "لیست علاقه مندی شما به روز رسانی شد";
+            ViewBag.Title = "علاقه مندی ها";
             return View("FavoriteBook", model);
         }
 
@@ -105,6 +107,7 @@ namespace UniversityProject.WebApp.Controllers
             await _favoriteBookRepository.Delete(bookId, User.GetUserId());
             ViewBag.InfoModal = "true";
             ViewBag.ModalText = "لیست علاقه مندی شما به روز رسانی شد";
+            ViewBag.Title = "علاقه مندی ها";
             var model = new DashboardDto()
             {
                 FavoriteBooks = await _favoriteBookRepository.GetFavoriteBookByUserId(User.GetUserId()),
@@ -125,13 +128,14 @@ namespace UniversityProject.WebApp.Controllers
                 ShoppingCartBooks = await _shoppingCartRepository.GetShoppingCartByUserId(User.GetUserId()),
             };
             await GetMenuData();
-            ViewBag.Title = "داشبرد";
+            ViewBag.Title = "امانات";
             return View(model);
         }
 
         [Route("/FinalizeCart")]
         public async Task<IActionResult> FinalizeCart()
         {
+            ViewBag.Title = "امانات";
             var model = new DashboardDto()
             {
                 ShoppingCartBooks = await _shoppingCartRepository.GetShoppingCartByUserId(User.GetUserId()),
@@ -160,6 +164,7 @@ namespace UniversityProject.WebApp.Controllers
         [Route("/DeleteShoppingCart")]
         public async Task<IActionResult> DeleteShoppingCart()
         {
+            ViewBag.Title = "امانات";
             await _shoppingCartRepository.DeleteByUserId(User.GetUserId());
             var model = new DashboardDto()
             {
@@ -175,6 +180,7 @@ namespace UniversityProject.WebApp.Controllers
         [Route("/DeleteItemShoppingCart/{bookId}")]
         public async Task<IActionResult> DeleteItemShoppingCart(int bookId)
         {
+            ViewBag.Title = "امانات";
             await _shoppingCartRepository.Delete(bookId, User.GetUserId());
             var model = new DashboardDto()
             {
@@ -197,7 +203,7 @@ namespace UniversityProject.WebApp.Controllers
                 OldBooks = await _userBookRepository.GetItemByUserId(User.GetUserId()),
             };
             await GetMenuData();
-            ViewBag.Title = "داشبرد";
+            ViewBag.Title = "تاریخچه";
             return View(model);
         }
 

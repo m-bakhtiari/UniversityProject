@@ -45,14 +45,20 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-left">
-                        <a href="#"><i class="icon-phone"></i>تلفن تماس : 02155667788</a>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a href="/Dashboard"> @User.Identity.Name خوش آمدید</a>
+                        }
+                        else
+                        {
+                            <a href="#"><i class="icon-phone"></i>تلفن تماس : 02155667788</a>
+                        }
                     </div><!-- End .header-left -->
                     <div class="header-right">
                         <ul class="top-menu">
                             <li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <a href="/Dashboard"> @User.Identity.Name خوش آمدید</a>
                                     <a href="/Dashboard">پروفایل</a>
                                     <a href="/Logout">خروج از حساب</a>
                                 }
@@ -63,7 +69,6 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <ul class="dropdown-links">
-                                        <li><a href="/Dashboard"> @User.Identity.Name خوش آمدید</a></li>
                                         <li><a href="/Dashboard">پروفایل </a></li>
                                         <li><a href="/Logout">خروج از حساب</a></li>
                                         @if (User.GetRoleId() == Const.AdminRoleId)
@@ -111,7 +116,7 @@
                         {
                             <div class="header-dropdown-link">
                                 <div class="wishlist">
-                                    <a href="/Dashboard" title="لیست علاقه مندی">
+                                    <a href="/FavoriteBook" title="لیست علاقه مندی">
                                         <div class="icon">
                                             <i class="icon-heart-o"></i>
                                             <span class="wishlist-count badge" id="wishlist-count">@ViewBag.WishlistCount</span>
@@ -120,7 +125,7 @@
                                         </a>
                                 </div>
                                 <div class="dropdown cart-dropdown">
-                                    <a href="/Dashboard" class="dropdown-toggle" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false" data-display="static">
+                                    <a href="/ShoppingCart" class="dropdown-toggle" role="button" data-toggle="dropdown"aria-haspopup="true" aria-expanded="false" data-display="static">
                                         <div class="icon">
                                             <i class="icon-shopping-cart"></i>
                                             <span class="cart-count" id="cart-count">@ViewBag.CartCount</span>
@@ -366,10 +371,10 @@
                                 <li>
                                     <a href="/Dashboard" class="sf-with-ul">داشبرد</a>
                                     <ul>
-                                        <li><a href="/Dashboard">امانات (@ViewBag.CartCount)</a></li>
-                                        <li><a href="/Dashboard">علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
-                                        <li><a href="/Dashboard">تاریخچه امانات</a></li>
                                         <li><a href="/Dashboard">تغییرات پروفایل</a></li>
+                                        <li><a href="/ShoppingCart">امانات (@ViewBag.CartCount)</a></li>
+                                        <li><a href="/FavoriteBook">علاقه مندی ها (@ViewBag.WishlistCount)</a></li>
+                                        <li><a href="/History">تاریخچه امانات</a></li>
                                         <li><a href="/Logout">خروج از حساب</a></li>
                                     </ul>
                                 </li>
@@ -378,7 +383,7 @@
                             else
                             {
                                 <li>
-                                    <a href="/Dashboard" class="sf-with-ul">عضویت</a>
+                                    <a href="/Login" class="sf-with-ul">عضویت</a>
                                     <ul>
                                         <li><a href="/Login">ورود</a></li>
                                         <li><a href="/Login">ثبت نام</a></li>

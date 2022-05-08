@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using UniversityProject.Core.DTOs;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Core.Utils;
@@ -89,24 +89,16 @@ namespace UniversityProject.WebApp.Controllers
                 RoleId = Const.UserRoleId,
                 Name = loginDto.Name
             };
-            if (user.Phone.Length == 8 || user.Phone.Length == 11)
-            {
-                var res = await _userRepository.Insert(user);
-                if (string.IsNullOrWhiteSpace(res) == false)
-                {
-                    ViewBag.ErrorModal = "true";
-                    ViewBag.ErrorMessage = res;
-                    return View("Login", loginDto);
-                }
-                ViewBag.InfoModal = "true";
-                return View("Login", new LoginDto());
-            }
-            else
+            var res = await _userRepository.Insert(user);
+            if (string.IsNullOrWhiteSpace(res) == false)
             {
                 ViewBag.ErrorModal = "true";
-                ViewBag.ErrorMessage = "شماره تماس معتبر نمی باشد";
+                ViewBag.ErrorMessage = res;
                 return View("Login", loginDto);
             }
+            ViewBag.InfoModal = "true";
+            return View("Login", new LoginDto());
+
         }
 
         [Route("ForgotPassword")]
@@ -144,7 +136,7 @@ namespace UniversityProject.WebApp.Controllers
             }
             await GetMenuData();
             ViewBag.ErrorModal = "true";
-            ViewBag.ErrorMessage = "رمز عبور شما به 1234 تغییر یافت از طریق داشبرد می توانید رمز عبور خود را تغییر دهید";
+            ViewBag.ErrorMessage = "رمز عبور شما به 123456 تغییر یافت از طریق داشبرد می توانید رمز عبور خود را تغییر دهید";
             return View("Login", new LoginDto());
         }
 

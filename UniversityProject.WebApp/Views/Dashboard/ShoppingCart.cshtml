@@ -30,10 +30,10 @@
                                 <a class="nav-link">جزئیات حساب کاربری</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/ShoppingCart">امانات</a>
+                                <a class="nav-link active" href="/ShoppingCart">امانات</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="/FavoriteBook">لیست علاقه مندی</a>
+                                <a class="nav-link" href="/FavoriteBook">لیست علاقه مندی</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/History">تاریخچه</a>
@@ -63,7 +63,6 @@
                                                     <th>عملیات</th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
                                                 @foreach (var item in Model.ShoppingCartBooks)
                                                 {
@@ -93,19 +92,17 @@
                                                             </button>
                                                         </td>
                                                         <td class="remove-col text-left">
-                                                            style="cursor: pointer"
                                                             <a class="btn-remove" href="/DeleteItemShoppingCart/@item.Book.Id" style="cursor: pointer">
                                                                 <i class="icon-close"></i>
                                                             </a>
                                                         </td>
-
                                                     </tr>
                                                     cartCounter++;
                                                 }
                                             </tbody>
                                         </table><!-- End .table table-wishlist -->
                                         <div class="cart-bottom">
-                                            <a href="/Dashboard" class="btn btn-outline-dark-2 ml-auto display-7 px-5">
+                                            <a href="/ShoppingCart" class="btn btn-outline-dark-2 ml-auto display-7 px-5">
                                                 <span>به روز رسانی امانات</span><i class="icon-refresh"></i>
                                             </a>
                                         </div>
@@ -115,7 +112,7 @@
                                 {
                                     <p>هیچ کتابی وجود ندارد</p>
                                     <div class="cart-bottom">
-                                        <a href="/Dashboard" class="btn btn-outline-dark-2 ml-auto display-7 px-5">
+                                        <a href="/ShoppingCart" class="btn btn-outline-dark-2 ml-auto display-7 px-5">
                                             <span>به روز رسانی امانات</span><i class="icon-refresh"></i>
                                         </a>
                                     </div>

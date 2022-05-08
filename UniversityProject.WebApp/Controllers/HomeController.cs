@@ -80,6 +80,16 @@ namespace UniversityProject.WebApp.Controllers
             return await _shoppingCartRepository.CountByUserId(User.GetUserId());
         }
 
+        [HttpPost("/InsertMessage")]
+        public async Task<IActionResult> InsertMessage(Message message)
+        {
+            await _messageRepository.Insert(message);
+            await GetMenuData();
+            ViewBag.ShowModal = "true";
+            ViewBag.Title = "تماس با ما";
+            return View("ContactUs");
+        }
+
         //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public async Task<IActionResult> Error()
         {
@@ -110,16 +120,6 @@ namespace UniversityProject.WebApp.Controllers
                 CommentCount = await _commentRepository.CommentCount()
             };
             return View(model);
-        }
-
-        [HttpPost("/InsertMessage")]
-        public async Task<IActionResult> InsertMessage(Message message)
-        {
-            await _messageRepository.Insert(message);
-            await GetMenuData();
-            ViewBag.ShowModal = "true";
-            ViewBag.Title = "تماس با ما";
-            return View("ContactUs");
         }
 
         private async Task GetMenuData()

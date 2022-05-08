@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UniversityProject.Core.Repositories;
 using UniversityProject.Core.Utils;
@@ -63,6 +64,14 @@ namespace UniversityProject.Core.Services
             {
                 return "کاربری با این نام قبلا ثبت نام شده است";
             }
+            if (user.Password.Length < 6)
+            {
+                return "رمز عبور حداقل باید 6 کاراکتر باشد";
+            }
+            if (user.Phone.Any(char.IsLetter))
+            {
+                return "شماره تماس معتبر نمی باشد";
+            }
             user.Password = PasswordHelper.EncodePasswordMd5(user.Password);
             user.RegisterTime = DateTime.Now;
             user.IsDelete = false;
@@ -84,7 +93,7 @@ namespace UniversityProject.Core.Services
         public async Task ResetPassword(string phone, int code)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == code && x.Phone == phone);
-            user.Password = PasswordHelper.EncodePasswordMd5("1234");
+            user.Password = PasswordHelper.EncodePasswordMd5("123456");
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
         }
