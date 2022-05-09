@@ -38,6 +38,13 @@ namespace UniversityProject.WebApp.Controllers
             {
                 LoginDto = new LoginDto() { Name = user.Name, Username = user.Phone },
             };
+            if (user.Penalty.HasValue)
+            {
+                if (user.Penalty != 0)
+                {
+                    ViewBag.Penalty = user.Penalty;
+                }
+            }
             await GetMenuData();
             ViewBag.Title = "داشبرد";
             return View(model);
@@ -48,6 +55,13 @@ namespace UniversityProject.WebApp.Controllers
         {
             ViewBag.Title = "داشبرد";
             var user = await _userRepository.GetItem(User.GetUserId());
+            if (user.Penalty.HasValue)
+            {
+                if (user.Penalty != 0)
+                {
+                    ViewBag.Penalty = user.Penalty;
+                }
+            }
             var model = new DashboardDto()
             {
                 LoginDto = new LoginDto() { Name = user.Name, Username = user.Phone },

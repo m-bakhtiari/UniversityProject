@@ -5,12 +5,13 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">خانه</a></li>
-                <li class="breadcrumb-item active" aria-current="page">ورود / ثبت نام</li>
+                <li class="breadcrumb-item"><a href="/Login">ورود / ثبت نام</a></li>
+                <li class="breadcrumb-item active" aria-current="page">وارد کردن کد</li>
             </ol>
         </div><!-- End .container -->
     </nav><!-- End .breadcrumb-nav -->
 
-    <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('/Images/Static/page-header-bg.jpg')">
+    <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17" style="background-image: url('/Images/Static/login_bg.jpg')">
         <div class="container">
             <div class="form-box">
                 <div class="form-tab">
@@ -25,7 +26,7 @@
                                 <div class="form-group">
                                     <p class="alert alert-primary">کد @Model.Code را وارد نمایید</p>
                                     <label for="singin-email-2" class="mt-2">کد *</label>
-                                    <input type="hidden" value="@Model.Username" asp-for="Username"/>
+                                    <input type="hidden" value="@Model.Username" asp-for="Username" />
                                     <input type="text" class="form-control" asp-for="Id" required="required" placeholder="کد ارسالی"
                                            oninvalid="this.setCustomValidity('کد ارسالی را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
@@ -50,7 +51,11 @@
     <script>
         $(document).ready(function () {
             if ('@ViewBag.ErrorModal' == 'true') {
-                $("#info-text").html('@ViewBag.ErrorMessage');
+                $("#error-text").html('@ViewBag.ErrorMessage');
+                $("#error-modal").modal('show');
+            }
+            else if ('@ViewBag.InfoModal' == 'true') {
+                $("#info-text").html('@ViewBag.InfoMessage');
                 $("#info-modal").modal('show');
             }
         });

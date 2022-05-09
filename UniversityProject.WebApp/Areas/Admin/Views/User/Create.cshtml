@@ -33,11 +33,16 @@
                         </div>
                         <div class="form-group">
                             <label for="@Model.NewPassword">رمز عبور</label>
-                            <input type="text" class="form-control" asp-for="@Model.NewPassword" id="@Model.NewPassword" placeholder="رمز عبور" required="required"
-                                   oninvalid="this.setCustomValidity('رمز عبور را وارد نمایید')" oninput="this.setCustomValidity('')">
+
                             @if (Model.Id != 0)
                             {
+                                <input type="text" class="form-control" asp-for="@Model.NewPassword" id="@Model.NewPassword" placeholder="رمز عبور" >
                                 <label class="help-block">در صورت تغییر رمز عبور را وارد نمایید</label>
+                            }
+                            else
+                            {
+                                <input type="text" class="form-control" asp-for="@Model.NewPassword" id="@Model.NewPassword" placeholder="رمز عبور" required="required"
+                                       oninvalid="this.setCustomValidity('رمز عبور را وارد نمایید')" oninput="this.setCustomValidity('')"/>
                             }
                         </div>
                         <div class="form-group">

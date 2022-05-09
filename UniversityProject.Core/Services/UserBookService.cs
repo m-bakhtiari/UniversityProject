@@ -52,10 +52,6 @@ namespace UniversityProject.Core.Services
                 return "تاریخ پایان معتبر نمی باشد";
             }
             var user = await _context.Users.FindAsync(userBook.UserId);
-            if (user.Penalty > 200000)
-            {
-                return "مبلغ جریمه را پرداخت نمایید";
-            }
             var book = await _context.Books.FindAsync(userBook.BookId);
             if (userBook.EndDate.HasValue)
             {

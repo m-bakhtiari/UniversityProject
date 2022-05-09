@@ -33,12 +33,23 @@
                             <h1 class="product-title">@Model.Title</h1>
                             <!-- End .product-title -->
                             <div class="product-cat text-right">
+                                <span>وضعیت موجودی : </span>
+                                @if (Model.IsAvailable)
+                                {
+                                    <a><span class="badge badge-success p-2">موجود</span></a>
+                                }
+                                else
+                                {
+                                    <a><span class="badge badge-danger p-2">ناموجود</span></a>
+                                }
+                            </div>
+                            <div class="product-cat text-right mt-2">
                                 <span>نام نویسنده : </span>
                                 <a href="/Search?authorName=@Model.AuthorName">@Model.AuthorName</a>
                             </div>
                             <div class="product-cat text-right mt-1">
                                 <span>نام ناشر : </span>
-                                <a href="/Search?publisherName=@Model.AuthorName">@Model.PublisherName</a>
+                                <a href="/Search?publisherName=@Model.PublisherName">@Model.PublisherName</a>
                             </div>
                             <div class="product-cat text-right mt-1">
                                 <span>تاریخ انتشار </span>
@@ -116,7 +127,7 @@
                                     {
                                         <div class="review">
                                             <div class="row no-gutters">
-                                                <div class="col-auto">
+                                                <div>
                                                     <h4>@item.User.Name</h4>
                                                     <span class="review-date">@item.RecordDate.ToShamsi()</span>
                                                 </div><!-- End .col -->

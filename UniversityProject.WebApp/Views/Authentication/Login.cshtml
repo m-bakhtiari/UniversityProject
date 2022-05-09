@@ -106,7 +106,7 @@
                 $("#error-modal").modal('show');
             }
            else if ('@ViewBag.InfoModal' == 'true') {
-                $("#info-text").html('ثبت نام با موفقیت انجام شد . اکنون لاگین نمایید');
+                $("#info-text").html('@ViewBag.InfoMessage');
                 $("#info-modal").modal('show');
             }
         });

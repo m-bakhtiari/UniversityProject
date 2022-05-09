@@ -102,13 +102,16 @@ namespace UniversityProject.Core.Services
             IQueryable<Book> result = _context.Books.Include(x => x.BookCategories);
             if (libraryDto.CategoryIdSearch != null)
             {
-                var subGroup = await _context.Categories.Where(x => libraryDto.CategoryIdSearch.Contains(x.ParentId.Value))
-                    .Select(x => x.Id).ToListAsync();
-                if (subGroup.Any())
+                if (libraryDto.CategoryIdSearch.Any())
                 {
-                    libraryDto.CategoryIdSearch.AddRange(subGroup);
+                    var subGroup = await _context.Categories.Where(x => libraryDto.CategoryIdSearch.Contains(x.ParentId.Value))
+                        .Select(x => x.Id).ToListAsync();
+                    if (subGroup.Any())
+                    {
+                        libraryDto.CategoryIdSearch.AddRange(subGroup);
+                    }
+                    result = _context.BookCategories.Where(x => libraryDto.CategoryIdSearch.Contains(x.CategoryId)).Select(x => x.Book);
                 }
-                result = _context.BookCategories.Where(x => libraryDto.CategoryIdSearch.Contains(x.CategoryId)).Select(x => x.Book);
             }
             if (string.IsNullOrWhiteSpace(libraryDto.EndPublishDate) == false)
             {

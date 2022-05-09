@@ -94,11 +94,22 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 Id = userBookDto.Id
             };
             var res = await _userBookRepository.Update(model);
-            if (string.IsNullOrWhiteSpace(res))
+            if (string.IsNullOrWhiteSpace(res) == false)
             {
                 ViewBag.ReturnUrl = "/Admin/UserBook/Update";
                 ViewBag.ShowModal = "true";
-                return View("Create", userBookDto);
+                var userBook = await _userBookRepository.GetItem(userBookDto.Id);
+                var dto = new UserBookDto()
+                {
+                    UserId = userBook.UserId,
+                    BookId = userBook.BookId,
+                    StartDate = userBook.StartDate.ToString("yyyy/MM/dd"),
+                    EndDate = userBook.EndDate?.ToString("yyyy/MM/dd"),
+                    Users = await _userRepository.GetAll(),
+                    BookTitles = await _bookRepository.GetAllTitles(),
+                    Id = userBook.Id,
+                };
+                return View("Create", dto);
             }
             return Redirect("/Admin/UserBook");
         }

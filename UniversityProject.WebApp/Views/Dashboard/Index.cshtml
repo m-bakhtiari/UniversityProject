@@ -45,6 +45,13 @@
                     </aside><!-- End .col-lg-3 -->
 
                     <div class="col-md-8 col-lg-9">
+                        <div class="row">
+                            @if (ViewBag.Penalty != null)
+                            {
+                                <span class="alert alert-warning">به علت رعایت نکردن تعداد روز استفاده کتاب ها مبلغ جریمه شما @ViewBag.Penalty.ToString("#,0") می باشد ، هر چه سریع تر نسبت به پرداخت آن اقدام نمایید</span>
+                            }
+                        </div>
+                      
                         <div class="tab-content">
 
                             <div class="tab-pane fade active show">

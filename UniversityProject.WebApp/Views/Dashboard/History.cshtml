@@ -1,4 +1,5 @@
 ﻿@using UniversityProject.Core.Utils
+@using UniversityProject.Data.Consts
 @model UniversityProject.Core.DTOs.DashboardDto
 @{
     var counter = 1;
@@ -47,7 +48,7 @@
 
                     <div class="col-md-8 col-lg-9">
                         <div class="tab-content">
-                            
+
                             <div class="tab-pane fade active show">
                                 @if (Model.OldBooks.Any())
                                 {
@@ -60,6 +61,7 @@
                                                     <th>تاریخ شروع</th>
                                                     <th>تاریخ پایان</th>
                                                     <th>تعداد روز قابل استفاده</th>
+                                                    <th>مبلغ جریمه</th>
                                                 </tr>
                                             </thead>
 
@@ -83,6 +85,9 @@
                                                         <td>@item.StartDate.ToShamsi()</td>
                                                         <td>@item.EndDate?.ToShamsi()</td>
                                                         <td>@item.Book.UsableDays روز</td>
+                                                        <td>
+                                                            @(item.EndDate.HasValue?(((item.EndDate-item.StartDate).Value.TotalDays)*Const.PenaltyPerDay).ToString("#,0"):null)
+                                                        </td>
                                                     </tr>
                                                     oldCounter++;
                                                 }

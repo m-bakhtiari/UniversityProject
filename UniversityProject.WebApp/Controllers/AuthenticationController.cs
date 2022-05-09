@@ -32,6 +32,7 @@ namespace UniversityProject.WebApp.Controllers
         public async Task<IActionResult> Login(string returnUrl)
         {
             await GetMenuData();
+            ViewBag.Title = "ورود / ثبت نام";
             return View(new LoginDto() { ReturnUrl = returnUrl });
         }
 
@@ -67,6 +68,8 @@ namespace UniversityProject.WebApp.Controllers
             await GetMenuData();
             ViewBag.ErrorModal = "true";
             ViewBag.ErrorMessage = "کاربری با این اطلاعات یافت نشد";
+            ViewBag.Title = "ورود / ثبت نام";
+
             return View("Login", new LoginDto() { ReturnUrl = login.ReturnUrl });
         }
 
@@ -80,6 +83,8 @@ namespace UniversityProject.WebApp.Controllers
             {
                 ViewBag.ErrorModal = "true";
                 ViewBag.ErrorMessage = "رمز عبور با تکرار آن یکسان نمی باشد";
+                ViewBag.Title = "ورود / ثبت نام";
+
                 return View("Login", loginDto);
             }
             var user = new User()
@@ -94,9 +99,14 @@ namespace UniversityProject.WebApp.Controllers
             {
                 ViewBag.ErrorModal = "true";
                 ViewBag.ErrorMessage = res;
+                ViewBag.Title = "ورود / ثبت نام";
+
                 return View("Login", loginDto);
             }
             ViewBag.InfoModal = "true";
+            ViewBag.InfoMessage = "ثبت نام با موفقیت انجام شد . اکنون لاگین نمایید";
+            ViewBag.Title = "ورود / ثبت نام";
+
             return View("Login", new LoginDto());
 
         }
@@ -105,6 +115,7 @@ namespace UniversityProject.WebApp.Controllers
         public async Task<IActionResult> ForgotPassword()
         {
             await GetMenuData();
+            ViewBag.Title = "فراموشی رمز عبور";
             return View("ForgotPassword", new LoginDto());
         }
 
@@ -112,32 +123,42 @@ namespace UniversityProject.WebApp.Controllers
         public async Task<IActionResult> AddUserCode(LoginDto loginDto)
         {
             await GetMenuData();
-            ViewBag.ErrorModal = "true";
             var user = await _userRepository.GetItemByPhoneNumber(loginDto.Username);
             if (user == null)
             {
+                ViewBag.Title = "فراموشی رمز عبور";
+                ViewBag.ErrorModal = "true";
                 ViewBag.ErrorMessage = "کاربری یا این شماره یافت نشد";
                 return View("ForgotPassword", new LoginDto());
             }
-            ViewBag.ErrorMessage = "کد ارسالی به شماره تماس را وارد نمایید";
+            ViewBag.Title = "وارد کردن کد";
+            ViewBag.InfoModal = "true";
+            ViewBag.InfoMessage = "کد به شماره تماس وارد شده ارسال شد ،کد را وارد نمایید";
             return View("AddUserCode", new LoginDto() { Username = user.Phone, Code = user.Id });
         }
 
         [HttpPost("ResetPassword")]
         public async Task<IActionResult> ResetPassword(LoginDto loginDto)
         {
+            await GetMenuData();
             if (loginDto.Id != null)
             {
                 var userData = await _userRepository.GetUserByCode(loginDto.Username, loginDto.Id.Value);
                 if (userData)
                 {
                     await _userRepository.ResetPassword(loginDto.Username, loginDto.Id.Value);
+                    ViewBag.InfoModal = "true";
+                    ViewBag.InfoMessage = "رمز عبور شما به 123456 تغییر یافت از طریق داشبرد می توانید رمز عبور خود را تغییر دهید";
+                    ViewBag.Title = "ورود / ثبت نام";
+                    return View("Login", new LoginDto());
                 }
             }
-            await GetMenuData();
+            ViewBag.Title = "وارد کردن کد";
             ViewBag.ErrorModal = "true";
-            ViewBag.ErrorMessage = "رمز عبور شما به 123456 تغییر یافت از طریق داشبرد می توانید رمز عبور خود را تغییر دهید";
-            return View("Login", new LoginDto());
+            ViewBag.ErrorMessage = "کد وارد شده معتبر نمی باشد";
+            var user = await _userRepository.GetItemByPhoneNumber(loginDto.Username);
+            loginDto.Code = user.Id;
+            return View("AddUserCode", loginDto);
         }
 
         [Route("/Logout")]
@@ -155,7 +176,6 @@ namespace UniversityProject.WebApp.Controllers
                 ViewBag.WishListCount = await _favoriteBookRepository.CountByUserId(User.GetUserId());
                 ViewBag.CartCount = await _shoppingCartRepository.CountByUserId(User.GetUserId());
             }
-            ViewBag.Title = "ورود / ثبت نام";
         }
     }
 }
