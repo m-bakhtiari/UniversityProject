@@ -62,9 +62,9 @@ namespace UniversityProject.Data.Context
                 {
                     Name = "Admin",
                     IsDelete = false,
-                    Password = "1234",
+                    Password = "123456",
                     Penalty = 0,
-                    Phone = "No Number",
+                    Phone = "01234567890",
                     RoleId = Const.AdminRoleId,
                     RegisterTime =new DateTime(2022,04,04),
                     Id = 1001
