@@ -62,6 +62,11 @@ namespace UniversityProject.Core.Services
             return null;
         }
 
+        public async Task<bool> IsMainGroup(int categoryId)
+        {
+            return await _context.Categories.AnyAsync(x => x.ParentId == categoryId);
+        }
+
         public async Task<string> Update(Category category)
         {
             if (string.IsNullOrWhiteSpace(category.Title))

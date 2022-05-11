@@ -11,10 +11,12 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IBookCategoryRepository _bookCategoryRepository;
 
-        public CategoryController(ICategoryRepository categoryRepository)
+        public CategoryController(ICategoryRepository categoryRepository, IBookCategoryRepository bookCategoryRepository)
         {
             _categoryRepository = categoryRepository;
+            _bookCategoryRepository = bookCategoryRepository;
         }
 
         [HttpGet]
@@ -68,6 +70,18 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
+            if (await _categoryRepository.IsMainGroup(id))
+            {
+                ViewBag.ShowModal="true";
+                ViewBag.ModalMessage = "ابتدا زیر گروه ها را حذف نمایید";
+                return View("Index", await _categoryRepository.GetAll());
+            }
+            else if (await _bookCategoryRepository.IsExistBookByCategoryId(id))
+            {
+                ViewBag.ShowModal = "true";
+                ViewBag.ModalMessage = "ابتدا آیتم های مرتبط با این زیر گروه را حذف نمایید مانند بنرها ، کتاب ها و...";
+                return View("Index", await _categoryRepository.GetAll());
+            }
             await _categoryRepository.Delete(id);
             return Redirect("/Admin/Category");
         }

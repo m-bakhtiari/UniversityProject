@@ -58,5 +58,10 @@ namespace UniversityProject.Core.Services
             await _context.SaveChangesAsync();
             return null;
         }
+
+        public async Task<bool> IsExistBookByCategoryId(int categoryId)
+        {
+            return await _context.BookCategories.AnyAsync(x => x.CategoryId == categoryId);
+        }
     }
 }

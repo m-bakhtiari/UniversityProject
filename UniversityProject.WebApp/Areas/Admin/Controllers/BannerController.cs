@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +28,21 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var model = await _bannerRepository.GetAll();
+            foreach (var item in model.Where(item => string.IsNullOrWhiteSpace(item.LinkUrl) == false))
+            {
+                if (item.LinkUrl.Contains("Book"))
+                {
+                    var bookId = item.LinkUrl.Split("/").LastOrDefault();
+                    var book = await _bookRepository.GetItem(Convert.ToInt32(bookId));
+                    item.LinkUrl = book.Title;
+                }
+                else if (item.LinkUrl.Contains("category"))
+                {
+                    var bannerId = item.LinkUrl.Split("=").LastOrDefault();
+                    var banner = await _categoryRepository.GetItem(Convert.ToInt32(bannerId));
+                    item.LinkUrl = banner.Title;
+                }
+            }
             return View(model);
         }
 

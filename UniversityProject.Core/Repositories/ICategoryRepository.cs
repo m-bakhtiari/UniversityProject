@@ -12,5 +12,6 @@ namespace UniversityProject.Core.Repositories
         Task<List<Category>> GetAll();
         Task<Category> GetItem(int id);
         Task<int> CategoryCount();
+        Task<bool> IsMainGroup(int categoryId);
     }
 }

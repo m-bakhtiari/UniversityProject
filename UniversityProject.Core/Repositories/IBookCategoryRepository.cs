@@ -11,7 +11,7 @@ namespace UniversityProject.Core.Repositories
         Task<List<BookCategory>> GetAll();
         Task<BookCategory> GetItem(int bookId, int categoryId);
         Task<List<BookCategory>> GetItemByBookId(int bookId);
-        Task<List<BookCategory>> GetItemByCategoryId(int categoryId);
         Task DeleteByBookId(int bookId);
+        Task<bool> IsExistBookByCategoryId(int categoryId);
     }
 }

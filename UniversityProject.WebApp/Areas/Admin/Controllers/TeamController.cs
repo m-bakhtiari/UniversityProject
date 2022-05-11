@@ -39,7 +39,10 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             var team = new Team()
             {
                 JobTitle = teamDto.JobTitle,
-                Name = teamDto.Name
+                Facebook = teamDto.Facebook,
+                Instagram = teamDto.Instagram,
+                Name = teamDto.Name,
+                Twitter = teamDto.Twitter
             };
             await _teamRepository.Insert(team, teamDto.Image);
             return Redirect("/Admin/Team");
@@ -61,7 +64,10 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 JobTitle = team.JobTitle,
                 Name = team.Name,
                 OldImage = team.Image,
-                Id = team.Id
+                Id = team.Id,
+                Facebook = team.Facebook,
+                Instagram = team.Instagram,
+                Twitter = team.Twitter
             };
             return View("Create", model);
         }
@@ -76,7 +82,10 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 JobTitle = teamDto.JobTitle,
                 Name = teamDto.Name,
                 Id = teamDto.Id,
-                Image = teamDto.OldImage
+                Image = teamDto.OldImage,
+                Facebook = teamDto.Facebook,
+                Instagram = teamDto.Instagram,
+                Twitter = teamDto.Twitter
             };
             await _teamRepository.Update(team, teamDto.Image);
             return Redirect("/Admin/Team");

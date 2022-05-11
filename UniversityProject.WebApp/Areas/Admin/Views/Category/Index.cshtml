@@ -98,6 +98,12 @@
     <!-- page script -->
     <script>
         $(function () {
+            if ('@ViewBag.ShowModal'=='true') {
+                var modal = $('#myModal');
+                modal.find('.modal-body p').html("@ViewBag.ModalMessage");
+                modal.find('.modal-footer a').attr("href", "/Admin/Category");
+                $('#myModal').modal('show');
+            }
             $('#example1').DataTable({
                 'paging': true,
                 'lengthChange': true,

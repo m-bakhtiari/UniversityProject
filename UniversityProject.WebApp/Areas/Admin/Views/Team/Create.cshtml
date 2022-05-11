@@ -20,17 +20,33 @@
                         <input type="hidden" value="@Model.OldImage" asp-for="OldImage" />
                     </div>
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="@Model.Name">نام و نام خانوادگی</label>
-                            <input type="text" class="form-control" asp-for="@Model.Name" id="@Model.Name"  placeholder="نام و نام خانوادگی"/>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="@Model.Name">نام و نام خانوادگی</label>
+                                <input type="text" class="form-control" asp-for="@Model.Name" id="@Model.Name" placeholder="نام و نام خانوادگی"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="@Model.JobTitle">عنوان شغلی</label>
+                                <input type="text" class="form-control" asp-for="@Model.JobTitle" id="@Model.JobTitle" placeholder="عنوان شغلی">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="@Model.JobTitle">عنوان شغلی</label>
-                            <input type="text" class="form-control" asp-for="@Model.JobTitle" id="@Model.JobTitle" placeholder="عنوان شغلی">
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="@Model.Instagram">آدرس اینستاگرام</label>
+                                <input type="text" class="form-control" asp-for="@Model.Instagram" id="@Model.Instagram" placeholder="عنوان شغلی">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="@Model.Twitter">آدرس تویتر</label>
+                                <input type="text" class="form-control" asp-for="@Model.Twitter" id="@Model.Twitter" placeholder="عنوان تویتر">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="@Model.Facebook">آدرس فیسبوک</label>
+                                <input type="text" class="form-control" asp-for="@Model.Facebook" id="@Model.Facebook" placeholder="عنوان فیسبوک">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>تصویر</label>
-                            <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image" />
+                            <input accept="image/*" type="file" onchange="previewFile(this)" asp-for="Image"/>
                         </div>
                         <div class="form-group">
                             <img id="previewImg" src="@(Model.OldImage != null ? "/Images/Teams/" + Model.OldImage : " ")" alt="Placeholder" class="img-responsive"
