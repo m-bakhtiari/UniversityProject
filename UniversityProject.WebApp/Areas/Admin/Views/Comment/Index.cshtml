@@ -45,12 +45,12 @@
                                         @foreach (var answer in Model.Where(x => x.ParentId == item.Id))
                                         {
                                             @answer.Text
-                                            <a class="btn btn-warning btn-xs" href="/Admin/Comment/Update/@item.Id"><i class="fa fa-edit"></i></a>
-                                            <a class="btn btn-danger btn-xs" href="/Admin/Comment/Delete/@item.Id"><i class="fa fa-trash"></i></a>
+                                            <a class="btn btn-warning btn-xs" href="/Admin/Comment/Update/@answer.Id"><i class="fa fa-edit"></i></a>
+                                            <a class="btn btn-danger btn-xs" href="/Admin/Comment/Delete/@answer.Id"><i class="fa fa-trash"></i></a>
                                         }
                                     </td>
                                     <td>
-                                        <a class="btn btn-primary" href="/Admin/Comment/Update/@item.Id">جواب</a>
+                                        <a class="btn btn-primary" href="/Admin/Comment/Create?parentId=@item.Id">جواب</a>
                                         <a class="btn btn-danger" onclick="DeleteGroup(@item.Id,'@item.User.Name')">حذف</a>
                                     </td>
                                 </tr>
@@ -87,6 +87,13 @@
     <!-- page script -->
     <script>
         $(function () {
+            if ('@ViewBag.ShowModal'=='true') {
+                var modal = $('#myModal');
+                modal.find('.modal-body p').html("@ViewBag.ModalMessage");
+                modal.find('.modal-footer a').attr("href", "/Admin/Comment");
+                $('#myModal').modal('show');
+            }
+
             $('#example1').DataTable({
                 'paging': true,
                 'lengthChange': true,

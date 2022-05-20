@@ -30,9 +30,9 @@
                                     <input type="hidden" value="@Model.ReturnUrl" asp-for="ReturnUrl" />
                                 }
                                 <div class="form-group">
-                                    <label for="singin-email-2">شماره تماس *</label>
-                                    <input type="text" class="form-control" id="singin-email-2" asp-for="Username" required="required" placeholder="شماره تماس"
-                                           oninvalid="this.setCustomValidity('شماره تماس را وارد نمایید')" oninput="this.setCustomValidity('')">
+                                    <label for="singin-email-2">شماره موبایل *</label>
+                                    <input type="text" class="form-control" id="singin-email-2" asp-for="Username" required="required" placeholder="شماره موبایل"
+                                           oninvalid="this.setCustomValidity('شماره موبایل را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
 
                                 <div class="form-group">
@@ -59,8 +59,8 @@
                         <div class="tab-pane fade" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
                             <form action="/Register" method="post">
                                 <div class="form-group">
-                                    <label for="register-email-2">شماره تماس *</label>
-                                    <input type="tel" id="register-email-2" class="form-control" asp-for="Username" required="required" placeholder="شماره تماس"
+                                    <label for="register-email-2">شماره موبایل *</label>
+                                    <input type="tel" id="register-email-2" class="form-control" asp-for="Username" required="required" placeholder="شماره موبایل"
                                            oninvalid="this.setCustomValidity('شماره تماس را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div><!-- End .form-group -->
 

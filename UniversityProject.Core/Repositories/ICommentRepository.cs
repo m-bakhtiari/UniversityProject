@@ -12,5 +12,6 @@ namespace UniversityProject.Core.Repositories
         Task<List<Comment>> GetAll();
         Task<Comment> GetItem(int id);
         Task<int> CommentCount();
+        Task<bool> CommentHasAnswer(int id);
     }
 }

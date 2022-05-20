@@ -14,5 +14,6 @@ namespace UniversityProject.Core.Repositories
         Task ToggleStatus(int messageId);
         Task<int> MessageCount();
         Task<int> UnreadMessageCount();
+        Task<Message> GetItem(int id);
     }
 }

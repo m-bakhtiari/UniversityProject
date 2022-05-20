@@ -29,7 +29,6 @@
                                 <th>عنوان</th>
                                 <th>شماره تماس</th>
                                 <th>ایمیل</th>
-                                <th>متن</th>
                                 <th>دیده شد</th>
                                 <th>عملیات</th>
                             </tr>
@@ -54,16 +53,16 @@
                                             <i class='fa fa-close fa-2x text-red'></i>
                                         }
                                     </td>
-                                    <td>@item.Text</td>
                                     <td>
                                         @if (item.ReadingStatus)
                                         {
-                                        <a class="btn btn-danger" href="/Admin/Message/UpdateStatus/@item.Id">دیده نشده</a>
+                                            <a class="btn btn-primary" href="/Admin/Message/UpdateStatus/@item.Id">دیده نشده</a>
                                         }
                                         else
                                         {
-                                            <a class="btn btn-primary" href="/Admin/Message/UpdateStatus/@item.Id">دیده شد</a>
+                                            <a class="btn btn-danger" href="/Admin/Message/UpdateStatus/@item.Id">دیده شد</a>
                                         }
+                                        <a class="btn btn-success" href="/Admin/Message/Details/@item.Id">جزییات</a>
                                     </td>
                                 </tr>
                                 counter++;
@@ -77,7 +76,7 @@
                                 <th>عنوان</th>
                                 <th>شماره تماس</th>
                                 <th>ایمیل</th>
-                                <th>متن</th>
+                                <th>دیده شد</th>
                                 <th>عملیات</th>
                             </tr>
                         </tfoot>

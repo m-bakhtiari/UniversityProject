@@ -23,6 +23,11 @@ namespace UniversityProject.Core.Services
             return await _context.Messages.ToListAsync();
         }
 
+        public async Task<Message> GetItem(int id)
+        {
+            return await _context.Messages.FindAsync(id);
+        }
+
         public async Task<string> Insert(Message message)
         {
             if (string.IsNullOrWhiteSpace(message.Text))

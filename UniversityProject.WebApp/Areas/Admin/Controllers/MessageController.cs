@@ -26,5 +26,11 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             await _messageRepository.ToggleStatus(id);
             return Redirect("/Admin/Message");
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var message = await _messageRepository.GetItem(id);
+            return View(message);
+        }
     }
 }

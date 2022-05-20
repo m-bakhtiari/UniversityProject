@@ -54,7 +54,7 @@ namespace UniversityProject.Core.Services
             }
             if (string.IsNullOrWhiteSpace(user.Phone))
             {
-                return "شماره تماس را وارد نمایید";
+                return "شماره موبایل را وارد نمایید";
             }
             if (string.IsNullOrWhiteSpace(user.Password))
             {
@@ -70,7 +70,15 @@ namespace UniversityProject.Core.Services
             }
             if (user.Phone.Any(char.IsLetter))
             {
-                return "شماره تماس معتبر نمی باشد";
+                return "شماره موبایل معتبر نمی باشد";
+            }
+            if (user.Phone.Length != 11)
+            {
+                return "شماره موبایل معتبر نمی باشد";
+            }
+            if (user.Phone.StartsWith("09") == false)
+            {
+                return "شماره موبایل معتبر نمی باشد";
             }
             user.Password = PasswordHelper.EncodePasswordMd5(user.Password);
             user.RegisterTime = DateTime.Now;

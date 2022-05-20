@@ -21,16 +21,19 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             return View(await _commentRepository.GetAll());
         }
 
-        public IActionResult Create(int parentId)
+        public async Task<IActionResult> Create(int parentId)
         {
             ViewBag.ReturnUrl = "/Admin/Comment/Create";
             ViewBag.ShowModal = "false";
-            return View(new Comment() { ParentId = parentId });
+            var comment = await _commentRepository.GetItem(parentId);
+            ViewBag.UserComment = comment.Text;
+            return View(new Comment() { ParentId = parentId, BookId = comment.BookId });
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(Comment comment)
         {
+            comment.UserId = User.GetUserId();
             var addComment = await _commentRepository.Insert(comment);
             if (string.IsNullOrWhiteSpace(addComment) == false)
             {
@@ -46,7 +49,10 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             var model = await _commentRepository.GetItem(id);
             ViewBag.ReturnUrl = "/Admin/Comment/Update";
             ViewBag.ShowModal = "false";
-            if (model.ParentId != null) ViewBag.UserComment = await _commentRepository.GetItem(model.ParentId.Value);
+            if (model.ParentId == null) return View("Create", model);
+            var comment= await _commentRepository.GetItem(model.ParentId.Value);
+            if (model.ParentId != null) ViewBag.UserComment = comment.Text;
+
             return View("Create", model);
         }
 
@@ -65,6 +71,12 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
+            if (await _commentRepository.CommentHasAnswer(id))
+            {
+                ViewBag.ShowModal = "true";
+                ViewBag.ModalMessage = "ابتدا جواب کامنت را حذف نمایید";
+                return View("Index",await _commentRepository.GetAll());
+            }
             await _commentRepository.Delete(id);
             return Redirect("/Admin/Comment");
         }

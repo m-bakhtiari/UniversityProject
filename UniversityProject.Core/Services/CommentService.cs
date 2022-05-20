@@ -22,6 +22,11 @@ namespace UniversityProject.Core.Services
             return await _context.Comments.CountAsync();
         }
 
+        public async Task<bool> CommentHasAnswer(int id)
+        {
+            return await _context.Comments.AnyAsync(x => x.ParentId == id);
+        }
+
         public async Task Delete(int id)
         {
             var comment = await _context.Comments.FindAsync(id);
@@ -37,7 +42,7 @@ namespace UniversityProject.Core.Services
         public async Task<List<Comment>> GetAll()
         {
             return await _context.Comments.Include(x => x.User)
-                .Include(x => x.Book).ToListAsync();
+                .Include(x => x.Book).OrderByDescending(x => x.RecordDate).ToListAsync();
         }
 
         public async Task<Comment> GetItem(int id)
@@ -52,7 +57,7 @@ namespace UniversityProject.Core.Services
                 return "متن را وارد نمایید";
             }
             comment.RecordDate = DateTime.Now;
-            var data = await _context.Comments.AddAsync(comment);
+            await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync();
             return null;
         }
