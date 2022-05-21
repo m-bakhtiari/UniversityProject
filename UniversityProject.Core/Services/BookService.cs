@@ -223,7 +223,7 @@ namespace UniversityProject.Core.Services
             {
                 return "توضیحات را وارد نمایید";
             }
-            if (book.UsableDays < 0)
+            if (book.UsableDays <= 0)
             {
                 return "تعداد روز در دسترس نامعتبر است";
             }
@@ -256,7 +256,7 @@ namespace UniversityProject.Core.Services
             {
                 return "توضیحات را وارد نمایید";
             }
-            if (book.UsableDays < 0)
+            if (book.UsableDays <= 0)
             {
                 return "تعداد روز در دسترس نامعتبر است";
             }

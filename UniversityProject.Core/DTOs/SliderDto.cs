@@ -9,7 +9,7 @@ namespace UniversityProject.Core.DTOs
         public string ImageName { get; set; }
         public string Title { get; set; }
         public string LinkUrl { get; set; }
-        public int Position { get; set; }
+        public int Position { get; set; } = 1;
         public List<BookTitle> BookTitles { get; set; }
         public int Id { get; set; }
     }

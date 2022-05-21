@@ -84,14 +84,13 @@ else
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="@Model.UsableDays">تعداد روز در دسترس</label>
-                                    <input type="number" class="form-control" asp-for="@Model.UsableDays" id="@Model.UsableDays" placeholder="تعداد روز در دسترس" required="required"
+                                    <input type="number" min="1" class="form-control" asp-for="@Model.UsableDays" id="@Model.UsableDays" placeholder="تعداد روز در دسترس" required="required"
                                            oninvalid="this.setCustomValidity('تعداد روز را وارد نمایید')" oninput="this.setCustomValidity('')">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="@Model.Description">توضیحات</label>
-                                <textarea type="text" class="form-control mytextarea" asp-for="@Model.Description" id="@Model.Description" placeholder="توضیحات" required="required"
-                                          oninvalid="this.setCustomValidity('توضیحات را وارد نمایید')" oninput="this.setCustomValidity('')"></textarea>
+                                <textarea type="text" class="form-control mytextarea" asp-for="@Model.Description" id="@Model.Description" placeholder="توضیحات"></textarea>
                             </div>
                             <div class="form-group">
                                 <label>دسته بندی کتاب</label>
@@ -177,6 +176,13 @@ else
 
             if ('@string.IsNullOrWhiteSpace(Model.ImageName)'=='True') {
                 $("#previewImg").addClass("hidden");
+            }
+
+            if ('@ViewBag.ShowModal'=='true') {
+                var modal = $('#myModal');
+                modal.find('.modal-body p').html("@ViewBag.ModalMessage");
+                modal.find('.modal-footer a').attr("href", "/Admin/Book/Create");
+                $('#myModal').modal('show');
             }
         });
 

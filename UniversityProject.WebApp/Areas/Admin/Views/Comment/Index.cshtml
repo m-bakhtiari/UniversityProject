@@ -106,7 +106,7 @@
 
         function DeleteGroup(id, title) {
             var modal = $('#myModal');
-            modal.find('.modal-body p').text("آیا از حذف " + title + " اطمینان دارید");
+            modal.find('.modal-body p').text("آیا از حذف نظر " + title + " اطمینان دارید");
             modal.find('.modal-footer a').attr("href", "/Admin/Comment/Delete/" + id);
             $('#myModal').modal('show');
         }

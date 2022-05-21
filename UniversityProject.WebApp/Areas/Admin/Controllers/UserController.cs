@@ -53,6 +53,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             {
                 ViewBag.ReturnUrl = "/Admin/User/Create";
                 ViewBag.ShowModal = "true";
+                ViewBag.ModalMessage = insert;
                 return View("Create", new UserDto() { Roles = await _roleRepository.GetAll() });
             }
             return Redirect("/Admin/User");
@@ -93,6 +94,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             {
                 ViewBag.ReturnUrl = "/Admin/User/Update";
                 ViewBag.ShowModal = "true";
+                ViewBag.ModalMessage = update;
                 return View("Create", new UserDto() { Roles = await _roleRepository.GetAll() });
             }
             return Redirect("/Admin/User");

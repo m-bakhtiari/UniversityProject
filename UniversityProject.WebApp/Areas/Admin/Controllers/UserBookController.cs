@@ -57,6 +57,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             if (string.IsNullOrWhiteSpace(res) == false)
             {
                 ViewBag.ShowModal = "true";
+                ViewBag.ModalMessage = res;
                 userBookDto.BookTitles = await _bookRepository.GetAllTitles();
                 userBookDto.Users = await _userRepository.GetAll();
                 return View(userBookDto);
@@ -98,6 +99,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             {
                 ViewBag.ReturnUrl = "/Admin/UserBook/Update";
                 ViewBag.ShowModal = "true";
+                ViewBag.ModalMessage = res;
                 var userBook = await _userBookRepository.GetItem(userBookDto.Id);
                 var dto = new UserBookDto()
                 {

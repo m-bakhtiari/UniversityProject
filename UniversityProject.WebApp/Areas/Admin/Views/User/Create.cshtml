@@ -57,7 +57,7 @@
 
                         <div class="form-group">
                             <label for="@Model.Penalty">جریمه</label>
-                            <input type="number" class="form-control" asp-for="@Model.Penalty" id="@Model.Penalty" placeholder="جریمه">
+                            <input type="number" class="form-control" asp-for="@Model.Penalty" id="@Model.Penalty" placeholder="جریمه" min="0">
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -75,9 +75,11 @@
 @section Scripts
 {
     <script type="text/javascript">
-        var showModal =@ViewBag.ShowModal;
         $(function() {
-            if (showModal==true) {
+            if ('@ViewBag.ShowModal'=='true') {
+                var modal = $('#myModal');
+                modal.find('.modal-body p').html("@ViewBag.ModalMessage");
+                modal.find('.modal-footer a').attr("href", "/Admin/User/Create");
                 $('#myModal').modal('show');
             }
         });

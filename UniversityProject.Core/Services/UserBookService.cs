@@ -27,7 +27,8 @@ namespace UniversityProject.Core.Services
 
         public async Task<List<UserBook>> GetAll()
         {
-            return await _context.UsersBook.Include(x => x.User).Include(x => x.Book).ToListAsync();
+            return await _context.UsersBook.Include(x => x.User).Include(x => x.Book)
+                .OrderByDescending(x=>x.StartDate).ToListAsync();
         }
 
         public async Task<UserBook> GetItem(int id)
@@ -42,11 +43,18 @@ namespace UniversityProject.Core.Services
 
         public async Task<string> Insert(UserBook userBook)
         {
+            if (userBook.EndDate == new DateTime(0001, 01, 01, 0, 0, 0))
+            {
+                userBook.EndDate = null;
+            }
             if (await _context.UsersBook.AnyAsync(x => x.BookId == userBook.BookId && x.EndDate == null))
             {
                 return "کتاب در دسترس نمی باشد";
             }
-
+            if (userBook.StartDate == new DateTime(0001, 01, 01, 0, 0, 0))
+            {
+                return "تاریخ شروع معتبر نمی باشد";
+            }
             if (userBook.EndDate < userBook.StartDate)
             {
                 return "تاریخ پایان معتبر نمی باشد";
@@ -74,14 +82,24 @@ namespace UniversityProject.Core.Services
 
         public async Task<string> Update(UserBook userBook)
         {
-            if (userBook.EndDate < userBook.StartDate)
-            {
-                return "تاریخ پایان معتبر نمی باشد";
-            }
             if (userBook.EndDate == new DateTime(0001, 01, 01, 0, 0, 0))
             {
                 userBook.EndDate = null;
             }
+
+            if (userBook.StartDate == new DateTime(0001, 01, 01, 0, 0, 0))
+            {
+                return "تاریخ شروع را وارد نمایید";
+            }
+
+            if (userBook.EndDate.HasValue)
+            {
+                if (userBook.EndDate < userBook.StartDate)
+                {
+                    return "تاریخ پایان معتبر نمی باشد";
+                }
+            }
+          
             var book = await _context.Books.FindAsync(userBook.BookId);
             _context.UsersBook.Update(userBook);
             if (userBook.EndDate.HasValue)

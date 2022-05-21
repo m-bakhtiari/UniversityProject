@@ -64,6 +64,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 var category = await _categoryRepository.GetAll();
                 bookDto.Categories = category;
                 ViewBag.ShowModal = "true";
+                ViewBag.ModalMessage = "دسته بندی کتاب را وارد نمایید";
                 return View("Create", bookDto);
             }
             var addBook = await _bookRepository.Insert(book, bookDto.Image);
@@ -72,6 +73,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 var category = await _categoryRepository.GetAll();
                 bookDto.Categories = category;
                 ViewBag.ShowModal = "true";
+                ViewBag.ModalMessage = res;
                 return View("Create", bookDto);
             }
 
