@@ -62,7 +62,7 @@ namespace UniversityProject.Data.Context
                 {
                     Name = "Admin",
                     IsDelete = false,
-                    Password = "123456",
+                    Password ="E1-0A-DC-39-49-BA-59-AB-BE-56-E0-57-F2-0F-88-3E",
                     Penalty = 0,
                     Phone = "01234567890",
                     RoleId = Const.AdminRoleId,
