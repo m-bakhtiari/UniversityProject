@@ -164,7 +164,7 @@
                                                 <ul>
                                                     @foreach (var sub in model.Where(x => x.ParentId == item.Id))
                                                     {
-                                                        <li><a href="/Search?categoryId=@item.Id">@sub.Title</a></li>
+                                                        <li><a href="/Search?categoryId=@sub.Id">@sub.Title</a></li>
                                                     }
                                                 </ul>
                                             }

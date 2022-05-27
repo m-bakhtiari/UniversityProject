@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using UniversityProject.Data.Entities;
 
@@ -16,6 +17,7 @@ namespace UniversityProject.Core.DTOs
         public int UsableDays { get; set; } = 1;
         public int PublishYear { get; set; }
         public int PublishMonth { get; set; }
+        public DateTime AddedDate { get; set; }
         public bool IsDelete { get; set; }
         public string ImageName { get; set; }
         public IFormFile Image { get; set; }

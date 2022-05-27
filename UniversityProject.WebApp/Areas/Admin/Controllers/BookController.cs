@@ -113,6 +113,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
             var model = new BookDto()
             {
                 AuthorName = book.AuthorName,
+                AddedDate = book.AddedDate,
                 Description = book.Description,
                 UsableDays = book.UsableDays,
                 PublisherName = book.PublisherName,
@@ -145,6 +146,7 @@ namespace UniversityProject.WebApp.Areas.Admin.Controllers
                 PublisherName = bookDto.PublisherName,
                 Title = bookDto.Title,
                 Id = bookDto.Id,
+                AddedDate = bookDto.AddedDate,
                 ImageName = bookDto.ImageName
             };
             if (bookDto.CategoryIds == null || bookDto.CategoryIds.Any() == false)

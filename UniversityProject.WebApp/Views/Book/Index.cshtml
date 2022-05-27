@@ -1,5 +1,5 @@
-﻿@using UniversityProject.Core.Utils
-@using UniversityProject.Data.Consts
+﻿@using UniversityProject.Data.Consts
+@using UniversityProject.Core.Utils
 @model UniversityProject.Core.DTOs.BookDetailsDto
 
 <main class="main">
@@ -129,7 +129,7 @@
                                             <div class="row no-gutters">
                                                 <div>
                                                     <h4>@item.User.Name</h4>
-                                                    <span class="review-date">@item.RecordDate.ToShamsi()</span>
+                                                    <span class="review-date">@item.RecordDate</span>
                                                 </div><!-- End .col -->
                                                 <div class="col-12">
                                                     <div class="review-content">
@@ -151,7 +151,7 @@
                                                     <div class="row no-gutters alert alert-secondary">
                                                         <div class="col-auto">
                                                             <h4><i class="icon-arrow-left"></i><b>جواب ادمین</b></h4>
-                                                            <span class="review-date">@answer.RecordDate.ToShamsi()</span>
+                                                            <span class="review-date">@answer.RecordDate</span>
                                                         </div><!-- End .col -->
                                                         <div class="col-12">
                                                             <div class="review-content">
