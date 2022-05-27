@@ -134,22 +134,22 @@
         </div><!-- End .block -->
     </div><!-- End .bg-light pt-4 pb-4 -->
 
-    <div class="container">
-        <div class="heading heading-flex">
-            <div class="heading-left">
-                <h2 class="title">تازه منتشر شده</h2><!-- End .title -->
-            </div><!-- End .heading-left -->
+    <div class="bestseller-products bg-light pt-5 pb-5 mb-5">
+        <div class="block">
+            <div class="block-wrapper ">
+                <div class="container">
+                    <div class="heading heading-flex">
+                        <div class="heading-left">
+                            <h2 class="title">تازه منتشر شده</h2><!-- End .title -->
+                        </div><!-- End .heading-left -->
 
-            <div class="heading-right">
-                <a href="/Search?addedDate=true" class="title-link">
-                    مشاهده محصولات بیشتر <i class="icon-long-arrow-left"></i>
-                </a>
-            </div><!-- End .heading-right -->
-        </div><!-- End .header-flex -->
+                        <div class="heading-right">
+                            <a href="/Search?addedDate=true" class="title-link">
+                                مشاهده محصولات بیشتر <i class="icon-long-arrow-left"></i>
+                            </a>
+                        </div><!-- End .heading-right -->
+                    </div><!-- End .header-flex -->
 
-        <div class="row">
-            <div class="col-xl-8">
-                <div class="block-wrapper ">
                     <div class="owl-carousel carousel-equal-height owl-simple" data-toggle="owl"
                          data-owl-options='{
                                     "nav": true,
@@ -170,14 +170,12 @@
                                         "992": {
                                             "items":4
                                         },
-                                        "1200": {
-                                            "items":3
-                                        },
                                         "1440": {
-                                            "items":4
+                                            "items":5
                                         }
                                     }
                                 }'>
+
                         @foreach (var item in Model.LatestBooks)
                         {
                             <div class="product product-7 text-center">
@@ -185,34 +183,32 @@
                                     <a href="/Book/@item.Id">
                                         <img src="/Images/Books/@item.ImageName" alt="تصویر محصول" class="product-image">
                                     </a>
-
                                     <div class="product-action-vertical">
-                                        <a class="btn-product-icon btn-wishlist btn-expandable" onclick="AddToFavoriteBook(@item.Id)">
-                                            <span>افزودن به لیست علاقه مندی</span>
+                                        <a class="btn-product-icon btn-wishlist btn-expandable" onclick="AddToFavoriteBook(@item.Id)" style="cursor: pointer">
+                                            <span>افزودن به علاقه مندی</span>
                                         </a>
                                     </div><!-- End .product-action-vertical -->
                                     <div class="product-action">
-                                        <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)">
+                                        <a class="btn-product btn-cart" onclick="AddToShoppingCart(@item.Id)" style="cursor: pointer">
                                             <span>افزودن به امانات</span>
                                         </a>
                                     </div><!-- End .product-action -->
                                 </figure><!-- End .product-media -->
-
                                 <div class="product-body">
                                     <div class="product-cat text-center">
-                                        <a href="#">نام نویسنده : @item.AuthorName</a>
+                                        <a href="/Search?authorName=@item.AuthorName">نام نویسنده : @item.AuthorName</a>
                                     </div><!-- End .product-cat -->
                                     <h3 class="product-title text-center">
-                                        <a href="/Book/@item.Id">@item.Title</a>
+                                        <a href="/Product/@item.Id">@item.Title</a>
                                     </h3><!-- End .product-title -->
                                 </div><!-- End .product-body -->
                             </div><!-- End .product -->
                         }
                     </div><!-- End .owl-carousel -->
-                </div><!-- End .block-wrapper -->
-            </div><!-- End .col-lg-8 -->
-        </div><!-- End .row -->
-    </div><!-- End .container -->
+                </div><!-- End .container -->
+            </div><!-- End .block-wrapper -->
+        </div><!-- End .block -->
+    </div><!-- End .bg-light pt-4 pb-4 -->
 
     <div class="mb-5"></div><!-- End .mb-3 -->
 
